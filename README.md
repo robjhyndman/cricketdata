@@ -83,7 +83,8 @@ bat_data %>%
 bat_data %>% 
   ggplot(aes(x = Country, y = Runs)) +
   geom_boxplot() +
-  theme(axis.text.x = element_text(angle = 90))
+  theme(axis.text.x = element_text(angle = 90)) +
+  labs(title = "Runs per country")
 ```
 
     ## Warning: Removed 2421 rows containing non-finite values (stat_boxplot).
