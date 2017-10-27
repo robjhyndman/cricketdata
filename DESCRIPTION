@@ -1,0 +1,27 @@
+Package: cricinfo
+Version: 0.0.1
+Title: Functions for Downloading Cricket Data from ESPNCricinfo
+Description: Data on all international cricket matches is provided by ESPNCricinfo.
+  This package provides some scraper functions to download the data 
+  into tibbles ready for analysis.
+Authors@R: c(
+  person("Rob", "Hyndman", , "Rob.Hyndman@monash.edu", c("aut", "cre")),
+  person("Timothy", "Hyndman", , "Timothy.Hyndman@gmail.com", "aut"),
+  person("Charles", "Gray", , "C.Gray@latrobe.edu.au", "aut")
+  )
+Imports:
+  dplyr,
+  lubridate,
+  progress,
+  rvest,
+  stringr,
+  tibble,
+  tidyr,
+  xml2
+Suggests:
+  ggplot2
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+ByteCompile: true
+RoxygenNote: 6.0.1.9000
