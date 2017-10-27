@@ -1,0 +1,18 @@
+---
+title: "Introducing `cricinfo`"
+author: "Rob and his band of merry data nerds"
+date: "27/10/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Get some awesome cricket data
+
+
+```{r Get data}
+bowl_inn_data <- fetch_bowling_innings("t20", "women")
+```
+

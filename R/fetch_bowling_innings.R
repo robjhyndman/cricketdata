@@ -6,7 +6,7 @@
 #' @param sex Character indicating men or women.
 #'
 #' @examples
-#' bowling_data <- fetch_bowling_innings("t20", "women")
+#' bowl_inn_data <- fetch_bowling_innings("t20", "women")
 #'
 #' @export
 
@@ -43,4 +43,3 @@ fetch_bowling_innings <- function(matchtype = c("test", "odi", "t20"),
   return(this_data)
 }
 
-test <- fetch_bowling_innings("t20", "women")
