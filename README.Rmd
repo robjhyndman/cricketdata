@@ -1,0 +1,79 @@
+---
+output: github_document
+---
+
+cricinfo
+=====================
+
+Functions for Downloading Cricket Data from ESPNCricinfo
+
+Data on all international cricket matches is provided by ESPNCricinfo. This package provides some scraper functions to download the data into tibbles ready for analysis.
+
+Please respect the [ESPNCricinfo terms of use](http://www.espncricinfo.com/ci/content/site/company/terms_use.html).
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(cricinfo)
+library(tidyverse)
+
+```
+
+
+# What does the data look like?
+
+```{r}
+data("bowl_inn_data")
+bowl_inn_data %>% 
+  head() %>% 
+  knitr::kable()
+
+```
+
+
+# Visualising player data
+
+```{r}
+
+ElyssePerry <- fetch_player_data(275487, "T20")
+MegLanning <- fetch_player_data(329336, "ODI")
+SteveSmith <- fetch_player_data(267192, "Test")
+ggplot(MegLanning) + geom_point(aes(x = Date, y = Score, col = NotOut)) +
+ggtitle("Meg Lanning ODI Scores")
+
+
+
+```
+
+# Visualising the bowling data
+
+```{r}
+bowl_inn_data %>% 
+  ggplot(aes(x = Wkts, y = Econ)) +
+  geom_point(position = "jitter", alpha = 0.3, colour = "steelblue") +
+  labs(title = "Wickets vs Economy Rate",
+       x = "Wickets",
+       y = "Runs per over")
+```
+
+# Batting example
+
+```{r}
+data(WT20)
+
+bat_data <- cricinfo:::clean_batting_data(WT20) 
+bat_data %>% 
+  head() %>% 
+  knitr::kable()
+
+```
+
+```{r}
+bat_data %>% 
+  ggplot(aes(x = Country, y = Runs)) +
+  geom_boxplot() +
+  theme(axis.text.x = element_text(angle = 90))
+
+```
+
