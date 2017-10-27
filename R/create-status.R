@@ -6,7 +6,7 @@
 #'
 #'
 
-participation_status <- function(status) {
+create_status <- function(status) {
   # Create new variable.
   # this_data$Participation <- map_chr(this_data$Overs, participation_status)
   #
@@ -26,5 +26,5 @@ participation_status <- function(status) {
     return("B")
   } else {
     return(status)
-    }
+  }
 }
