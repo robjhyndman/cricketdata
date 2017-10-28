@@ -12,6 +12,7 @@ Authors@R: c(
 Imports:
   dplyr,
   lubridate,
+  magrittr,
   progress,
   rvest,
   stringr,

@@ -5,12 +5,14 @@
 \title{Fetch and clean batting career dataset.}
 \usage{
 fetch_batting_career(matchtype = c("test", "odi", "t20"), sex = c("men",
-  "women"))
+  "women"), country = NULL)
 }
 \arguments{
 \item{matchtype}{Character indicating test, odi, or t20.}
 
 \item{sex}{Character indicating men or women.}
+
+\item{country}{Character indicating country}
 }
 \description{
 Retrieve career batting data for each person on ESPNCricinfo

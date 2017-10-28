@@ -16,6 +16,6 @@ fetch_bowling_innings(matchtype = c("test", "odi", "t20"), sex = c("men",
 Retrieve bowling data for innings from the
 }
 \examples{
-bowling_data <- fetch_bowling_innings("t20", "women")
+bowl_inn_data <- fetch_bowling_innings("t20", "women")
 
 }

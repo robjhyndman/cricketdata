@@ -1,30 +1,59 @@
-countries <- character(5000)
-for(i in seq_along(countries))
-{
-  for(j in 1:10)
-  {
-    found <- (countries[i] != "")
-    if(!found)
-    {
-      # Create url string.
-      url <-
-        paste0(
-          "http://stats.espncricinfo.com/ci/engine/stats/index.html?class=",
-          j,
-          ";team=",
-          i,
-          ";template=results;type=batting;wrappertype=print"
-          )
-      raw <- try(xml2::read_html(url), silent=TRUE)
-      if(class(raw) != "try-error")
-        countries[i] <- substr(rvest::html_table(raw)[[1]][2,1], 14, 500)
-    }
-  }
-  print(paste(i,countries[i]))
-}
+men <- data.frame(
+  team = c(1:9,11,12,14,15,17,19,20,25,26,27,28,29,30,32,37,40),
+  name = c("England",
+           "Australia",
+           "South Africa",
+           "West Indies",
+           "New Zealand",
+           "India",
+           "Pakistan",
+           "Sri Lanka",
+           "Zimbabwe",
+           "United States of America",
+           "Bermuda",
+           "East Africa",
+           "Netherlands",
+           "Canada",
+           "Hong Kong",
+           "Papua New Guinea",
+           "Bangladesh",
+           "Kenya",
+           "United Arab Emirates",
+           "Namibia",
+           "Ireland",
+           "Scotland",
+           "Nepal",
+           "Oman",
+           "Afghanistan"))
 
+women <- data.frame(
+  team = c(289,1026,1863,4240,3379,3672,2614,2285,3022,2461,3867,825,3808,2331,3505,3843),
+  name = c(
+  "Australia",
+  "England",
+  "India",
+  "Bangladesh",
+  "South Africa",
+  "Sri Lanka",
+  "New Zealand",
+  "Ireland",
+  "Pakistan",
+  "Netherlands",
+  "West Indies",
+  "Denmark",
+  "Jamaica",
+  "Japan",
+  "Scotland",
+  "Trinidad & Tobago"))
 
+men <- tibble::as_tibble(men[order(men$name),]) %>%
+  dplyr::mutate(team = as.integer(team),
+         name = as.character(name))
+women <- tibble::as_tibble(women[order(women$name),]) %>%
+  dplyr::mutate(team = as.integer(team),
+         name = as.character(name))
 
+## Men
 #1 England
 #2 Australia
 #3 South Africa
@@ -34,7 +63,39 @@ for(i in seq_along(countries))
 #7 Pakistan
 #8 Sri Lanka
 #9 Zimbabwe
+#11 United States of America
+#12 Bermuda
+#14 East Africa
+#15 Netherlands
+#17 Canada
+#19 Hong Kong
+#20 Papua New Guinea
 #25 Bangladesh
+#26 Kenya
+#27 United Arab Emirates
+#28 Namibia
+#29 Ireland
+#30 Scotland
+#32 Nepal
+#37 Oman
 #40 Afghanistan
 
-#140 ICC World XI
+## WOMEN
+
+#289 Australia Women
+#1026 England Women
+#1863  India Women
+# 4240 Bangladesh Women
+# 3379 South Africa Women
+# 3672 Sri Lanka Women
+#2614  New Zealand Women
+#2285  Ireland women
+#3022 Pakistan Women
+# 2461 Netherlands Women
+# 3867 West Indies Women
+# 825 Denmark Women
+#3808 Jamaica Women
+#2331 Japan Women
+#3505 Scotland Women
+#3843 Trinidad & Tobago Women
+

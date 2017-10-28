@@ -4,21 +4,25 @@
 #'
 #' @param matchtype Character indicating test, odi, or t20.
 #' @param sex Character indicating men or women.
+#' @param country Character indicating country (partial matching allowed).
+#' If `code` (NULL), data from all countries returned.
 #' @param activity Character indicating batting, bowling, or fielding.
 #' @param view Character indicating innings or career.
 #'
 #' @examples
-#' wt20_bowling <- fetch_cricket_data("t20", "women", "bowling", "career")
+#' wt20_bowling <- fetch_cricket_data("T20", "Women", "Aus", "bowling", "career")
 #' @export
 
 fetch_cricket_data <- function(matchtype = c("test", "odi", "t20"),
                                sex = c("men", "women"),
+                               country = NULL,
                                activity = c("batting", "bowling", "fielding"),
-                               view = c("innings", "career"),
-                               team = NULL)
+                               view = c("innings", "career"))
 {
   # Check arguments given by user match the type (class?) of the default
   # arguments of the function.
+  matchtype <- tolower(matchtype)
+  sex <- tolower(sex)
   matchtype <- match.arg(matchtype)
   sex <- match.arg(sex)
   activity <- match.arg(activity)
@@ -32,15 +36,17 @@ fetch_cricket_data <- function(matchtype = c("test", "odi", "t20"),
     match(matchtype, c("test", "odi", "t20")) + 7 * (sex == "women")
 
   # Find country code
-#  if(!is.null(team))
-#    country <- match(team, c(
-#      "Australia",
-#      ))
+  if(!is.null(country))
+  {
+    if(sex=="men")
+      team <- men$team[pmatch(country, men$name)]
+    else
+      team <- women$team[pmatch(country, women$name)]
+  }
 
   # Set starting page to read from.
   page <- 1L
 
-  # Don't know what this variable does yet.
   alldata <- NULL
 
   # Read each page in turn and bind the rows.
@@ -48,19 +54,17 @@ fetch_cricket_data <- function(matchtype = c("test", "odi", "t20"),
   while (!theend)
   {
     # Create url string.
-    # http://stats.espncricinfo.com/ci/engine/stats/index.html?class=10;page=2;template=results;type=bowling;view=innings
-    # http://stats.espncricinfo.com/ci/engine/stats/index.html?class=10;page=2;template=results;type=bowling
     url <-
-      paste(
+      paste0(
         "http://stats.espncricinfo.com/ci/engine/stats/index.html?class=",
         matchclass,
+        ifelse(is.null(country), "", paste0(";team=",team)),
         ";page=",
         format(page, scientific = FALSE),
         ";template=results;type=",
         activity,
         view_text,
-        ";wrappertype=print",
-        sep = ""
+        ";wrappertype=print"
       )
 
     # Get raw page data from page using xml2::read_html() with url string.
@@ -78,16 +82,12 @@ fetch_cricket_data <- function(matchtype = c("test", "odi", "t20"),
     }
     tab <- tables[[3]]
 
-    # Check to see if the dataset extracted from the page data has nothing in
-    # it.
-    # NB: 1L is an integer; 1 is a numeric.
-    # ToDo: See why the table has dimension 1 x 1.
+    # Check to see if the dataset extracted from the page data has nothing in it.
     if (identical(dim(tab), c(1L, 1L)))
       theend <- TRUE
-
     else
     {
-      # Make columns characters for now.
+      # Make allcolumns characters for now.
       tab <- tibble::as_tibble(apply(tab, 2, as.character))
 
       # Bind the data extracted from this page to all data collected so far.
@@ -108,20 +108,5 @@ fetch_cricket_data <- function(matchtype = c("test", "odi", "t20"),
   # Convert "-" to NA
   alldata[alldata == "-"] <- NA
 
-  # ToDo: Return the relevant columns.
   return(alldata)
 }
-
-#1 England
-#2 Australia
-#3 South Africa
-#4 West Indies
-#5 New Zealand
-#6 India
-#7 Pakistan
-#8 Sri Lanka
-#9 Zimbabwe
-#25 Bangladesh
-#40 Afghanistan
-
-#140 ICC World XI

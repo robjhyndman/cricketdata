@@ -5,13 +5,16 @@
 \title{Get cricket data.}
 \usage{
 fetch_cricket_data(matchtype = c("test", "odi", "t20"), sex = c("men",
-  "women"), activity = c("batting", "bowling", "fielding"),
-  view = c("innings", "career"), team = NULL)
+  "women"), country = NULL, activity = c("batting", "bowling", "fielding"),
+  view = c("innings", "career"))
 }
 \arguments{
 \item{matchtype}{Character indicating test, odi, or t20.}
 
 \item{sex}{Character indicating men or women.}
+
+\item{country}{Character indicating country (partial matching allowed). If `code` (NULL),
+data from all countries returned.}
 
 \item{activity}{Character indicating batting, bowling, or fielding.}
 
@@ -21,5 +24,5 @@ fetch_cricket_data(matchtype = c("test", "odi", "t20"), sex = c("men",
 Retrieve cricket data from stats cricinfo based on various categories.
 }
 \examples{
-wt20_bowling <- fetch_cricket_data("t20", "women", "bowling", "career")
+wt20_bowling <- fetch_cricket_data("T20", "Women", "Aus", "bowling", "career")
 }
