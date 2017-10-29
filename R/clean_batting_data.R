@@ -69,13 +69,13 @@ clean_batting_data <- function(x)
 
   # Extract country information if it is present
   # This should only be required when multiple countries are included
-  country <- (length(grep("\\(", x[1,1])) > 0)
+  country <- (length(grep("\\(", x$Player) > 0))
   if(country)
   {
-    x$Country <- stringr::str_extract(x$Player, "\\([a-zA-Z \\-extends]+\\)")
+    x$Country <- stringr::str_extract(x$Player, "\\([a-zA-Z /\\-extends]+\\)")
     x$Country <- stringr::str_replace_all(x$Country, "\\(|\\)|-W", "")
     x$Country <- rename_countries(x$Country)
-    x$Player <- stringr::str_replace(x$Player, "\\([a-zA-Z  \\-]+\\)", "")
+    x$Player <- stringr::str_replace(x$Player, "\\([a-zA-Z /\\-]+\\)", "")
   }
 
   # Re-order and select columns

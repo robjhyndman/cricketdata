@@ -17,10 +17,9 @@ Imports:
   rvest,
   stringr,
   tibble,
-  tidyr,
   xml2
 Suggests:
-  ggplot2
+  tidyverse
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

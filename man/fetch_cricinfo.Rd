@@ -13,7 +13,7 @@ fetch_cricinfo(matchtype = c("test", "odi", "t20"), sex = c("men", "women"),
 
 \item{sex}{Character indicating men (default) or women.}
 
-\item{activity}{Character indicating batting, bowling or fielding.}
+\item{activity}{Character indicating batting (default), bowling or fielding.}
 
 \item{type}{Character indicating innings-by-innings or career (default) data}
 

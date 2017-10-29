@@ -47,15 +47,22 @@ fetch_player <- function(playerid,
                matchclass,
               ";template=results;type=allround;view=innings;wrappertype=print",
                sep="")
-  raw <- xml2::read_html(url)
+  raw <- try(xml2::read_html(url), silent=TRUE)
+  if("try-error" %in% class(raw))
+    stop("Problem with URL")
+
   # Grab relevant table
   tab <- rvest::html_table(raw)[[4]]
+
   # Remove redundant missings columns
   tab <- tibble::as_tibble(tab[, colSums(is.na(tab)) != NROW(tab)])
+  
   # Convert "-" to NA
   tab[tab=="-"] <- NA
+
   # Rename columns
   colnames(tab)[10] <- "Date"
+
   # Add not out column
   notout <- seq(NROW(tab)) %in% grep("*",tab$Score)
   dnbat <- grep("DNB",tab$Score)
@@ -63,19 +70,20 @@ fetch_player <- function(playerid,
   tab$Score[dnbat] <- NA
   dnbowl <- grep("DNB", tab$Overs)
   tab$Overs[dnbowl] <- NA
+
   # Convert some columns to numeric or Date
-  tab <- dplyr::mutate(tab,
-    Score = as.numeric(Score),
-    NotOut = seq(NROW(tab)) %in% notout,
-    DidNotBat = seq(NROW(tab)) %in% dnbat,
-    DidNotBowl= seq(NROW(tab)) %in% dnbowl,
-    Overs = as.numeric(Overs),
-    Conc = as.integer(Conc),
-    Wkts = as.integer(Wkts),
-    Ct = as.integer(Ct),
-    St = as.integer(St),
-    Innings = as.integer(Inns),
-    Date = lubridate::dmy(Date))
+  tab$Score <- as.numeric(tab$Score)
+  tab$NotOut <- seq(NROW(tab)) %in% notout
+  tab$DidNotBat <- seq(NROW(tab)) %in% dnbat
+  tab$DidNotBowl <- seq(NROW(tab)) %in% dnbowl
+  tab$Overs <- as.numeric(tab$Overs)
+  tab$Conc <- as.integer(tab$Conc)
+  tab$Wkts <- as.integer(tab$Wkts)
+  tab$Ct <- as.integer(tab$Ct)
+  tab$St <- as.integer(tab$St)
+  tab$Innings <- as.integer(tab$Inns)
+  tab$Date <- lubridate::dmy(tab$Date)
+
   # Reorder columns
   return(
   tab[,c("Date","Opposition","Ground","Innings",

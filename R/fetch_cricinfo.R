@@ -5,7 +5,7 @@
 #'
 #' @param matchtype Character indicating test (default), odi, or t20.
 #' @param sex Character indicating men (default) or women.
-#' @param activity Character indicating batting, bowling or fielding.
+#' @param activity Character indicating batting (default), bowling or fielding.
 #' @param type Character indicating innings-by-innings or career (default) data
 #' @param country Character indicating country. The default is to fetch data for all countries. 
 #'
