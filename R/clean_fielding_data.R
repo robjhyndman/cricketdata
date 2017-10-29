@@ -40,7 +40,6 @@ clean_fielding_data <- function(x)
   }
   else
   {
-    # Add participation column
     x$Date <- lubridate::dmy(x$Date)
     x$Opposition <- stringr::str_replace_all(x$Opposition, "v | Women| Wmn", "")
     x$Opposition <- rename_countries(x$Opposition)

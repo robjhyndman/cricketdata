@@ -58,41 +58,31 @@ clean_bowling_data <- function(x)
     x$Opposition <- stringr::str_replace_all(x$Opposition, "v | Women| Wmn", "")
     x$Opposition <- rename_countries(x$Opposition)
   }
+  if("Overs" %in% vars)
+    x$Overs <- as.numeric(x$Overs)
+
+  # Recompute average to avoid rounding errors
+  if("Average" %in% vars)
+    x$Average <- x$Runs / x$Wickets
 
   # Recompute economy rate to avoid rounding errors
+  if("Balls" %in% vars)
+    balls <- x$Balls
+  else
+    balls <- trunc(x$Overs)*6 + (x$Overs %% 1)*10
   if("Economy" %in% vars)
   {
-    if("Overs" %in% vars)
-    {
-      x$Overs <- as.numeric(x$Overs)
-      ER <- x$Runs / x$Overs
-    }
-    else
-    {
-      ER <- x$Runs / (x$Balls/6)
-    }
-    differ <- round(ER,2) - x$Economy
-    if(any(abs(differ) > 0.05))
+    ER <- x$Runs / (balls/6)
+    differ <- round(ER,2) - as.numeric(x$Economy)
+    if(any(abs(differ) > 0.05, na.rm=TRUE))
       stop("Economy rate incorrect")
     else
       x$Economy <- ER
   }
 
-  # Recompute average
-  if("Average" %in% vars)
-    x$Average <- x$Runs / x$Wickets
-
   # Recompute strike rate
   if("StrikeRate" %in% vars)
-  {
-    if("Balls" %in% vars)
-      x$StrikeRate <- x$Balls / x$Wickets
-    else
-    {
-      balls <- trunc(x$Overs)*6 + (x$Overs %% 1)*10
-      x$StrikeRate <- balls / x$Wickets
-    }
-  }
+    x$StrikeRate <- balls / x$Wickets
 
   # Extract country information if it is present
   # This should only be required when multiple countries are included
@@ -109,7 +99,7 @@ clean_bowling_data <- function(x)
   vars <- colnames(x)
   if(career)
     varorder <- c("Player","Country","Start","End","Matches","Innings","Overs","Balls","Maidens","Runs","Wickets",
-      "Average","Economy","StrikeRate","BestBowlingInnings","FourWickets","FiveWickets","TenWickets")
+      "Average","Economy","StrikeRate","BestBowlingInnings","BestBowlingMatch","FourWickets","FiveWickets","TenWickets")
   else
     varorder <- c("Date","Player", "Country", "Overs","Balls","Maidens","Runs","Wickets",
       "Economy","Innings","Participation", "Opposition","Ground")
