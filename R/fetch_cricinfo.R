@@ -11,8 +11,10 @@
 #'
 #' @author Rob J Hyndman, Timothy Hyndman, Charles Gray
 #' @examples
-#' auswt20 <- fetch_cricinfo("t20", "women", country="Aus")
-#' IndiaODIBowling <- fetch_cricinfo("odi", "men", "bowling", country="india")
+#' \dontrun{
+#' auswt20 <- fetch_cricinfo("T20", "Women", country="Aust")
+#' IndiaODIBowling <- fetch_cricinfo("ODI", "men", "bowling", country="india")
+#' }
 #'
 #' @export
 

@@ -25,12 +25,15 @@ http://www.espncricinfo.com/australia/content/player/329336.html,
 so her ID is 329336.
 }
 \examples{
+\dontrun{
 ElyssePerry <- fetch_player_data(275487, "T20")
 MegLanning <- fetch_player_data(329336, "ODI")
 SteveSmith <- fetch_player_data(267192, "Test")
+
 library(ggplot2)
 ggplot(MegLanning) + geom_point(aes(x=Date, y=Score, col=NotOut)) +
   ggtitle("Meg Lanning ODI Scores")
+}
 
 }
 \author{

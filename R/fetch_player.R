@@ -15,12 +15,15 @@
 #' of every match in which they have played.
 #' @author Rob J Hyndman
 #' @examples
+#' \dontrun{
 #' ElyssePerry <- fetch_player_data(275487, "T20")
 #' MegLanning <- fetch_player_data(329336, "ODI")
 #' SteveSmith <- fetch_player_data(267192, "Test")
+#' 
 #' library(ggplot2)
 #' ggplot(MegLanning) + geom_point(aes(x=Date, y=Score, col=NotOut)) +
 #'   ggtitle("Meg Lanning ODI Scores")
+#' }
 #'
 #' @export
 fetch_player <- function(playerid,
