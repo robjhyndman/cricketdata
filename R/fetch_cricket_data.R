@@ -1,17 +1,5 @@
-#' Get cricket data.
-#'
-#' Retrieve cricket data from stats cricinfo based on various categories.
-#'
-#' @param matchtype Character indicating test, odi, or t20.
-#' @param sex Character indicating men or women.
-#' @param country Character indicating country (partial matching allowed).
-#' If `code` (NULL), data from all countries returned.
-#' @param activity Character indicating batting, bowling, or fielding.
-#' @param view Character indicating innings or career.
-#'
-#' @examples
-#' wt20_bowling <- fetch_cricket_data("T20", "Women", "Aus", "bowling", "career")
-#' @export
+# Main function to scrape the data from cricinfo
+# Not user-visible. Called by fetch_cricinfo.
 
 fetch_cricket_data <- function(matchtype = c("test", "odi", "t20"),
                                sex = c("men", "women"),
@@ -39,14 +27,15 @@ fetch_cricket_data <- function(matchtype = c("test", "odi", "t20"),
   if(!is.null(country))
   {
     if(sex=="men")
-      team <- men$team[pmatch(country, men$name)]
+      team <- men$team[pmatch(country, tolower(men$name))]
     else
-      team <- women$team[pmatch(country, women$name)]
+      team <- women$team[pmatch(country, tolower(women$name))]
+    if(is.na(team))
+      stop("Country not found")
   }
 
   # Set starting page to read from.
   page <- 1L
-
   alldata <- NULL
 
   # Read each page in turn and bind the rows.
@@ -68,24 +57,26 @@ fetch_cricket_data <- function(matchtype = c("test", "odi", "t20"),
       )
 
     # Get raw page data from page using xml2::read_html() with url string.
-    raw <- xml2::read_html(url)
+    raw <- try(xml2::read_html(url), silent=TRUE)
+    if("try-error" %in% class(raw))
+      stop("Error in URL")
 
     # Grab relevant table using rvest::html_table() on the raw page data.
-    # Produces a list of things or tables.
     tables <- rvest::html_table(raw)
+    tab <- tables[[3]]
+    # Check to see if the dataset extracted is empty
+    if (identical(dim(tab), c(1L, 1L)))
+      theend <- TRUE
     if(page==1L)
     {
+      if(theend)
+        stop("No data available")
       maxpage <- as.numeric(strsplit(tables[[2]][1,1], "Page 1 of ")[[1]][2])
       pb <- progress::progress_bar$new(total = maxpage)
       pb$tick(0)
       Sys.sleep(1/1000)
     }
-    tab <- tables[[3]]
-
-    # Check to see if the dataset extracted from the page data has nothing in it.
-    if (identical(dim(tab), c(1L, 1L)))
-      theend <- TRUE
-    else
+    if(!theend)
     {
       # Make allcolumns characters for now.
       tab <- tibble::as_tibble(apply(tab, 2, as.character))

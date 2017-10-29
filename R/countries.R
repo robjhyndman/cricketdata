@@ -53,6 +53,7 @@ women <- tibble::as_tibble(women[order(women$name),]) %>%
   dplyr::mutate(team = as.integer(team),
          name = as.character(name))
 
+
 ## Men
 #1 England
 #2 Australia
@@ -98,4 +99,44 @@ women <- tibble::as_tibble(women[order(women$name),]) %>%
 #2331 Japan Women
 #3505 Scotland Women
 #3843 Trinidad & Tobago Women
+
+
+
+rename_countries <- function(countries){
+  countries %>%
+    stringr::str_replace("AFG", "Afghanistan") %>%
+    stringr::str_replace("Afr$", "Africa XI") %>%
+    stringr::str_replace("AUS", "Australia") %>%
+    stringr::str_replace("Bdesh|BDESH|BD", "Bangladesh") %>%
+    stringr::str_replace("BMUDA", "Bermuda") %>%
+    stringr::str_replace("CAN", "Canada") %>%
+    stringr::str_replace("DnWmn|Denmk", "Denmark") %>%
+    stringr::str_replace("EAf", "East (and Central) Africa") %>%
+    stringr::str_replace("ENG", "England") %>%
+    stringr::str_replace("HKG", "Hong Kong") %>%
+    stringr::str_replace("ICC$", "ICC World XI") %>%
+    stringr::str_replace("INDIA|IND", "India") %>%
+    stringr::str_replace("IntWn|Int XI", "International XI") %>%
+    stringr::str_replace("Ire$|IRELAND|IRE", "Ireland") %>%
+    stringr::str_replace("JamWn", "Jamaica") %>%
+    stringr::str_replace("JPN", "Japan") %>%
+    stringr::str_replace("KENYA", "Kenya") %>%
+    stringr::str_replace("NAM", "Namibia") %>%
+    stringr::str_replace("NEPAL", "Nepal") %>%
+    stringr::str_replace("Neth$|NL", "Netherlands") %>%
+    stringr::str_replace("NZ", "New Zealand") %>%
+    stringr::str_replace("OMAN", "Oman") %>%
+    stringr::str_replace("PAK", "Pakistan") %>%
+    stringr::str_replace("PNG|P\\.N\\.G\\.", "Papau New Guinea") %>%
+    stringr::str_replace("^SA", "South Africa") %>%
+    stringr::str_replace("SCOT|SCO|Scot$", "Scotland") %>%
+    stringr::str_replace("SL", "Sri Lanka") %>%
+    stringr::str_replace("TTWmn|T \\& T", "Trinidad and Tobago") %>%
+    stringr::str_replace("UAE|U\\.A\\.E\\.", "United Arab Emirates") %>%
+    stringr::str_replace("USA|U\\.S\\.A\\.", "United States of America") %>%
+    stringr::str_replace("World$|World-XI", "World XI") %>%
+    stringr::str_replace("WI", "West Indies") %>%
+    stringr::str_replace("YEWmn|Y\\. Eng", "Young England") %>%
+    stringr::str_replace("ZIM", "Zimbabwe")
+}
 

@@ -8,8 +8,8 @@
 #' http://www.espncricinfo.com/australia/content/player/329336.html,
 #' so her ID is 329336.
 #'
-#' @param playerid The player ID as given in the Cricinfo profile.
-#' @param matchtype Which type of cricket matches do you want? Tests, ODIs or T20s?
+#' @param playerid The player ID as given in the Cricinfo profile. Integer or character.
+#' @param matchtype Which type of cricket matches do you want? Tests, ODIs or T20s? Not case-sensitive.
 #'
 #' @return A tibble containing data on the selected player, with one row for every innings
 #' of every match in which they have played.
@@ -23,18 +23,21 @@
 #'   ggtitle("Meg Lanning ODI Scores")
 #'
 #' @export
-fetch_player_data <- function(playerid,
-        matchtype=c("Test","ODI","T20"))
+fetch_player <- function(playerid,
+        matchtype=c("test","odi","t20"))
 {
+  matchtype <- tolower(matchtype)
   matchtype <- match.arg(matchtype)
 
   # First figure out if player is female or male
   profile <- paste("http://www.espncricinfo.com/australia/content/player/",
                    playerid, ".html", sep="")
-  raw <- xml2::read_html(profile)
+  raw <- try(xml2::read_html(profile), silent=TRUE)
+  if("try-error" %in% class(raw))
+    stop("Player not found")
   female <- length(grep("format=women", as.character(raw))) > 0
 
-  matchclass <- match(matchtype, c("Test","ODI","T20")) + (female * 7)
+  matchclass <- match(matchtype, c("test","odi","t20")) + (female * 7)
   url <- paste("http://stats.espncricinfo.com/ci/engine/player/",
                playerid,
                ".html?class=",

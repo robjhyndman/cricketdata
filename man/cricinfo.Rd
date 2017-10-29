@@ -8,7 +8,8 @@
 \description{
 Data on all international cricket matches is provided by ESPNCricinfo.
 This package provides some scraper functions to download the data 
-into tibbles ready for analysis.
+into tibbles ready for analysis. Please respect the 
+\href{http://www.espncricinfo.com/ci/content/site/company/terms_use.html}{ESPNCricinfo terms of use}.
 }
 \details{
 \tabular{ll}{ Package: \tab cricinfo\cr Type: \tab Package\cr License: \tab
