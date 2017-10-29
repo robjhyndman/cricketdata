@@ -2,8 +2,21 @@
 output: github_document
 ---
 
-cricinfo
-=====================
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  echo=TRUE,
+  collapse = TRUE,
+  comment = "#>",
+  cache = TRUE,
+  fig.path = "man/figures/README-"
+)
+library(cricinfo)
+library(tidyverse)
+```
+
+# cricinfo
 
 Functions for Downloading Cricket Data from ESPNCricinfo
 
@@ -13,68 +26,73 @@ Please respect the [ESPNCricinfo terms of use](http://www.espncricinfo.com/ci/co
 
 
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(cricinfo)
-library(tidyverse)
+## Installation
 
+You can install cricinfo from github with:
+
+```{r gh-installation, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("ropenscilabs/cricinfo")
 ```
 
-
-# What does the data look like?
+## Bowling Data
 
 ```{r}
-data("bowl_inn_data")
-bowl_inn_data %>% 
-  head() %>% 
-  knitr::kable()
-
+# Fetch all Women's T20 data
+wt20 <- fetch_cricinfo("T20", "Women", "Bowling")
+wt20 %>% head %>% knitr::kable()
 ```
 
-
-# Visualising player data
-
-```{r}
-
-ElyssePerry <- fetch_player_data(275487, "T20")
-MegLanning <- fetch_player_data(329336, "ODI")
-SteveSmith <- fetch_player_data(267192, "Test")
-ggplot(MegLanning) + geom_point(aes(x = Date, y = Score, col = NotOut)) +
-ggtitle("Meg Lanning ODI Scores")
-
-
-
-```
-
-# Visualising the bowling data
-
-```{r}
-bowl_inn_data %>% 
-  ggplot(aes(x = Wkts, y = Econ)) +
-  geom_point(position = "jitter", alpha = 0.3, colour = "steelblue") +
-  labs(title = "Wickets vs Economy Rate",
-       x = "Wickets",
-       y = "Runs per over")
-```
-
-# Batting example
-
-```{r}
-data(WT20)
-
-bat_data <- cricinfo:::clean_batting_data(WT20) 
-bat_data %>% 
-  head() %>% 
-  knitr::kable()
-
-```
-
-```{r}
-bat_data %>% 
-  ggplot(aes(x = Country, y = Runs)) +
+```{r message=FALSE, warning=FALSE, cache=FALSE}
+wt20 %>% 
+  filter(Wickets > 20) %>%
+  ggplot(aes(y = StrikeRate, x = Country)) +
   geom_boxplot() +
-  theme(axis.text.x = element_text(angle = 90)) +
-  labs(title = "Runs per country")
+  geom_point(alpha=0.3, col="blue") +
+  ggtitle("Women T20: Strike Rates") +
+  ylab("Balls per wicket")
+```
 
+## Batting Data
+
+```{r}
+# Fetch all Australian Men's ODI data by innings
+menODI <- fetch_cricinfo("ODI", "Men", "Batting", type="innings", country="Australia")
+menODI %>% head %>% knitr::kable()
+```
+
+```{r message=FALSE, warning=FALSE}
+menODI %>% 
+  ggplot(aes(y = Runs, x = Date)) +
+    geom_point(alpha=0.2, col='red') +
+    geom_smooth() +
+    ggtitle("Australia Men ODI: Runs per Innings")
+```
+
+## Fielding Data
+
+```{r}
+Indfielding <- fetch_cricinfo("Test", "Men", "Fielding", country="India")
+Indfielding %>% head %>% knitr::kable()
+```
+
+```{r}
+wktkeeper <- (Indfielding$CaughtBehind > 0) | (Indfielding$Stumped > 0)
+ggplot(Indfielding, aes(x=Matches, y=Dismissals, col=wktkeeper)) +
+  geom_point() +
+  ggtitle("Indian Men Test Fielding")
+```
+
+## Individual player data
+
+```{r message=FALSE, warning=FALSE}
+MegLanning <- fetch_player(329336, "ODI")
+MLave <- with(MegLanning, sum(Score, na.rm=TRUE) / (sum(is.na(Score)) - sum(NotOut)))
+names(MLave) <- paste("Average =", round(MLave,2))
+ggplot(MegLanning) + 
+  geom_point(aes(x = Date, y = Score, col = NotOut)) +
+  ggtitle("Meg Lanning ODI Scores") +
+  geom_hline(aes(yintercept=MLave)) +
+  scale_y_continuous(sec.axis = sec_axis(~ ., breaks=MLave))
 ```
 
