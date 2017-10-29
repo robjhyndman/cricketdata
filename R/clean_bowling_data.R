@@ -30,7 +30,23 @@ clean_bowling_data <- function(x)
   x$Innings <- as.integer(x$Innings)
 
   career <- ("Matches" %in% vars)
-  if(!career)
+
+  if(career)
+  {
+    x$Matches <- as.integer(x$Matches)
+    if("Span" %in% vars)
+    {
+      x$Start <- as.integer(substr(x$Span, 1, 4))
+      x$End <- as.integer(substr(x$Span, 6, 9))
+    }
+    if("FourWickets" %in% vars)
+      x$FourWickets <- as.integer(x$FourWickets)
+    if("FiveWickets" %in% vars)
+      x$FiveWickets <- as.integer(x$FiveWickets)
+    if("TenWickets" %in% vars)
+      x$TenWickets <- as.integer(x$TenWickets)
+  }
+  else
   {
     # Add participation column
     if("Overs" %in% vars)
@@ -42,32 +58,40 @@ clean_bowling_data <- function(x)
     x$Opposition <- stringr::str_replace_all(x$Opposition, "v | Women| Wmn", "")
     x$Opposition <- rename_countries(x$Opposition)
   }
-  if("Overs" %in% vars)
+
+  # Recompute economy rate to avoid rounding errors
+  if("Economy" %in% vars)
   {
-    x$Overs <- as.integer(x$Overs)
-    x$Economy <- x$Runs / x$Overs
-  }
-  else
-    x$Economy <- x$Runs / (x$Balls/6)
-  if(career)
-  {
-    x$Matches <- as.integer(x$Matches)
-    x$Average <- x$Runs / x$Wickets
-    if("Span" %in% vars)
-    {
-      x$Start <- as.integer(substr(x$Span, 1, 4))
-      x$End <- as.integer(substr(x$Span, 6, 9))
-    }
     if("Overs" %in% vars)
-      x$StrikeRate <- x$Overs*6 / x$Wickets
+    {
+      x$Overs <- as.numeric(x$Overs)
+      ER <- x$Runs / x$Overs
+    }
     else
+    {
+      ER <- x$Runs / (x$Balls/6)
+    }
+    differ <- round(ER,2) - x$Economy
+    if(any(abs(differ) > 0.05))
+      stop("Economy rate incorrect")
+    else
+      x$Economy <- ER
+  }
+
+  # Recompute average
+  if("Average" %in% vars)
+    x$Average <- x$Runs / x$Wickets
+
+  # Recompute strike rate
+  if("StrikeRate" %in% vars)
+  {
+    if("Balls" %in% vars)
       x$StrikeRate <- x$Balls / x$Wickets
-    if("FourWickets" %in% vars)
-      x$FourWickets <- as.integer(x$FourWickets)
-    if("FiveWickets" %in% vars)
-      x$FiveWickets <- as.integer(x$FiveWickets)
-    if("TenWickets" %in% vars)
-      x$TenWickets <- as.integer(x$TenWickets)
+    else
+    {
+      balls <- trunc(x$Overs)*6 + (x$Overs %% 1)*10
+      x$StrikeRate <- balls / x$Wickets
+    }
   }
 
   # Extract country information if it is present
@@ -90,29 +114,6 @@ clean_bowling_data <- function(x)
     varorder <- c("Date","Player", "Country", "Overs","Balls","Maidens","Runs","Wickets",
       "Economy","Innings","Participation", "Opposition","Ground")
   varorder <- varorder[varorder %in% vars]
-
-  # # Re-order by date and player
-  # if("Date" %in% vars)
-  # {
-  #   if(country)
-  #     roworder <- order(x$Date, x$Country, x$Player)
-  #   else
-  #     roworder <- order(x$Date, x$Player)
-  # }
-  # else if("Start" %in% vars)
-  # {
-  #   if(country)
-  #     roworder <- order(x$Start, x$End, x$Country, x$Player)
-  #   else
-  #     roworder <- order(x$Start, x$End, x$Player)
-  # }
-  # else
-  # {
-  #   if(country)
-  #     roworder <- order(x$Country, x$Player)
-  #   else
-  #     roworder <- order(x$Player)
-  # }
 
   return(x[,varorder])
 

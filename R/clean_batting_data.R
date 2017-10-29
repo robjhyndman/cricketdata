@@ -21,26 +21,41 @@ clean_batting_data <- function(x)
   vars[vars=="Start Date"] <- "Date"
   colnames(x) <- vars
 
-  # Add not out column and remove annotations from runs/highscore
-  if("HighScore" %in% vars)
+  career <- ("Matches" %in% vars)
+  if(career)
   {
+    x$Matches <- as.integer(x$Matches)
+    x$NotOuts <- as.integer(x$NotOuts)
+    x$Hundreds <- as.integer(x$Hundreds)
+    x$Fifties <- as.integer(x$Fifties)
+    x$Ducks <- as.integer(x$Ducks)
+    # Add not out column and remove annotations from highscore
     x$HighScoreNotOut <- seq(NROW(x)) %in% grep("*", x$HighScore, fixed=TRUE)
     x$HighScore <- as.numeric(gsub("*", "", x$HighScore, fixed=TRUE))
-    career <- TRUE
+    if("Span" %in% vars)
+    {
+      x$Start <- as.integer(substr(x$Span, 1, 4))
+      x$End <- as.integer(substr(x$Span, 6, 9))
+    }
+    x$Runs <- as.integer(x$Runs)
+    x$Innings <- as.integer(x$Innings)
+    x$Average <- x$Runs / (x$Innings - x$NotOuts)
   }
   else
   {
-    # Add not out and participation column
+    x$Innings <- as.integer(x$Innings)
+    x$Minutes <- as.numeric(x$Minutes)
+    x$Date <- lubridate::dmy(x$Date)
+    x$Opposition <- stringr::str_replace_all(x$Opposition, "v | Women| Wmn", "")
+    x$Opposition <- rename_countries(x$Opposition)
+    # Add not out and participation column and remove annotations from runs
     x$NotOut <- seq(NROW(x)) %in% grep("*", x$Runs, fixed=TRUE)
     x$Runs <- gsub("*", "", x$Runs, fixed=TRUE)
     x$Participation <- participation_status(x$Runs)
     x$Runs[x$Participation!="B"] <- NA
-    career <- FALSE
+    x$Runs <- as.integer(x$Runs)
   }
 
-  # Fix classes for all variables
-  x$Innings <- as.integer(x$Innings)
-  x$Runs <- as.integer(x$Runs)
   if("BallsFaced" %in% vars)
   {
     x$BallsFaced <- as.integer(x$BallsFaced)
@@ -50,27 +65,6 @@ clean_batting_data <- function(x)
   {
     x$Fours <- as.integer(x$Fours)
     x$Sixes <- as.integer(x$Sixes)
-  }
-  if(career)
-  {
-    x$Matches <- as.integer(x$Matches)
-    x$NotOuts <- as.integer(x$NotOuts)
-    x$Hundreds <- as.integer(x$Hundreds)
-    x$Fifties <- as.integer(x$Fifties)
-    x$Ducks <- as.integer(x$Ducks)
-    x$Average <- x$Runs / (x$Innings - x$NotOuts)
-    if("Span" %in% vars)
-    {
-      x$Start <- as.integer(substr(x$Span, 1, 4))
-      x$End <- as.integer(substr(x$Span, 6, 9))
-    }
-  }
-  else
-  {
-    x$Minutes <- as.numeric(x$Minutes)
-    x$Date <- lubridate::dmy(x$Date)
-    x$Opposition <- stringr::str_replace_all(x$Opposition, "v | Women| Wmn", "")
-    x$Opposition <- rename_countries(x$Opposition)
   }
 
   # Extract country information if it is present
@@ -94,30 +88,7 @@ clean_batting_data <- function(x)
             "StrikeRate","Innings","Participation", "Opposition","Ground")
   varorder <- varorder[varorder %in% vars]
 
-  # Re-order by date and player
-  if("Date" %in% vars)
-  {
-    if(country)
-      roworder <- order(x$Date, x$Country, x$Player)
-    else
-      roworder <- order(x$Date, x$Player)
-  }
-  else if("Start" %in% vars)
-  {
-    if(country)
-      roworder <- order(x$Start, x$End, x$Country, x$Player)
-    else
-      roworder <- order(x$Start, x$End, x$Player)
-  }
-  else
-  {
-    if(country)
-      roworder <- order(x$Country, x$Player)
-    else
-      roworder <- order(x$Player)
-  }
-
-  return(x[roworder,varorder])
+  return(x[,varorder])
 
 }
 
