@@ -44,6 +44,8 @@ fetch_cricinfo <- function(matchtype = c("test", "odi", "t20"),
     this_data <- clean_batting_data(this_data)
   else if(activity=="bowling")
     this_data <- clean_bowling_data(this_data)
+  else
+    this_data <- clean_fielding_data(this_data)
 
   return(this_data)
 }
