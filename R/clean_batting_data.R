@@ -122,9 +122,7 @@ clean_batting_data <- function(x)
 }
 
 
-#' Convert bowling/batting batting category to a character variable.
-#'
-#' @param status A number, DNB, or TDNB.
+# Convert bowling/batting batting category to a character variable.
 
 participation_status <- function(status) {
 
