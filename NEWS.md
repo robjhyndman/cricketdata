@@ -1,7 +1,7 @@
 ## Version 0.0.2
   * Development at Numbat Hackathon, February 2018
   * Changed name to cricketdata as cricinfo not the only source.
-  * Added fetch_player_id()
+  * Added find_player_id()
   * Extended fetch_player_data()
   * Bug fixes
 

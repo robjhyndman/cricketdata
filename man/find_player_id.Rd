@@ -16,6 +16,6 @@ A table of matching players, their ids, and teams they played for.
 Find a player id from cricinfo.com
 }
 \examples{
-perry <- find_player_id("Perry")
-ElyssePerry <- fetch_player(perry[2,1])
+(perry <- find_player_id("Perry"))
+ElyssePerry <- fetch_player(perry[2,"ID"], "test")
 }
