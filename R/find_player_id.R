@@ -4,7 +4,7 @@
 #' @return A table of matching players, their ids, and teams they played for.
 #' @examples
 #' (perry <- find_player_id("Perry"))
-#' ElyssePerry <- fetch_player_data(perry[2,"ID"], "test")
+#' EllysePerry <- fetch_player_data(perry[2,"ID"], "test")
 #' @export
 
 find_player_id <- function(searchstring) {

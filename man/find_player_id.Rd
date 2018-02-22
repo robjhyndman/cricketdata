@@ -17,5 +17,5 @@ Find a player id from cricinfo.com
 }
 \examples{
 (perry <- find_player_id("Perry"))
-ElyssePerry <- fetch_player_data(perry[2,"ID"], "test")
+EllysePerry <- fetch_player_data(perry[2,"ID"], "test")
 }
