@@ -4,7 +4,7 @@
 #' @return A table of matching players, their ids, and teams they played for.
 #' @examples
 #' (perry <- find_player_id("Perry"))
-#' ElyssePerry <- fetch_player(perry[2,"ID"], "test")
+#' ElyssePerry <- fetch_player_data(perry[2,"ID"], "test")
 #' @export
 
 find_player_id <- function(searchstring) {
@@ -21,13 +21,13 @@ find_player_id <- function(searchstring) {
   colnames(tab) <- c("Name","Country","Played")
   # Remove empty rows
   tab <- tab[tab$Name != "",]
-  checkrestrict <- grep("Search restricted",tail(tab,1)[[1]])
+  checkrestrict <- grep("Search restricted", utils::tail(tab,1)[[1]])
   if(length(checkrestrict) == 0L)
     checkrestrict <- FALSE
   if(checkrestrict)
   {
     warning("Only 100 results returned. Please try a more specific search.")
-    tab <- head(tab,100)
+    tab <- utils::head(tab,100)
   }
   # Now to find the ids
   ids <- rvest::html_nodes(raw, 'a')
@@ -35,7 +35,7 @@ find_player_id <- function(searchstring) {
   ids <- gsub("([a-zA-Z= \\\"/<>]*)","", ids)
   ids <- unlist(lapply(strsplit(ids,".", fixed=TRUE), function(x){x[1]}))
   tab$ID <- as.integer(unique(ids))
-  dplyr::select(tab, ID, Name, Country, Played)
+  return(tab[,c("ID","Name","Country","Played")])
 }
 
 
