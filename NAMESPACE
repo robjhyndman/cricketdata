@@ -2,5 +2,5 @@
 
 export("%>%")
 export(fetch_cricinfo)
-export(fetch_player)
+export(fetch_player_data)
 importFrom(magrittr,"%>%")

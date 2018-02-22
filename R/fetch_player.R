@@ -19,75 +19,81 @@
 #' ElyssePerry <- fetch_player_data(275487, "T20")
 #' MegLanning <- fetch_player_data(329336, "ODI")
 #' SteveSmith <- fetch_player_data(267192, "Test")
-#' 
+#'
 #' library(ggplot2)
 #' ggplot(MegLanning) + geom_point(aes(x=Date, y=Score, col=NotOut)) +
 #'   ggtitle("Meg Lanning ODI Scores")
 #' }
 #'
 #' @export
-fetch_player <- function(playerid,
-        matchtype=c("test","odi","t20"))
-{
+fetch_player_data <- function(playerid,
+                              matchtype=c("test", "odi", "t20"),
+                              activity =c("batting", "bowling", "fielding")) {
   matchtype <- tolower(matchtype)
   matchtype <- match.arg(matchtype)
 
+  activity <- tolower(activity)
+  activity <- match.arg(activity)
+
   # First figure out if player is female or male
-  profile <- paste("http://www.espncricinfo.com/australia/content/player/",
-                   playerid, ".html", sep="")
-  raw <- try(xml2::read_html(profile), silent=TRUE)
-  if("try-error" %in% class(raw))
+  profile <- paste(
+    "http://www.espncricinfo.com/ci/content/player/",
+    playerid, ".html", sep = ""
+  )
+  raw <- try(xml2::read_html(profile), silent = TRUE)
+  if ("try-error" %in% class(raw)) {
     stop("Player not found")
+  }
   female <- length(grep("format=women", as.character(raw))) > 0
 
-  matchclass <- match(matchtype, c("test","odi","t20")) + (female * 7)
-  url <- paste("http://stats.espncricinfo.com/ci/engine/player/",
-               playerid,
-               ".html?class=",
-               matchclass,
-              ";template=results;type=allround;view=innings;wrappertype=print",
-               sep="")
-  raw <- try(xml2::read_html(url), silent=TRUE)
-  if("try-error" %in% class(raw))
+  matchclass <- match(matchtype, c("test", "odi", "t20")) + (female * 7)
+
+  url <- paste(
+    "http://stats.espncricinfo.com/ci/engine/player/",
+    playerid,
+    ".html?class=",
+    matchclass,
+    ";template=results;type=", activity, ";view=innings;wrappertype=print",
+    sep = ""
+  )
+
+
+  raw <- try(xml2::read_html(url), silent = TRUE)
+  if ("try-error" %in% class(raw)) {
     stop("Problem with URL")
+  }
 
   # Grab relevant table
   tab <- rvest::html_table(raw)[[4]]
 
   # Remove redundant missings columns
   tab <- tibble::as_tibble(tab[, colSums(is.na(tab)) != NROW(tab)])
-  
+
   # Convert "-" to NA
-  tab[tab=="-"] <- NA
+  tab[tab == "-"] <- NA
 
-  # Rename columns
-  colnames(tab)[10] <- "Date"
-
-  # Add not out column
-  notout <- seq(NROW(tab)) %in% grep("*",tab$Score)
-  dnbat <- grep("DNB",tab$Score)
-  tab$Score <- gsub("*","",tab$Score, fixed=TRUE)
-  tab$Score[dnbat] <- NA
-  dnbowl <- grep("DNB", tab$Overs)
-  tab$Overs[dnbowl] <- NA
+  # Make tidy column names columns
+  tidy.col <- make.names(colnames(tab), unique = TRUE)
+  colnames(tab) <- gsub(".", "_", tidy.col, fixed = TRUE)
+  tidy.col <- colnames(tab)
 
   # Convert some columns to numeric or Date
-  tab$Score <- as.numeric(tab$Score)
-  tab$NotOut <- seq(NROW(tab)) %in% notout
-  tab$DidNotBat <- seq(NROW(tab)) %in% dnbat
-  tab$DidNotBowl <- seq(NROW(tab)) %in% dnbowl
-  tab$Overs <- as.numeric(tab$Overs)
-  tab$Conc <- as.integer(tab$Conc)
-  tab$Wkts <- as.integer(tab$Wkts)
-  tab$Ct <- as.integer(tab$Ct)
-  tab$St <- as.integer(tab$St)
+
   tab$Innings <- as.integer(tab$Inns)
-  tab$Date <- lubridate::dmy(tab$Date)
+  tab$Start_Date <- lubridate::dmy(tab$Start_Date)
+  tab$Opposition <- substring(tab$Opposition, 3)
+  tab$Ground <- as.character(tab$Ground)
+
+
+  ## order the elements, no difference for different activities
+
+  com_col <- c("Start_Date", "Innings", "Opposition", "Ground")
+
+  ## order the elements, no difference for different activities
 
   # Reorder columns
   return(
-  tab[,c("Date","Opposition","Ground","Innings",
-         "Score","NotOut","DidNotBat","Overs","Conc","Wkts","DidNotBowl","Ct","St")]
+    tab[, c(com_col, tidy.col[!tidy.col %in% com_col])]
   )
 }
-
+#fetch_player(326637, "ODI", "FIELDING")
