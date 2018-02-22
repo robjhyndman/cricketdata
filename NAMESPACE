@@ -3,4 +3,5 @@
 export("%>%")
 export(fetch_cricinfo)
 export(fetch_player)
+export(find_player_id)
 importFrom(magrittr,"%>%")
