@@ -16,9 +16,12 @@
 #' @author Rob J Hyndman
 #' @examples
 #' \dontrun{
-#' ElyssePerry <- fetch_player_data(275487, "T20")
-#' MegLanning <- fetch_player_data(329336, "ODI")
-#' SteveSmith <- fetch_player_data(267192, "Test")
+#' ElyssePerry <- fetch_player_data(275487, "T20", "batting")
+#' RahulDravid <- fetch_player_data(32242, "ODI", "fielding")
+#' LasithMalinga <- fetch_player_data(49758, "Test", "bowling")
+#' BethMooney <- fetch_player_data(381258, "test", "batting")
+#' IanHarvey <- fetch_player_data(5597, "test", "batting")
+
 #'
 #' library(ggplot2)
 #' ggplot(MegLanning) + geom_point(aes(x=Date, y=Score, col=NotOut)) +
