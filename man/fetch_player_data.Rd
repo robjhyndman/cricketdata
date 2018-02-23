@@ -11,6 +11,8 @@ fetch_player_data(playerid, matchtype = c("test", "odi", "t20"),
 \item{playerid}{The player ID as given in the Cricinfo profile. Integer or character.}
 
 \item{matchtype}{Which type of cricket matches do you want? Tests, ODIs or T20s? Not case-sensitive.}
+
+\item{activity}{Which type of activities do you want? Batting, Bowling or Fielding? Not case-sensitive.}
 }
 \value{
 A tibble containing data on the selected player, with one row for every innings
@@ -27,9 +29,10 @@ so her ID is 329336.
 }
 \examples{
 \dontrun{
-ElyssePerry <- fetch_player_data(275487, "T20")
-MegLanning <- fetch_player_data(329336, "ODI")
-SteveSmith <- fetch_player_data(267192, "Test")
+ElyssePerry <- fetch_player_data(275487, "T20", "batting")
+RahulDravid <- fetch_player_data(32242, "ODI", "fielding")
+LasithMalinga <- fetch_player_data(49758, "Test", "bowling")
+
 
 library(ggplot2)
 ggplot(MegLanning) + geom_point(aes(x=Date, y=Score, col=NotOut)) +
