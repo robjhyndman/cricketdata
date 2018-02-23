@@ -21,8 +21,6 @@ Imports:
   stringr,
   tibble,
   xml2
-Suggests:
-  tidyverse
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
