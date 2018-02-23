@@ -10,6 +10,7 @@
 #'
 #' @param playerid The player ID as given in the Cricinfo profile. Integer or character.
 #' @param matchtype Which type of cricket matches do you want? Tests, ODIs or T20s? Not case-sensitive.
+#' @param activity Which type of activities do you want? Batting, Bowling or Fielding? Not case-sensitive.
 #'
 #' @return A tibble containing data on the selected player, with one row for every innings
 #' of every match in which they have played.
