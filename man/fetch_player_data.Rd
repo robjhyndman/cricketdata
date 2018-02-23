@@ -35,8 +35,9 @@ LasithMalinga <- fetch_player_data(49758, "Test", "bowling")
 
 
 library(ggplot2)
-ggplot(MegLanning) + geom_point(aes(x=Date, y=Score, col=NotOut)) +
-  ggtitle("Meg Lanning ODI Scores")
+ElyssePerry \%>\% filter(Runs != "DNB") \%>\%
+ggplot(aes(x=Start_Date, y=Runs)) + geom_point() +
+  ggtitle("Elysse Perry's T20 Scores")
 }
 
 }
