@@ -9,7 +9,8 @@ Authors@R: c(
   person("Rob", "Hyndman", , "Rob.Hyndman@monash.edu", c("aut", "cre")),
   person("Timothy", "Hyndman", , "Timothy.Hyndman@gmail.com", "aut"),
   person("Charles", "Gray", , "C.Gray@latrobe.edu.au", "aut"),
-  person("Sayani", "Gupta", , "Sayani.Gupta@monash.edu", "aut")
+  person("Sayani", "Gupta", , "Sayani.Gupta@monash.edu", "aut"),
+  person("Puwasala", "Gamakumara", , "Puwasala.Gamakumara@monash.edu", "aut")
   )
 Imports:
   dplyr,
