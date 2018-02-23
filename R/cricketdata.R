@@ -12,10 +12,10 @@ magrittr::`%>%`
 #' into tibbles ready for analysis. 
 #' Please respect the 
 #' \href{http://www.espncricinfo.com/ci/content/site/company/terms_use.html}{ESPNCricinfo terms of use}.
-#' Some innings-level data sourced from Howzstat (\href{http://www.cricket-stats.net/}) 
+#' Some innings-level data sourced from \href{http://www.cricket-stats.net/}{Howzstat}
 #' is also included in the package.
 #' 
-#' \tabular{ll}{ Package: \tab cricketdata\cr Type: \tab Package\cr License: \tab
+#' \tabular{ll}{Package: \tab cricketdata\cr Type: \tab Package\cr License: \tab
 #' GPL3\cr LazyLoad: \tab yes\cr }
 #' 
 #' @docType package
