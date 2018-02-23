@@ -64,9 +64,15 @@ fetch_player_data <- function(playerid,
   }
 
   # Grab relevant table
-  tab <- rvest::html_table(raw)[[4]]
+  tab_all_rec <- rvest::html_table(raw)
+  tab <- tab_all_rec[[4]]
+  tab_no_rec <- tab_all_rec[[3]]
 
+  if ("No records available to match this query" %in% unlist(tab_no_rec)) {
+    stop(paste("Player has never played", matchtype, "format", sep = " "), call. = F)
+  }
   # Remove redundant missings columns
+
   tab <- tibble::as_tibble(tab[, colSums(is.na(tab)) != NROW(tab)])
 
   # Convert "-" to NA
@@ -96,4 +102,3 @@ fetch_player_data <- function(playerid,
     tab[, c(com_col, tidy.col[!tidy.col %in% com_col])]
   )
 }
-#fetch_player(326637, "ODI", "FIELDING")
