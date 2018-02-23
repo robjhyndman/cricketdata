@@ -12,11 +12,14 @@ find_player_id <- function(searchstring) {
                 searchstring,";template=analysis")
   raw <- try(xml2::read_html(url), silent = TRUE)
   if ("try-error" %in% class(raw))
-    stop("Player not found")
+    stop("This shouldn't happen")
   # Extract table of names
   tab <- rvest::html_table(raw)[[1]]
   # Make into a table
   tab <- tibble::as_tibble(tab)
+  # Check if player exists
+  if(unlist(tab[1,1])=="No matching players found")
+    stop("No matching players found")
   # Name columns
   colnames(tab) <- c("Name","Country","Played")
   # Remove empty rows
