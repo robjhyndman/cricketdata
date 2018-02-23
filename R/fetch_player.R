@@ -19,7 +19,7 @@
 #' ElyssePerry <- fetch_player_data(275487, "T20", "batting")
 #' RahulDravid <- fetch_player_data(32242, "ODI", "fielding")
 #' LasithMalinga <- fetch_player_data(49758, "Test", "bowling")
-#' BethMooney <- fetch_player_data(381258, "test", "batting")
+#' BethMooney <- fetch_player_data(381258, "test", "bowling")
 #' IanHarvey <- fetch_player_data(5597, "test", "batting")
 
 #'
