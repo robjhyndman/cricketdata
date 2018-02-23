@@ -24,8 +24,8 @@
 
 #'
 #' library(ggplot2)
-#' ggplot(ElyssePerry) + geom_point(aes(x=Date, y=Score, col=NotOut)) +
-#'   ggtitle("Meg Lanning ODI Scores")
+#' ggplot(ElyssePerry) + geom_point(aes(x=Date, y=Scores, col=NotOut)) +
+#'   ggtitle("Elysse Perry's T20 Scores")
 #' }
 #'
 #' @export
