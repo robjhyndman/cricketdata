@@ -24,8 +24,8 @@
 
 #'
 #' library(ggplot2)
-#' ElyssePerry %>% filter(Runs != "DNB") %>%
-#' ggplot(aes(x=Start_Date, y=Runs)) + geom_point() +
+#' ElyssePerry %>% filter(Runs != "DNB") %>% mutate(Scores = as.numeric(gsub("*", "", x = Runs, fixed = TRUE))) %>%
+#' ggplot(aes(x=Start_Date, y=Scores, col = Dismissal)) + geom_point() + 
 #'   ggtitle("Elysse Perry's T20 Scores")
 #' }
 #'
