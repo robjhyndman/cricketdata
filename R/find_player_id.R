@@ -11,10 +11,7 @@ find_player_id <- function(searchstring) {
   url <- paste0("http://stats.espncricinfo.com/ci/engine/stats/analysis.html?search=",
                 searchstring,";template=analysis")
   url <- gsub(" ", "%20", url)
-  raw <- lapply(url, function(x) {
-    print(x)
-    try(xml2::read_html(x), silent = TRUE)
-    })
+  raw <- lapply(url, function(x) try(xml2::read_html(x), silent = TRUE))
   if ("try-error" %in% lapply(raw, class))
     stop("This shouldn't happen")
   # Extract table of names
