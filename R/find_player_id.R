@@ -10,6 +10,7 @@
 find_player_id <- function(searchstring) {
   url <- paste0("http://stats.espncricinfo.com/ci/engine/stats/analysis.html?search=",
                 searchstring,";template=analysis")
+  url <- gsub(" ", "%20", url)
   raw <- try(xml2::read_html(url), silent = TRUE)
   if ("try-error" %in% class(raw))
     stop("This shouldn't happen")
