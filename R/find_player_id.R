@@ -5,6 +5,7 @@
 #' @examples
 #' (perry <- find_player_id("Perry"))
 #' EllysePerry <- fetch_player_data(perry[2,"ID"], "test")
+#' @author Rob J Hyndman
 #' @export
 
 find_player_id <- function(searchstring) {
@@ -21,7 +22,7 @@ find_player_id <- function(searchstring) {
     x <- tibble::as_tibble(x)
     x <- x[x$X1 != "",]
   })
-  
+
   for(i in seq_along(searchstring)) {
     x <- tab[[i]]
     # Check if any players returned
@@ -34,9 +35,9 @@ find_player_id <- function(searchstring) {
       tab[[i]] <- x[1:100,]
     }
   }
-  
+
   tab <- dplyr::bind_rows(tab)
-  
+
   # Name columns
   colnames(tab) <- c("Name","Country","Played")
   # Now to find the ids

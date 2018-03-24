@@ -29,18 +29,19 @@ so her ID is 329336.
 }
 \examples{
 \dontrun{
-ElyssePerry <- fetch_player_data(275487, "T20", "batting")
-RahulDravid <- fetch_player_data(32242, "ODI", "fielding")
+# Download data on some players
+EllysePerry <- fetch_player_data(275487, "T20", "batting")
+RahulDravid <- fetch_player_data(28114, "ODI", "fielding")
 LasithMalinga <- fetch_player_data(49758, "Test", "bowling")
 
-
+# Create a plot for Ellyse Perry's T20 scores
+library(dplyr)
 library(ggplot2)
-ElyssePerry \%>\% filter(Runs != "DNB") \%>\%
-ggplot(aes(x=Start_Date, y=Runs)) + geom_point() +
-  ggtitle("Elysse Perry's T20 Scores")
+EllysePerry \%>\% filter(!is.na(Runs)) \%>\%
+ggplot(aes(x=Start_Date, y=Runs, col = Dismissal, na.rm = TRUE)) + geom_point() +
+  ggtitle("Ellyse Perry's T20 Scores")
 }
-
 }
 \author{
-Rob J Hyndman
+Rob J Hyndman and Sayani Gupta
 }
