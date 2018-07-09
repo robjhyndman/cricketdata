@@ -67,7 +67,6 @@ fetch_player_data <- function(playerid,
     stop("Problem with URL")
   }
   #closing previous html connections
-  closeAllConnections()
   # Grab relevant table
   tab_all_rec <- rvest::html_table(raw)
   tab <- tab_all_rec[[4]]
