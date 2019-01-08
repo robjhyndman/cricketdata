@@ -1,3 +1,6 @@
+## Version 0.0.3
+  * Updated to handle change in format for female data on cricinfo.
+
 ## Version 0.0.2
   * Development at Numbat Hackathon, February 2018
   * Changed name to cricketdata as cricinfo not the only source.
