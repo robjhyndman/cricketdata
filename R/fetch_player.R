@@ -14,21 +14,21 @@
 #'
 #' @return A tibble containing data on the selected player, with one row for every innings
 #' of every match in which they have played.
-#' @author Rob J Hyndman
+#' @author Rob J Hyndman and Sayani Gupta
 #' @examples
 #' \dontrun{
+#' # Download data on some players
 #' EllysePerry <- fetch_player_data(275487, "T20", "batting")
-#' RahulDravid <- fetch_player_data(32242, "ODI", "fielding")
+#' RahulDravid <- fetch_player_data(28114, "ODI", "fielding")
 #' LasithMalinga <- fetch_player_data(49758, "Test", "bowling")
 #'
-
-#'
+#' # Create a plot for Ellyse Perry's T20 scores
+#' library(dplyr)
 #' library(ggplot2)
 #' EllysePerry %>% filter(!is.na(Runs)) %>%
-#' ggplot(aes(x=Start_Date, y=Runs, col = Dismissal, na.rm = TRUE)) + geom_point() + 
+#' ggplot(aes(x=Start_Date, y=Runs, col = Dismissal, na.rm = TRUE)) + geom_point() +
 #'   ggtitle("Ellyse Perry's T20 Scores")
 #' }
-#'
 #' @export
 fetch_player_data <- function(playerid,
                               matchtype=c("test", "odi", "t20"),
@@ -80,7 +80,6 @@ fetch_player_data <- function(playerid,
     stop("Problem with URL")
   }
   #closing previous html connections
-  closeAllConnections()
   # Grab relevant table
   tab_all_rec <- rvest::html_table(raw)
   tab <- tab_all_rec[[4]]
@@ -113,8 +112,10 @@ fetch_player_data <- function(playerid,
   com_col <- c("Start_Date", "Innings", "Opposition", "Ground")
   
   ##Removing "*" in the column `Runs` and converting it to numeric
-  tab$Runs <- suppressWarnings(as.numeric(gsub("*", "", x = tab$Runs, fixed = TRUE)))
-  
+
+  if("Runs" %in% colnames(tab))
+    tab$Runs <- suppressWarnings(as.numeric(gsub("*", "", x = tab$Runs, fixed = TRUE)))
+
   # Reorder columns
   return(
     tab[, c(com_col, tidy.col[!tidy.col %in% com_col])]
