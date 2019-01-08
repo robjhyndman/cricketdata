@@ -29,15 +29,15 @@ so her ID is 329336.
 }
 \examples{
 \dontrun{
-ElyssePerry <- fetch_player_data(275487, "T20", "batting")
+EllysePerry <- fetch_player_data(275487, "T20", "batting")
 RahulDravid <- fetch_player_data(32242, "ODI", "fielding")
 LasithMalinga <- fetch_player_data(49758, "Test", "bowling")
 
 
 library(ggplot2)
-ElyssePerry \%>\% filter(Runs != "DNB") \%>\%
-ggplot(aes(x=Start_Date, y=Runs)) + geom_point() +
-  ggtitle("Elysse Perry's T20 Scores")
+EllysePerry \%>\% filter(!is.na(Runs)) \%>\%
+ggplot(aes(x=Start_Date, y=Runs, col = Dismissal, na.rm = TRUE)) + geom_point() + 
+  ggtitle("Ellyse Perry's T20 Scores")
 }
 
 }
