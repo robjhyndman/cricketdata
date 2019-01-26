@@ -53,7 +53,7 @@ fetch_cricket_data <- function(matchtype = c("test", "odi", "t20"),
         ";template=results;type=",
         activity,
         view_text,
-        ";size=200;wrappertype=print"
+        ";wrappertype=print"
       )
 
     # Get raw page data from page using xml2::read_html() with url string.
