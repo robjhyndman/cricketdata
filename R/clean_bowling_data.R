@@ -70,14 +70,10 @@ clean_bowling_data <- function(x)
     balls <- x$Balls
   else
     balls <- trunc(x$Overs)*6 + (x$Overs %% 1)*10
-  if("Economy" %in% vars)
-  {
+  if("Economy" %in% vars)  {
     ER <- x$Runs / (balls/6)
-    differ <- round(ER,2) - as.numeric(x$Economy)
-    if(any(abs(differ) > 0.05, na.rm=TRUE))
-      stop("Economy rate incorrect")
-    else
-      x$Economy <- ER
+    differ <- abs(round(ER,2) - as.numeric(x$Economy)) > 0.05
+    x$Economy[!differ] <- ER[!differ]
   }
 
   # Recompute strike rate
