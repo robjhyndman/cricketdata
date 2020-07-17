@@ -73,6 +73,7 @@ clean_bowling_data <- function(x)
   if("Economy" %in% vars)  {
     ER <- x$Runs / (balls/6)
     differ <- abs(round(ER,2) - as.numeric(x$Economy)) > 0.05
+    differ[is.na(differ)] <- FALSE
     x$Economy[!differ] <- ER[!differ]
   }
 
