@@ -4,9 +4,13 @@
 \alias{fetch_cricinfo}
 \title{Fetch Data from Cricinfo}
 \usage{
-fetch_cricinfo(matchtype = c("test", "odi", "t20"), sex = c("men", "women"),
-  activity = c("batting", "bowling", "fielding"), type = c("career",
-  "innings"), country = NULL)
+fetch_cricinfo(
+  matchtype = c("test", "odi", "t20"),
+  sex = c("men", "women"),
+  activity = c("batting", "bowling", "fielding"),
+  type = c("career", "innings"),
+  country = NULL
+)
 }
 \arguments{
 \item{matchtype}{Character indicating test (default), odi, or t20.}

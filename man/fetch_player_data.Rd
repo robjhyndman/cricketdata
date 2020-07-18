@@ -4,8 +4,11 @@
 \alias{fetch_player_data}
 \title{Fetch Player Data}
 \usage{
-fetch_player_data(playerid, matchtype = c("test", "odi", "t20"),
-  activity = c("batting", "bowling", "fielding"))
+fetch_player_data(
+  playerid,
+  matchtype = c("test", "odi", "t20"),
+  activity = c("batting", "bowling", "fielding")
+)
 }
 \arguments{
 \item{playerid}{The player ID as given in the Cricinfo profile. Integer or character.}

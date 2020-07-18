@@ -3,7 +3,6 @@
 \docType{package}
 \name{cricketdata}
 \alias{cricketdata}
-\alias{cricketdata-package}
 \title{Cricket Data from International Matches}
 \description{
 Data on all international cricket matches is provided by ESPNCricinfo.
