@@ -23,7 +23,6 @@ fetch_cricket_data <- function(matchtype = c("test", "odi", "t20"),
   matchclass <-
     match(matchtype, c("test", "odi", "t20")) + 7 * (sex == "women")
 
-  source("./R/countries.R")
   # Find country code
   if(!is.null(country)){
     if(sex=="men")
