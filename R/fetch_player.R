@@ -90,7 +90,7 @@ fetch_player_data <- function(playerid,
   }
   # Remove redundant missings columns
   
-  tab <- tibble::as_tibble(tab[, colSums(is.na(tab)) != NROW(tab)])
+  tab <- tibble::as_tibble(tab[, colSums(is.na(tab)) != NROW(tab)],.name_repair = "check_unique")
   
   # Convert "-" to NA
   tab[tab == "-"] <- NA

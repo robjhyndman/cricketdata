@@ -19,7 +19,7 @@ find_player_id <- function(searchstring) {
   tab <- lapply(raw, function(x) rvest::html_table(x)[[1]])
   # Make into a table
   tab <- lapply(tab, function(x) {
-    x <- tibble::as_tibble(x)
+    x <- tibble::as_tibble(x, .name_repair = "check_unique")
     x <- x[x$X1 != "",]
   })
 
