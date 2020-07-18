@@ -46,10 +46,10 @@ women <- data.frame(
   "Scotland",
   "Trinidad & Tobago"))
 
-men <- tibble::as_tibble(men[order(men$name),]) %>%
+men <- tibble::as_tibble(men[order(men$name),],.name_repair = "check_unique") %>%
   dplyr::mutate(team = as.integer(team),
          name = as.character(name))
-women <- tibble::as_tibble(women[order(women$name),]) %>%
+women <- tibble::as_tibble(women[order(women$name),] ,.name_repair = "check_unique") %>%
   dplyr::mutate(team = as.integer(team),
          name = as.character(name))
 
