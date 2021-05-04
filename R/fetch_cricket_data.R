@@ -70,7 +70,7 @@ fetch_cricket_data <- function(matchtype = c("test", "odi", "t20"),
     {
       if(theend)
         stop("No data available")
-      maxpage <- as.numeric(strsplit(tables[[2]][1,1], "Page 1 of ")[[1]][2])
+      maxpage <- as.numeric(strsplit(dplyr::pull(tables[[2]][1,1]), "Page 1 of ")[[1]][2])
       pb <- progress::progress_bar$new(total = maxpage)
       pb$tick(0)
       Sys.sleep(1/1000)
