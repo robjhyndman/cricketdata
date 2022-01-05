@@ -1,29 +1,32 @@
 Package: cricketdata
-Version: 0.0.3
+Version: 0.1.0
 Title: International Cricket Data
-Description: Data on all international cricket matches is provided by ESPNCricinfo.
-  This package provides some scraper functions to download the data
-  into tibbles ready for analysis. Some innings-level data sourced from Howzstat
-  is also included in the package.
+Description: Data on international cricket matches from ESPNCricinfo, Howzstat and Cricsheet.
+  This package provides some functions to download the data into tibbles ready
+  for analysis.
 Authors@R: c(
   person("Rob", "Hyndman", email="Rob.Hyndman@monash.edu", role=c("aut", "cre")),
   person("Timothy", "Hyndman", email="Timothy.Hyndman@gmail.com", role="aut"),
   person("Charles", "Gray", email="C.Gray@latrobe.edu.au", role="aut"),
   person("Sayani", "Gupta", email="Sayani.Gupta@monash.edu", role="aut"),
+  person("Jacquie","Tran", email="jac@jacquietran.com", role="aut"),
   person("Puwasala", "Gamakumara", email="Puwasala.Gamakumara@monash.edu", role="ctb"),
   person("Alex", "Whan", email="alexwhan@gmail.com", role="ctb")
   )
 Imports:
   dplyr,
+  glue,
   lubridate,
   magrittr,
   progress,
+  readr,
   rvest,
   stringr,
   tibble,
+  tidyr,
   xml2
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true
-RoxygenNote: 7.1.0.9000
+RoxygenNote: 7.1.2
