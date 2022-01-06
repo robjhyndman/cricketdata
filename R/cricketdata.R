@@ -1,5 +1,4 @@
 #' @importFrom magrittr %>%
-#' @importFrom glue glue
 #' @importFrom dplyr pull
 #' @importFrom readr read_csv
 #' @importFrom tidyr separate pivot_wider
@@ -11,15 +10,14 @@
 magrittr::`%>%`
 
 
-#' Cricket Data from International Matches
+#' Cricket Data from international and other major cricket matches.
 #' 
-#' Data on all international cricket matches is provided by ESPNCricinfo.
-#' This package provides some scraper functions to download the data 
+#' Data is provided by ESPNCricinfo and Cricsheet.
+#' This package provides some functions to download the data 
 #' into tibbles ready for analysis. 
-#' Please respect the 
-#' \href{http://www.espncricinfo.com/ci/content/site/company/terms_use.html}{ESPNCricinfo terms of use}.
-#' Some innings-level data sourced from \href{http://www.cricket-stats.net/}{Howzstat}
-#' is also included in the package.
+#' Please respect the terms of use for each website: 
+#' \href{http://www.espncricinfo.com/ci/content/site/company/terms_use.html}{ESPNCricinfo},
+#' \href{https://cricsheet.org/register/}{Cricsheet}.
 #' 
 #' \tabular{ll}{Package: \tab cricketdata\cr Type: \tab Package\cr License: \tab
 #' GPL3\cr LazyLoad: \tab yes\cr }

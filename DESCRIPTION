@@ -1,7 +1,8 @@
 Package: cricketdata
 Version: 0.1.0
 Title: International Cricket Data
-Description: Data on international cricket matches from ESPNCricinfo, Howzstat and Cricsheet.
+Description: Data on international and other major cricket matches from 
+  ESPNCricinfo and Cricsheet.
   This package provides some functions to download the data into tibbles ready
   for analysis.
 Authors@R: c(
@@ -15,7 +16,6 @@ Authors@R: c(
   )
 Imports:
   dplyr,
-  glue,
   lubridate,
   magrittr,
   progress,
