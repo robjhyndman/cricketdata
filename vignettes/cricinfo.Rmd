@@ -6,7 +6,7 @@ output:
     fig_width: 10
     fig_height: 5
 vignette: >
-  %\VignetteIndexEntry{cricinfo}
+  %\VignetteIndexEntry{ESPNCricinfo data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
