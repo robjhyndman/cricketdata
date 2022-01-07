@@ -1,0 +1,118 @@
+---
+title: "ESPNCricinfo data"
+author: Rob J Hyndman
+output: 
+  rmarkdown::html_vignette:
+    fig_width: 10
+    fig_height: 5
+vignette: >
+  %\VignetteIndexEntry{cricinfo}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  echo = TRUE
+)
+# Okabi-Ito colours
+options(
+  ggplot2.discrete.colour = c("#D55E00", "#0072B2","#009E73", "#CC79A7", "#E69F00", "#56B4E9", "#F0E442")
+)
+```
+
+```{r setup}
+library(cricketdata)
+library(tidyverse)
+```
+
+The `fetch_cricinfo()` function will fetch data on all international cricket matches provided by ESPNCricinfo. Please respect the [ESPNCricinfo terms of use](http://www.espncricinfo.com/ci/content/site/company/terms_use.html) when using this function.
+
+Here are some examples of its use.
+
+## Women's T20 bowling data
+
+```{r woment20, message=FALSE}
+# Fetch all Women's T20 data
+wt20 <- fetch_cricinfo("T20", "Women", "Bowling")
+wt20 %>%
+  mutate(Economy = parse_number(Economy)) %>%
+  head() %>%
+  knitr::kable(digits=2)
+```
+
+```{r woment20graph, fig.width=10, fig.height=8}
+wt20 %>%
+  filter(Wickets > 20, !is.na(Country)) %>%
+  ggplot(aes(y = StrikeRate, x = Country)) +
+  geom_boxplot() +
+  geom_point(alpha = 0.3, col = "blue") +
+  ggtitle("Women T20: Strike Rates") +
+  ylab("Balls per wicket") +
+  coord_flip()
+```
+
+## Australian men's ODI data by innings
+
+```{r menodi, message=FALSE}
+# Fetch all Australian Men's ODI data by innings
+menODI <- fetch_cricinfo("ODI", "Men", "Batting", type = "innings", country = "Australia")
+menODI %>%
+  head() %>%
+  knitr::kable()
+```
+
+```{r menodigraph, warning=FALSE, message=FALSE}
+menODI %>%
+  ggplot(aes(y = Runs, x = Date)) +
+  geom_point(alpha = 0.2, col = "#D55E00") +
+  geom_smooth() +
+  ggtitle("Australia Men ODI: Runs per Innings")
+```
+
+## Indian test fielding data
+
+```{r indiafielding}
+Indfielding <- fetch_cricinfo("Test", "Men", "Fielding", country = "India")
+Indfielding %>%
+  head() %>%
+  knitr::kable()
+```
+
+```{r indiafieldinggraph}
+Indfielding %>%
+  mutate(wktkeeper = (CaughtBehind > 0) | (Stumped > 0)) %>%
+  ggplot(aes(x = Matches, y = Dismissals, col = wktkeeper)) +
+  geom_point() +
+  ggtitle("Indian Men Test Fielding")
+```
+
+## Meg Lanning's ODI batting
+
+```{r meglanning}
+meg_lanning_id <- find_player_id("Lanning")$ID
+MegLanning <- fetch_player_data(meg_lanning_id, "ODI") %>%
+  mutate(NotOut = (Dismissal == "not out"))
+MegLanning %>%
+  head() %>%
+  knitr::kable()
+```
+
+```{r meglanninggraph}
+# Compute batting average
+MLave <- MegLanning %>%
+  summarise(
+    Innings = sum(!is.na(Runs)),
+    Average = sum(Runs, na.rm = TRUE) / (Innings - sum(NotOut))
+  ) %>%
+  pull(Average)
+names(MLave) <- paste("Average =", round(MLave, 2))
+# Plot ODI scores
+ggplot(MegLanning) +
+  geom_hline(aes(yintercept = MLave), col="gray") +
+  geom_point(aes(x = Start_Date, y = Runs, col = NotOut)) +
+  ggtitle("Meg Lanning ODI Scores") +
+  scale_y_continuous(sec.axis = sec_axis(~., breaks = MLave))
+```

@@ -16,7 +16,7 @@ magrittr::`%>%`
 #' This package provides some functions to download the data 
 #' into tibbles ready for analysis. 
 #' Please respect the terms of use for each website: 
-#' \href{http://www.espncricinfo.com/ci/content/site/company/terms_use.html}{ESPNCricinfo},
+#' \href{https://www.espncricinfo.com/ci/content/site/company/terms_use.html}{ESPNCricinfo},
 #' \href{https://cricsheet.org/register/}{Cricsheet}.
 #' 
 #' \tabular{ll}{Package: \tab cricketdata\cr Type: \tab Package\cr License: \tab

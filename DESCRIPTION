@@ -25,8 +25,21 @@ Imports:
   tibble,
   tidyr,
   xml2
+Suggests:
+  tidyverse,
+  showtext,
+  gghighlight,
+  ggplot2,
+  ggtext,
+  paletteer,
+  patchwork,
+  tweetrmd,
+  glue,
+  rmarkdown,
+  knitr
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true
 RoxygenNote: 7.1.2
+VignetteBuilder: knitr
