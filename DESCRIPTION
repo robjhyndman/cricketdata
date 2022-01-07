@@ -39,8 +39,8 @@ Suggests:
   knitr,
   webshot2
 Remotes:
-  rstudio/webshot2,
-  gadenbuie/tweetrmd
+  "rstudio/webshot2",
+  "gadenbuie/tweetrmd"
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
