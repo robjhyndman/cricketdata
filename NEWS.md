@@ -1,5 +1,6 @@
 # Version 0.1.0
   * Added fetch_cricsheet() functions, thanks to @jacquietran.
+  * Added vignettes for fetch_cricsheet() and fetch_cricinfo().
 
 # Version 0.0.3
   * Updated to handle change in format for female data on cricinfo.
