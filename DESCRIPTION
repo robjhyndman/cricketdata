@@ -36,7 +36,8 @@ Suggests:
   tweetrmd,
   glue,
   rmarkdown,
-  knitr
+  knitr,
+  webshot2
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
