@@ -44,3 +44,4 @@ LazyData: true
 ByteCompile: true
 RoxygenNote: 7.1.2
 VignetteBuilder: knitr
+URL: http://pkg.robjhyndman.com/cricketdata/

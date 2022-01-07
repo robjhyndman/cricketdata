@@ -1,0 +1,4 @@
+url: http://pkg.robjhyndman.com/cricketdata/
+template:
+  bootstrap: 5
+
