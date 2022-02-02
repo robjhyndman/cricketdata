@@ -33,12 +33,26 @@ library(paletteer)
 library(patchwork)
 ```
 
-The `fetch_cricsheet()` function will download csv data from [Cricsheet](https://cricsheet.org/downloads). Data must be specified by three factors: (a) `type` of data: `bbb` (ball-by-ball), `match` or `player`; (b) `gender`; (c) `competition`. 
+The `fetch_cricsheet()` function will download csv data from [Cricsheet](https://cricsheet.org/downloads/). Data must be specified by three factors: (a) `type` of data: `bbb` (ball-by-ball), `match` or `player`; (b) `gender`; (c) `competition`. 
 
 
 Here are some examples of its use with some WBBL data. An earlier version of this article was published at https://underthehood.jacquietran.com/post/wbbl-visualisations/.
 
-```{r}
+```{r getdata, eval=FALSE}
+# Avoid downloading the data when the package is checked by CRAN.
+# This only needs to be run once to store the data locally
+wbbl_bbb <- fetch_cricsheet(competition = "wbbl", gender = "female")
+wbbl_match_info <- fetch_cricsheet(competition = "wbbl", type = "match", gender = "female")
+saveRDS(wbbl_bbb, "inst/extdata/wbbl_bbb.rds")
+saveRDS(wbbl_match_info, "inst/extdata/wbbl_match_info.rds")
+```
+
+```{r loaddata, include=FALSE}
+wbbl_bbb <- readRDS("../inst/extdata/wbbl_bbb.rds")
+wbbl_match_info <- readRDS("../inst/extdata/wbbl_match_info.rds")
+```
+
+```r
 # Fetch ball-by-ball data
 wbbl_bbb <- fetch_cricsheet(competition = "wbbl", gender = "female")
 

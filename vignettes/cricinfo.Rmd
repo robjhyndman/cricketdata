@@ -28,7 +28,7 @@ library(cricketdata)
 library(tidyverse)
 ```
 
-The `fetch_cricinfo()` function will fetch data on all international cricket matches provided by ESPNCricinfo. Please respect the [ESPNCricinfo terms of use](http://www.espncricinfo.com/ci/content/site/company/terms_use.html) when using this function.
+The `fetch_cricinfo()` function will fetch data on all international cricket matches provided by ESPNCricinfo. Please respect the [ESPNCricinfo terms of use](https://www.espncricinfo.com/ci/content/site/company/terms_use.html) when using this function.
 
 Here are some examples of its use.
 

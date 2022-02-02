@@ -138,14 +138,13 @@ fetch_cricsheet <- function(
          names_from = "key",
          values_from = "value",
           values_fill = NA,
-        ) |>
-        dplyr::mutate_all(~replace(., .=="NULL", NA_character_))
+        ) 
+      all_matches <- dplyr::mutate_all(all_matches, ~replace(., .=="NULL", NA_character_))
       
     } else {
       all_matches <- all_matches[all_matches$key %in% c("player", "players"),]
       all_matches$key <- NULL
-      all_matches <- all_matches |>
-        tidyr::separate(value, sep = ",", c("team", "player"))
+      all_matches <- tidyr::separate(all_matches, value, sep = ",", c("team", "player"))
     }
   }
 
