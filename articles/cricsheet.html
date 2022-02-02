@@ -103,9 +103,16 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/ggtext/" class="external-link">ggtext</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EmilHvitfeldt/paletteer" class="external-link">paletteer</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span></code></pre></div>
-<p>The <code><a href="../reference/fetch_cricsheet.html">fetch_cricsheet()</a></code> function will download csv data from <a href="https://cricsheet.org/downloads" class="external-link">Cricsheet</a>. Data must be specified by three factors: (a) <code>type</code> of data: <code>bbb</code> (ball-by-ball), <code>match</code> or <code>player</code>; (b) <code>gender</code>; (c) <code>competition</code>.</p>
+<p>The <code><a href="../reference/fetch_cricsheet.html">fetch_cricsheet()</a></code> function will download csv data from <a href="https://cricsheet.org/downloads/" class="external-link">Cricsheet</a>. Data must be specified by three factors: (a) <code>type</code> of data: <code>bbb</code> (ball-by-ball), <code>match</code> or <code>player</code>; (b) <code>gender</code>; (c) <code>competition</code>.</p>
 <p>Here are some examples of its use with some WBBL data. An earlier version of this article was published at <a href="https://underthehood.jacquietran.com/post/wbbl-visualisations/" class="external-link uri">https://underthehood.jacquietran.com/post/wbbl-visualisations/</a>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Avoid downloading the data when the package is checked by CRAN.</span>
+<span class="co"># This only needs to be run once to store the data locally</span>
+<span class="va">wbbl_bbb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_cricsheet.html">fetch_cricsheet</a></span><span class="op">(</span>competition <span class="op">=</span> <span class="st">"wbbl"</span>, gender <span class="op">=</span> <span class="st">"female"</span><span class="op">)</span>
+<span class="va">wbbl_match_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_cricsheet.html">fetch_cricsheet</a></span><span class="op">(</span>competition <span class="op">=</span> <span class="st">"wbbl"</span>, type <span class="op">=</span> <span class="st">"match"</span>, gender <span class="op">=</span> <span class="st">"female"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">saveRDS</a></span><span class="op">(</span><span class="va">wbbl_bbb</span>, <span class="st">"inst/extdata/wbbl_bbb.rds"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">saveRDS</a></span><span class="op">(</span><span class="va">wbbl_match_info</span>, <span class="st">"inst/extdata/wbbl_match_info.rds"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Fetch ball-by-ball data</span>
 <span class="va">wbbl_bbb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_cricsheet.html">fetch_cricsheet</a></span><span class="op">(</span>competition <span class="op">=</span> <span class="st">"wbbl"</span>, gender <span class="op">=</span> <span class="st">"female"</span><span class="op">)</span>
 
@@ -121,7 +128,7 @@
 </h3>
 <p>On exploring the Cricsheet data, I noticed that there are only 10 matches from WBBL01 with ball-by-ball data, but there were 59 matches played in the 1st season of WBBL (per <a href="https://en.wikipedia.org/wiki/2015%E2%80%9316_Women%27s_Big_Bash_League_season" class="external-link">Wikipedia</a>).</p>
 <p>Additionally, when I originally worked on this plot of <a href="https://twitter.com/jacquietran/status/1448534315202080773" class="external-link">Healy vs. the world</a>, it was mid-October 2021 and the first ball of #WBBL07 had yet to be bowled. Now, we are reproducing the chart as we are part-way through the current season, so the code below also omits data from any matches played so far in this 7th season.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Data from 2015/16 (WBBL01) excluded due to only having 10 matches worth of data</span>
 <span class="co"># in the Cricsheet spreadsheet.</span>
 <span class="co"># Data from 2021/22 (WBBL07) excluded as season is currently in progress.</span>
@@ -131,7 +138,7 @@
 <p>In cricket broadcasts, batting average is among the most common statistic that commentators will reference to highlight how well a player performs with willow in hand. Batting average is calculated by taking runs scored by a batter over a defined period of time and dividing it by the number of they have been dismissed over that same period.</p>
 <p>With this formula, the batting average metric can produce a somewhat inflated measure of a batter’s performance over time, because the denominator is dismissals and not total innings batted. On top of that, the WBBL season is relatively short - in season 7, there are 14 fixtured rounds, plus semi-finals and finals. So at maximum, a batter could play 16 innings in the current season. Others will bat far fewer innings than that hypothetical maximum, so 2 or 3 not-out innings can have a sizeable influence on batting average.</p>
 <p>All things considered, including the T20 format of the WBBL, I was more interested in Healy’s “production” in the sense of average runs scored per innings.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Alyssa Healy compared to all players who have batted in 3+ innings in a season.</span>
 <span class="va">batting_per_season</span> <span class="op">&lt;-</span> <span class="va">wbbl_bbb_tidy</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">season</span>, <span class="va">striker</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
@@ -151,7 +158,7 @@
 <div class="section level3">
 <h3 id="making-a-plot">Making a plot<a class="anchor" aria-label="anchor" href="#making-a-plot"></a>
 </h3>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Import fonts from Google Fonts</span>
 <span class="fu"><a href="https://rdrr.io/pkg/sysfonts/man/font_add_google.html" class="external-link">font_add_google</a></span><span class="op">(</span><span class="st">"Roboto Condensed"</span>, <span class="st">"roboto_con"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/sysfonts/man/font_add_google.html" class="external-link">font_add_google</a></span><span class="op">(</span><span class="st">"Staatliches"</span>, <span class="st">"staat"</span><span class="op">)</span>
@@ -190,7 +197,7 @@
   <span class="op">)</span>
 <span class="co">#&gt; Warning: Tried to calculate with group_by(), but the calculation failed.</span>
 <span class="co">#&gt; Falling back to ungrouped filter operation...</span></code></pre></div>
-<p><img src="cricsheet_files/figure-html/unnamed-chunk-5-1.png" width="100%"></p>
+<p><img src="cricsheet_files/figure-html/unnamed-chunk-4-1.png" width="100%"></p>
 <p>When plotting Healy’s WBBL production against the rest of the comp, what I see is “run machine” - consistent, high-end output over the last 5 WBBL seasons.</p>
 <p>No hyperbole: there are few better than Alyssa Healy at the crease.</p>
 </div>
@@ -205,7 +212,7 @@
 <h3 id="tidying-the-data-1">Tidying the data<a class="anchor" aria-label="anchor" href="#tidying-the-data-1"></a>
 </h3>
 <p>In the absence of fancy Hawkeye data from the WBBL, I took a simpler route through the Cricsheet ball-by-ball data to visualise how hard it is to take the wicket of the likes of Healy, Beth Mooney, Meg Lanning, Ellyse Perry, Sophie Devine, and Heather Knight.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create new variable for ball number in each over</span>
 <span class="va">ball_number_faced</span> <span class="op">&lt;-</span> <span class="va">wbbl_bbb_tidy</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>ball_num_in_over <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">".*\\."</span>, <span class="st">""</span>, <span class="va">ball</span><span class="op">)</span><span class="op">)</span>
@@ -233,7 +240,7 @@
 <li>League-wide data only includes batters who have faced 200+ balls total (across WBBL02-06, inclusive)</li>
 </ul>
 <p>With the ball-by-ball data prepared for the analysis question, we can then calculate league-wide and player-specific summary statistics for dismissals by ball number:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Merge data and summarise to league-wide dismissals rate by ball number</span>
 <span class="va">dismissals_by_ball_number_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span>
     <span class="va">ball_number_faced_summary</span>, <span class="va">dismissals_by_ball_number</span>,
@@ -273,7 +280,7 @@
 <h3 id="making-plots">Making plots<a class="anchor" aria-label="anchor" href="#making-plots"></a>
 </h3>
 <p>Here’s the code for building <a href="https://twitter.com/jacquietran/status/1449247570656522241" class="external-link">the plot I tweeted out</a>. I decided to build one plot per player of interest and then “quilt” the plots together using the <code>patchwork</code> package (<a href="https://github.com/thomasp85/patchwork" class="external-link uri">https://github.com/thomasp85/patchwork</a>). I’m sure you could achieve the same / similar result using <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">ggplot2::facet_wrap()</a></code> but I just love using <code>patchwork</code> …</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Define consistent plot features ----------------------------------------------</span>
 <span class="va">plot_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span>,
@@ -398,7 +405,7 @@
 
 <span class="co"># Quilt the plots --------------------------------------------------------------</span>
 <span class="op">(</span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span> <span class="va">p3</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p4</span> <span class="op">+</span> <span class="va">p5</span> <span class="op">+</span> <span class="va">p6</span><span class="op">)</span></code></pre></div>
-<p><img src="cricsheet_files/figure-html/unnamed-chunk-8-1.png" width="100%"></p>
+<p><img src="cricsheet_files/figure-html/unnamed-chunk-7-1.png" width="100%"></p>
 <p>My key observations (covered in <a href="https://twitter.com/jacquietran/status/1449247570656522241" class="external-link">this tweet thread</a>):</p>
 <ol style="list-style-type: decimal">
 <li>Lanning doesn’t give much away on any ball number in an over - of balls faced at each ball number (1-6), her dismissals percentages range from 2.7-3.4%. Well under league medians of 4.3-5.1%.</li>
@@ -421,7 +428,7 @@
 <h3 id="tidying-the-data-2">Tidying the data<a class="anchor" aria-label="anchor" href="#tidying-the-data-2"></a>
 </h3>
 <p>For a more granular focus, I created a subset from the Cricsheet data that includes matches played in season 7 of the WBBL. At the time I produced <a href="https://twitter.com/jacquietran/status/1458000166397480962" class="external-link">my original visualisation</a>, the ball-by-ball data included all games played up to 7 November 2021.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Subset match metadata for WBB07 games</span>
 <span class="va">wbbl07_match_info_tidy</span> <span class="op">&lt;-</span> <span class="va">wbbl_match_info</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">season</span> <span class="op">==</span> <span class="st">"2021/22"</span>, <span class="va">date</span> <span class="op">&lt;=</span> <span class="st">"2021/11/07"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
@@ -467,7 +474,7 @@
     <span class="op">)</span>
   <span class="op">)</span></code></pre></div>
 <p>Using the WBBL07 data subset, I did some further tidying to calculate team strike rates per innings:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">team_strike_rate</span> <span class="op">&lt;-</span> <span class="va">wbbl07_bbb_tidy</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="co"># Exclude matches that ended with a Super Over ("tie")</span>
   <span class="co"># and matches that were called off ("no result")</span>
@@ -514,7 +521,7 @@
 <p>There’s plenty that can be done with the <code>team_strike_rate</code> data which could warrant a dedicated exploration in itself. But I usually find that when I’m exploring a new analytical idea, it’s easier for me to get a feel for what the data does and or doesn’t highlight by going with a “small batch” approach.</p>
 <p>With the Renegades at the top of the standings (as of 7 Nov), I focused on their team strike rates, a.k.a. <em>“wiggly bois”</em>:</p>
 <p><img src="figs/tweet.png" width="75%" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Filter to Renegades' innings only --------------------------------------------</span>
 <span class="va">team_strike_rate_renegades</span> <span class="op">&lt;-</span> <span class="va">team_strike_rate</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html" class="external-link">str_detect</a></span><span class="op">(</span><span class="va">batting_team</span>, <span class="st">"Renegades"</span><span class="op">)</span><span class="op">)</span>
@@ -566,7 +573,7 @@
     panel.spacing <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">2</span>, <span class="st">"lines"</span><span class="op">)</span>,
     plot.margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span><span class="op">)</span>, <span class="st">"cm"</span><span class="op">)</span>
   <span class="op">)</span></code></pre></div>
-<p><img src="cricsheet_files/figure-html/unnamed-chunk-12-1.png" width="100%"></p>
+<p><img src="cricsheet_files/figure-html/unnamed-chunk-11-1.png" width="100%"></p>
 <p>The plots show the Renegades’ team strike rate across each innings they’ve batted, with wicket occurrences overlaid. From a visual assessment, it looks like wickets have not dampened the enthusiasm of Renegades’ batters for striking the ball - broadly speaking, it appears that, when the new batter comes in for the Renegades, they are often able to maintain the team’s strike rate. In some games, they’ve even managed to accelerate after losing a wicket.</p>
 <p>Importantly, the Renegades have not lost many wickets in Powerplay overs this season, which puts them in a better position to push the scoring pace as an innings wears on with most of their wickets in hand.</p>
 </div>
