@@ -1,5 +1,12 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- badges: start -->
+
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/cricketdata)](https://cran.r-project.org/package=cricketdata)
+[![Downloads](https://cranlogs.r-pkg.org/badges/cricketdata)](https://cran.r-project.org/package=cricketdata)
+[![Licence](https://img.shields.io/badge/licence-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
+[![R-CMD-check](https://github.com/robjhyndman/cricketdata/workflows/R-CMD-check/badge.svg)](https://github.com/robjhyndman/cricketdata/actions)
+<!-- badges: end -->
 
 # cricketdata
 
