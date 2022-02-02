@@ -33,7 +33,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
@@ -66,6 +66,9 @@
     
   </div>
 </nav><div class="container template-article">
+
+
+
 <script src="cricsheet_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <main id="main"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Cricsheet data</h1>
@@ -510,7 +513,7 @@
 </h3>
 <p>There’s plenty that can be done with the <code>team_strike_rate</code> data which could warrant a dedicated exploration in itself. But I usually find that when I’m exploring a new analytical idea, it’s easier for me to get a feel for what the data does and or doesn’t highlight by going with a “small batch” approach.</p>
 <p>With the Renegades at the top of the standings (as of 7 Nov), I focused on their team strike rates, a.k.a. <em>“wiggly bois”</em>:</p>
-<p><img src="cricsheet_files/figure-html/unnamed-chunk-11-1.png" width="75%" style="display: block; margin: auto;"></p>
+<p><img src="figs/tweet.png" width="75%" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Filter to Renegades' innings only --------------------------------------------</span>
 <span class="va">team_strike_rate_renegades</span> <span class="op">&lt;-</span> <span class="va">team_strike_rate</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
@@ -581,7 +584,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
     </footer>
