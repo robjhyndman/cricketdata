@@ -7,7 +7,7 @@
 #' (a) type of data: `bbb` (ball-by-ball), `match` or `player`.
 #' (b) gender;
 #' (c) competition.
-#' See \url{https://cricsheet.org/downloads} for what the competition character codes mean.
+#' See \url{https://cricsheet.org/downloads/} for what the competition character codes mean.
 #'
 #' @param type Character string giving type of data: ball-by-ball, match info or player info.
 #' @param gender Character string giving player gender: female or male.

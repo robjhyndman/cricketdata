@@ -26,7 +26,7 @@ Data must be specified by three factors:
 (a) type of data: `bbb` (ball-by-ball), `match` or `player`.
 (b) gender;
 (c) competition.
-See \url{https://cricsheet.org/downloads} for what the competition character codes mean.
+See \url{https://cricsheet.org/downloads/} for what the competition character codes mean.
 }
 \examples{
 \dontrun{
