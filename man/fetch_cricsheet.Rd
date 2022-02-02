@@ -21,7 +21,7 @@ fetch_cricsheet(
 \item{competition}{Character string giving name of competition.}
 }
 \description{
-Download csv data from Cricsheet \url{https://cricsheet.org/downloads}.
+Download csv data from Cricsheet \url{https://cricsheet.org/downloads/}.
 Data must be specified by three factors:
 (a) type of data: `bbb` (ball-by-ball), `match` or `player`.
 (b) gender;

@@ -2,7 +2,7 @@
 
 #' Fetch Cricsheet ball-by-ball, match and player data
 #'
-#' Download csv data from Cricsheet \url{https://cricsheet.org/downloads}.
+#' Download csv data from Cricsheet \url{https://cricsheet.org/downloads/}.
 #' Data must be specified by three factors:
 #' (a) type of data: `bbb` (ball-by-ball), `match` or `player`.
 #' (b) gender;
