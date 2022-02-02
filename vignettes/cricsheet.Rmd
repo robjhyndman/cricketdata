@@ -470,7 +470,7 @@ There’s plenty that can be done with the `team_strike_rate` data which could w
 With the Renegades at the top of the standings (as of 7 Nov), I focused on their team strike rates, a.k.a. *“wiggly bois”*:
 
 ```{r echo=FALSE, out.width="75%", fig.align="center"}
-tweetrmd::tweet_screenshot("https://twitter.com/alyssastweeting/status/1458000401291120641")
+knitr::include_graphics("figs/tweet.png")
 ```
 
 ```{r, fig.width=9, fig.height=12, out.width="100%", warning=FALSE, message=FALSE}

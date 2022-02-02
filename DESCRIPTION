@@ -35,12 +35,7 @@ Suggests:
   patchwork,
   rmarkdown,
   showtext,
-  tidyverse,
-  tweetrmd,
-  webshot2
-Remotes:
-  gadenbuie/tweetrmd,
-  rstudio/webshot2
+  tidyverse
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
