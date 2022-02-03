@@ -2,7 +2,7 @@ Package: cricketdata
 Version: 0.1.0
 Title: International Cricket Data
 Description: Data on international and other major cricket matches from 
-  ESPNCricinfo and Cricsheet.
+  ESPNCricinfo <https://www.espncricinfo.com> and Cricsheet <https://cricsheet.org>.
   This package provides some functions to download the data into tibbles ready
   for analysis.
 Authors@R: c(

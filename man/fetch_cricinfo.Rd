@@ -23,6 +23,9 @@ fetch_cricinfo(
 
 \item{country}{Character indicating country. The default is to fetch data for all countries.}
 }
+\value{
+A \code{tibble} object, similar to a \code{data.frame}.
+}
 \description{
 Fetch data from ESPNCricinfo and return a tibble. 
 All arguments are case-insensitive and partially matched.

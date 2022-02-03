@@ -1,6 +1,6 @@
 # For retrieving ball-by-ball data ---------------------------------------------
 
-#' Fetch Cricsheet ball-by-ball, match and player data
+#' Fetch ball-by-ball, match and player data from Cricsheet and return a tibble.
 #'
 #' Download csv data from Cricsheet \url{https://cricsheet.org/downloads/}.
 #' Data must be specified by three factors:
@@ -13,6 +13,7 @@
 #' @param gender Character string giving player gender: female or male.
 #' @param competition Character string giving name of competition.
 #' @author Jacquie Tran and Rob J Hyndman
+#' @return A \code{tibble} object, similar to a \code{data.frame}.
 #' @examples
 #' \dontrun{
 #' wbbl_bbb <- fetch_cricsheet(competition = "wbbl", type = "bbb")

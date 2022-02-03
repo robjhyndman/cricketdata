@@ -10,6 +10,7 @@
 #' @param country Character indicating country. The default is to fetch data for all countries. 
 #'
 #' @author Rob J Hyndman, Timothy Hyndman, Charles Gray
+#' @return A \code{tibble} object, similar to a \code{data.frame}.
 #' @examples
 #' \dontrun{
 #' auswt20 <- fetch_cricinfo("T20", "Women", country="Aust")

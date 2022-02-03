@@ -2,7 +2,7 @@
 % Please edit documentation in R/fetch_cricsheet.R
 \name{fetch_cricsheet}
 \alias{fetch_cricsheet}
-\title{Fetch Cricsheet ball-by-ball, match and player data}
+\title{Fetch ball-by-ball, match and player data from Cricsheet and return a tibble.}
 \usage{
 fetch_cricsheet(
   type = c("bbb", "match", "player"),
@@ -19,6 +19,9 @@ fetch_cricsheet(
 \item{gender}{Character string giving player gender: female or male.}
 
 \item{competition}{Character string giving name of competition.}
+}
+\value{
+A \code{tibble} object, similar to a \code{data.frame}.
 }
 \description{
 Download csv data from Cricsheet \url{https://cricsheet.org/downloads/}.
