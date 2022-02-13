@@ -1,3 +1,6 @@
+# Version 0.1.1
+  * Fixes to vignettes
+
 # Version 0.1.0
   * Added fetch_cricsheet() functions, thanks to @jacquietran.
   * Added vignettes for fetch_cricsheet() and fetch_cricinfo().
