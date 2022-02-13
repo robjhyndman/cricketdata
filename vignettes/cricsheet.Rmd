@@ -38,7 +38,7 @@ The `fetch_cricsheet()` function will download csv data from [Cricsheet](https:/
 
 Here are some examples of its use with some WBBL data. An earlier version of this article was published at https://underthehood.jacquietran.com/post/wbbl-visualisations/.
 
-```{r getdata, eval=FALSE}
+```{r getdata, eval=FALSE, echo=FALSE}
 # Avoid downloading the data when the package is checked by CRAN.
 # This only needs to be run once to store the data locally
 wbbl_bbb <- fetch_cricsheet(competition = "wbbl", gender = "female")
