@@ -1,3 +1,5 @@
+# cricketdata (development version)
+
 # Version 0.1.1
   * Fixes to vignettes
   * Dont run slow example
