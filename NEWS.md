@@ -1,5 +1,6 @@
 # Version 0.1.1
   * Fixes to vignettes
+  * Dont run slow example
 
 # Version 0.1.0
   * Added fetch_cricsheet() functions, thanks to @jacquietran.
