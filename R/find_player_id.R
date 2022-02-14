@@ -3,8 +3,10 @@
 #' @param searchstring Part of a player name(s) to search for. Can be a character vector.
 #' @return A table of matching players, their ids, and teams they played for.
 #' @examples
+#' \dontrun{
 #' (perry <- find_player_id("Perry"))
 #' EllysePerry <- fetch_player_data(perry[2,"ID"], "test")
+#' }
 #' @author Rob J Hyndman
 #' @export
 
