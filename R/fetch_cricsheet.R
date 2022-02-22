@@ -70,6 +70,7 @@ fetch_cricsheet <- function(
   # List all files in zip
   check_files <- unzip(destfile, exdir = tempdir(), list = TRUE)$Name 
   check_files <- data.frame(check_files = check_files) 
+  check_files$check_files <- as.character(check_files$check_files)
   check_files$file_type <- dplyr::case_when(
       stringr::str_detect(check_files$check_files, "txt") ~ "txt",
       stringr::str_detect(check_files$check_files, "_info") ~ "info",
@@ -117,7 +118,7 @@ fetch_cricsheet <- function(
     # (i.e., excluding player / people metadata)
     # Note: Warning suppressed again as per note above.
     all_matches$col_to_delete <- NULL
-    all_matches$match_id <- sub(file.path(tempdir(), subdir,""), "", all_matches$path)
+    all_matches$match_id <- stringr::str_extract(all_matches$path, "[a-zA-Z0-9_\\-\\.]*$")
     all_matches$match_id <- sub("_info.csv", "", all_matches$match_id)
     all_matches$path <- NULL
     if(type == "match") {
