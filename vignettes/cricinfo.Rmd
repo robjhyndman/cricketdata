@@ -146,7 +146,7 @@ names(MLave) <- paste("Average =", round(MLave, 2))
 # Plot ODI scores
 ggplot(MegLanning) +
   geom_hline(aes(yintercept = MLave), col="gray") +
-  geom_point(aes(x = Start_Date, y = Runs, col = NotOut)) +
+  geom_point(aes(x = Date, y = Runs, col = NotOut)) +
   ggtitle("Meg Lanning ODI Scores") +
   scale_y_continuous(sec.axis = sec_axis(~., breaks = MLave))
 ```

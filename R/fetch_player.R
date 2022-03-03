@@ -95,20 +95,21 @@ fetch_player_data <- function(playerid,
   # Convert "-" to NA
   tab[tab == "-"] <- NA
   
+  # Convert some columns to numeric or Date
+  tab$Innings <- as.integer(tab$Inns)
+  tab$Date <- lubridate::dmy(tab$`Start Date`)
+  tab$Start_Date <- NULL
+  tab$Opposition <- substring(tab$Opposition, 3)
+  tab$Ground <- as.character(tab$Ground)
+  tab$Mins <- as.numeric(tab$Mins)
+  
   # Make tidy column names columns
   tidy.col <- make.names(colnames(tab), unique = TRUE)
   colnames(tab) <- gsub(".", "_", tidy.col, fixed = TRUE)
   tidy.col <- colnames(tab)
   
-  # Convert some columns to numeric or Date
-  tab$Innings <- as.integer(tab$Inns)
-  tab$Start_Date <- lubridate::dmy(tab$Start_Date)
-  tab$Opposition <- substring(tab$Opposition, 3)
-  tab$Ground <- as.character(tab$Ground)
-  tab$Mins <- as.numeric(tab$Mins)
-  
   ## order the elements, no difference for different activities
-  com_col <- c("Start_Date", "Innings", "Opposition", "Ground")
+  com_col <- c("Date", "Innings", "Opposition", "Ground")
   
   ##Removing "*" in the column `Runs` and converting it to numeric
   if("Runs" %in% colnames(tab))
