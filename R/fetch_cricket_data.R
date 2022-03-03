@@ -78,7 +78,7 @@ fetch_cricket_data <- function(matchtype = c("test", "odi", "t20"),
     if(!theend)
     {
       # Make allcolumns characters for now.
-      tab <- tibble::as_tibble(apply(tab, 2, as.character),.name_repair = "unique")
+      tab <- suppressMessages(tibble::as_tibble(apply(tab, 2, as.character),.name_repair = "unique"))
 
       # Bind the data extracted from this page to all data collected so far.
       alldata <- dplyr::bind_rows(alldata, tab)
@@ -94,7 +94,7 @@ fetch_cricket_data <- function(matchtype = c("test", "odi", "t20"),
 
   # Remove redundant missings columns.
   alldata <-
-    tibble::as_tibble(alldata[, colSums(is.na(alldata)) != NROW(alldata)],.name_repair = "check_unique")
+    suppressMessages(tibble::as_tibble(alldata[, colSums(is.na(alldata)) != NROW(alldata)],.name_repair = "check_unique"))
   # Convert "-" to NA
   alldata[alldata == "-"] <- NA
 
