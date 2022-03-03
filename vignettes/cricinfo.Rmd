@@ -62,9 +62,8 @@ MegLanning <- readRDS("../inst/extdata/MegLanning.rds")
 wt20 <- fetch_cricinfo("T20", "Women", "Bowling")
 ```
 
-```{r woment20, message=FALSE}
+```{r woment20, message=FALSE, echo = FALSE}
 wt20 %>%
-  mutate(Economy = parse_number(Economy)) %>%
   head() %>%
   knitr::kable(digits=2)
 ```
@@ -87,7 +86,7 @@ wt20 %>%
 menODI <- fetch_cricinfo("ODI", "Men", "Batting", type = "innings", country = "Australia")
 ```
 
-```{r menodi, message=FALSE}
+```{r menodi, message=FALSE, echo=FALSE}
 menODI %>%
   head() %>%
   knitr::kable()
@@ -107,7 +106,7 @@ menODI %>%
 Indfielding <- fetch_cricinfo("Test", "Men", "Fielding", country = "India")
 ```
 
-```{r indiafielding}
+```{r indiafielding, echo=FALSE}
 Indfielding %>%
   head() %>%
   knitr::kable()
@@ -129,7 +128,7 @@ MegLanning <- fetch_player_data(meg_lanning_id, "ODI") %>%
   mutate(NotOut = (Dismissal == "not out"))
 ```
 
-```{r meglanning}
+```{r meglanning, echo=FALSE}
 MegLanning %>%
   head() %>%
   knitr::kable()
