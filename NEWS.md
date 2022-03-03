@@ -1,4 +1,6 @@
 # cricketdata (development version)
+  * Improved data cleaning for cricinfo data.
+  * Improved cricinfo vignette.
 
 # Version 0.1.1
   * Fixes to vignettes
