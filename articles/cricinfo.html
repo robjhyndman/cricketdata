@@ -527,23 +527,24 @@
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>NotOut <span class="op">=</span> <span class="op">(</span><span class="va">Dismissal</span> <span class="op">==</span> <span class="st">"not out"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <colgroup>
+<col width="10%">
+<col width="7%">
+<col width="10%">
 <col width="11%">
-<col width="8%">
-<col width="12%">
-<col width="13%">
+<col width="4%">
+<col width="4%">
+<col width="3%">
+<col width="3%">
+<col width="3%">
 <col width="5%">
-<col width="5%">
-<col width="4%">
-<col width="4%">
-<col width="4%">
-<col width="6%">
+<col width="3%">
+<col width="9%">
 <col width="4%">
 <col width="10%">
-<col width="5%">
-<col width="7%">
+<col width="6%">
 </colgroup>
 <thead><tr class="header">
-<th align="left">Start_Date</th>
+<th align="left">Date</th>
 <th align="right">Innings</th>
 <th align="left">Opposition</th>
 <th align="left">Ground</th>
@@ -556,6 +557,7 @@
 <th align="right">Pos</th>
 <th align="left">Dismissal</th>
 <th align="right">Inns</th>
+<th align="left">Start_Date</th>
 <th align="left">NotOut</th>
 </tr></thead>
 <tbody>
@@ -573,6 +575,7 @@
 <td align="right">2</td>
 <td align="left">caught</td>
 <td align="right">1</td>
+<td align="left">5 Jan 2011</td>
 <td align="left">FALSE</td>
 </tr>
 <tr class="even">
@@ -589,6 +592,7 @@
 <td align="right">2</td>
 <td align="left">not out</td>
 <td align="right">2</td>
+<td align="left">7 Jan 2011</td>
 <td align="left">TRUE</td>
 </tr>
 <tr class="odd">
@@ -605,6 +609,7 @@
 <td align="right">2</td>
 <td align="left">bowled</td>
 <td align="right">2</td>
+<td align="left">14 Jun 2011</td>
 <td align="left">FALSE</td>
 </tr>
 <tr class="even">
@@ -621,6 +626,7 @@
 <td align="right">2</td>
 <td align="left">caught</td>
 <td align="right">1</td>
+<td align="left">16 Jun 2011</td>
 <td align="left">FALSE</td>
 </tr>
 <tr class="odd">
@@ -637,6 +643,7 @@
 <td align="right">2</td>
 <td align="left">caught</td>
 <td align="right">1</td>
+<td align="left">30 Jun 2011</td>
 <td align="left">FALSE</td>
 </tr>
 <tr class="even">
@@ -653,6 +660,7 @@
 <td align="right">2</td>
 <td align="left">run out</td>
 <td align="right">2</td>
+<td align="left">2 Jul 2011</td>
 <td align="left">FALSE</td>
 </tr>
 </tbody>
@@ -669,7 +677,7 @@
 <span class="co"># Plot ODI scores</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">MegLanning</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="va">MLave</span><span class="op">)</span>, col<span class="op">=</span><span class="st">"gray"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Start_Date</span>, y <span class="op">=</span> <span class="va">Runs</span>, col <span class="op">=</span> <span class="va">NotOut</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Date</span>, y <span class="op">=</span> <span class="va">Runs</span>, col <span class="op">=</span> <span class="va">NotOut</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Meg Lanning ODI Scores"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>sec.axis <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/sec_axis.html" class="external-link">sec_axis</a></span><span class="op">(</span><span class="op">~</span><span class="va">.</span>, breaks <span class="op">=</span> <span class="va">MLave</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="cricinfo_files/figure-html/meglanninggraph-1.png" width="700"></p>
