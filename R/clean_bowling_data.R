@@ -71,8 +71,10 @@ clean_bowling_data <- function(x)
   else
     balls <- trunc(x$Overs)*6 + (x$Overs %% 1)*10
   if("Economy" %in% vars)  {
+    x$Economy <- as.numeric(x$Economy)
     ER <- x$Runs / (balls/6)
-    differ <- abs(round(ER,2) - as.numeric(x$Economy)) > 0.05
+    # Don't modify values if they differ by more than 0.05
+    differ <- abs(round(ER,2) - x$Economy) > 0.05
     differ[is.na(differ)] <- FALSE
     x$Economy[!differ] <- ER[!differ]
   }
@@ -89,7 +91,7 @@ clean_bowling_data <- function(x)
     x$Country <- stringr::str_extract(x$Player, "\\([a-zA-Z \\-extends]+\\)")
     x$Country <- stringr::str_replace_all(x$Country, "\\(|\\)|-W", "")
     x$Country <- rename_countries(x$Country)
-    x$Player <- stringr::str_replace(x$Player, "\\([a-zA-Z  \\-]+\\)", "")
+    x$Player <- stringr::str_replace(x$Player, " \\([a-zA-Z  \\-]+\\)", "")
   }
 
   # Re-order and select columns

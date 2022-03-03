@@ -101,18 +101,16 @@ fetch_player_data <- function(playerid,
   tidy.col <- colnames(tab)
   
   # Convert some columns to numeric or Date
-  
   tab$Innings <- as.integer(tab$Inns)
   tab$Start_Date <- lubridate::dmy(tab$Start_Date)
   tab$Opposition <- substring(tab$Opposition, 3)
   tab$Ground <- as.character(tab$Ground)
+  tab$Mins <- as.numeric(tab$Mins)
   
   ## order the elements, no difference for different activities
-  
   com_col <- c("Start_Date", "Innings", "Opposition", "Ground")
   
   ##Removing "*" in the column `Runs` and converting it to numeric
-
   if("Runs" %in% colnames(tab))
     tab$Runs <- suppressWarnings(as.numeric(gsub("*", "", x = tab$Runs, fixed = TRUE)))
 
