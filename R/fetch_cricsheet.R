@@ -139,7 +139,8 @@ fetch_cricsheet <- function(
          id_cols = "match_id",
          names_from = "key",
          values_from = "value",
-          values_fill = NA,
+         values_fill = NA,
+         values_fn = ~ head(.x, 1) # To remove duplicated values such as date
         ) 
       all_matches <- dplyr::mutate_all(all_matches, ~replace(., .=="NULL", NA_character_))
       
