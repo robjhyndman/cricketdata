@@ -68,15 +68,15 @@ fetch_cricsheet <- function(
   }
 
   # List all files in zip
-  check_files <- unzip(destfile, exdir = tempdir(), list = TRUE)$Name 
-  check_files <- data.frame(check_files = check_files) 
+  check_files <- unzip(destfile, exdir = tempdir(), list = TRUE)$Name
+  check_files <- data.frame(check_files = check_files)
   check_files$check_files <- as.character(check_files$check_files)
   check_files$file_type <- dplyr::case_when(
-      stringr::str_detect(check_files$check_files, "txt") ~ "txt",
-      stringr::str_detect(check_files$check_files, "_info") ~ "info",
-      stringr::str_detect(check_files$check_files, "all_matches") ~ "allbbb",
-      TRUE ~ "bbb"
-    )
+    stringr::str_detect(check_files$check_files, "txt") ~ "txt",
+    stringr::str_detect(check_files$check_files, "_info") ~ "info",
+    stringr::str_detect(check_files$check_files, "all_matches") ~ "allbbb",
+    TRUE ~ "bbb"
+  )
 
   # Identify the required files
   if (type == "bbb") {
@@ -90,10 +90,10 @@ fetch_cricsheet <- function(
   }
   # Unzip files into sub directory
   unzip(destfile, match_files, exdir = file.path(tempdir(), subdir))
-  
+
   # List match files with full file paths
   match_filepaths <- file.path(tempdir(), subdir, match_files)
-  
+
   if (type == "bbb") {
       # Read data from CSVs stored in the temp directory
       all_matches <- do.call("rbind",
@@ -109,11 +109,11 @@ fetch_cricsheet <- function(
     )
     # Note: Warning suppressed because the source data
     # changes format slightly when displaying player metadata compared to match data
-    # Match metadata is in key-value pairs, 
+    # Match metadata is in key-value pairs,
     # while player metadata contains additional value columns
     # We can safely suppress the warning(s) here and deal with the different
     # formats below.
-    
+
     # Tidy up and subset to match metadata only
     # (i.e., excluding player / people metadata)
     # Note: Warning suppressed again as per note above.
@@ -121,37 +121,161 @@ fetch_cricsheet <- function(
     all_matches$match_id <- stringr::str_extract(all_matches$path, "[a-zA-Z0-9_\\-\\.]*$")
     all_matches$match_id <- sub("_info.csv", "", all_matches$match_id)
     all_matches$path <- NULL
-    if(type == "match") {
-      all_matches <- all_matches[!(all_matches$key %in% c("player", "players", "registry")),]
+    if (type == "match") {
+      all_matches <- all_matches[!(all_matches$key %in% c("player", "players", "registry")), ]
       # Find columns with multiple values per key/match_id
       # Rows with second teams named
       j <- which(all_matches$key == "team")
-      j <- j[seq(2, length(j), by=2)]
+      j <- j[seq(2, length(j), by = 2)]
       all_matches$key[j] <- "team2"
       all_matches$key[all_matches$key == "team"] <- "team1"
       # Rows with second umpires named
       j <- which(all_matches$key == "umpire")
-      j <- j[seq(2, length(j), by=2)]
+      j <- j[seq(2, length(j), by = 2)]
       all_matches$key[j] <- "umpire2"
       all_matches$key[all_matches$key == "umpire"] <- "umpire1"
-      # Make into wide form    
-      all_matches <- tidyr::pivot_wider(all_matches, 
-         id_cols = "match_id",
-         names_from = "key",
-         values_from = "value",
-         values_fill = NA,
-         values_fn = ~ head(.x, 1) # To remove duplicated values such as date
-        ) 
-      all_matches <- dplyr::mutate_all(all_matches, ~replace(., .=="NULL", NA_character_))
-      
+      # Make into wide form
+      all_matches <- tidyr::pivot_wider(all_matches,
+        id_cols = "match_id",
+        names_from = "key",
+        values_from = "value",
+        values_fill = NA,
+        values_fn = ~ head(.x, 1) # To remove duplicated values such as date
+      )
+      all_matches <- dplyr::mutate_all(all_matches, ~ replace(., . == "NULL", NA_character_))
     } else {
-      all_matches <- all_matches[all_matches$key %in% c("player", "players"),]
+      all_matches <- all_matches[all_matches$key %in% c("player", "players"), ]
       all_matches$key <- NULL
       all_matches <- tidyr::separate(all_matches, value, sep = ",", c("team", "player"))
     }
   }
+  output <- tibble::as_tibble(all_matches)
 
-  return(tibble::as_tibble(all_matches))
+  # Clean data
+  t20 <- competition %in% c(
+    "t20is", "t20is_unofficial",
+    "apl", "bbl", "bpl", "edwards_cup", "cpl",
+    "ipl", "lpl", "msl", "t20_blast",
+    "psl", "super_smash", "wbbl", "wt20c"
+  )
+  if (type == "bbb" & t20) {
+    output <- cleaning_bbb_t20_cricsheet(output)
+  }
+
+  return(output)
 }
 
-utils::globalVariables(c("competition_type", "col_to_delete", "exclude_flag", "glued_url", "key", "match_id", "path_start", "path", "value"))
+# Function to clean raw t20 bbb data from cricsheet
+# Provided by
+cleaning_bbb_t20_cricsheet <- function(df) {
+  df <- df %>%
+    dplyr::mutate(
+      # Wicket lost
+      wicket = (wicket_type == ""),
+      # Over number
+      over = ceiling(ball),
+      # Extra ball to follow
+      extra_ball = (!is.na(wides) | !is.na(noballs))
+    ) %>%
+    dplyr::group_by(match_id, innings, over) %>%
+    # Adjusting the ball values by introducing raw_balls, so that 1.1 and 1.10
+    # are correctly differentiated as the first & tenth ball, respectively
+    dplyr::mutate(ball = dplyr::row_number()) %>%
+    dplyr::ungroup()
+
+  # Evaluating and joining runs scored, wickets lost at each stage of an innings
+  df <- df %>%
+    dplyr::inner_join(
+      df %>%
+        dplyr::group_by(match_id, innings) %>%
+        dplyr::summarise(
+          runs_scored_yet = cumsum(runs_off_bat + extras),
+          wickets_lost_yet = cumsum(wicket),
+          ball = ball, over = over,
+          .groups = "drop"
+        ),
+      by = c("match_id", "innings", "over", "ball")
+    )
+
+  # Evaluating the balls in over after adjusting for extra balls and balls remaining in an innings
+  remaining_balls <- df %>%
+    dplyr::group_by(match_id, innings, over) %>%
+    dplyr::summarise(ball = ball, extra_ball = cumsum(extra_ball), .groups = "drop") %>%
+    dplyr::mutate(
+      ball_in_over = ball - extra_ball,
+      balls_remaining = ifelse(innings %in% c(1, 2), 120 - ((over - 1) * 6 + ball_in_over), 6 - ball_in_over)
+    ) %>%
+    dplyr::select(-extra_ball)
+
+  # Evaluating innings totals using ball-by-ball data
+  innings_total <- df %>%
+    dplyr::group_by(match_id, innings) %>%
+    dplyr::summarise(total_score = sum(runs_off_bat + extras), .groups = "drop") %>%
+    tidyr::pivot_wider(
+      names_from  = "innings",
+      values_from = c("total_score")
+    ) %>%
+    dplyr::rename(innings1_total = "1", innings2_total = "2")
+
+  # Joining all the dfs
+  df <- df %>%
+    dplyr::inner_join(remaining_balls, by = c("match_id", "innings", "over", "ball")) %>%
+    dplyr::inner_join(innings_total, by = "match_id") %>%
+    dplyr::mutate(target = innings1_total + 1)
+
+  # Re-ordering the columns in the df
+  df <- df %>%
+    dplyr::select(
+      match_id, season, start_date, venue, innings, over, ball, batting_team,
+      bowling_team, striker, non_striker, bowler, runs_off_bat, extras,
+      ball_in_over, extra_ball, balls_remaining, runs_scored_yet,
+      wicket, wickets_lost_yet, innings1_total, innings2_total, target,
+      wides, noballs, byes, legbyes, penalty, wicket_type, player_dismissed,
+      other_wicket_type, other_player_dismissed, dplyr::everything()
+    )
+
+  return(df)
+}
+
+utils::globalVariables(c(
+  "ball_in_over",
+  "ball",
+  "balls_remaining",
+  "batting_team",
+  "bowler",
+  "bowling_team",
+  "byes",
+  "col_to_delete",
+  "competition_type",
+  "exclude_flag",
+  "extra_ball",
+  "extras",
+  "glued_url",
+  "innings",
+  "innings1_total",
+  "innings2_total",
+  "key",
+  "legbyes",
+  "match_id",
+  "noballs",
+  "non_striker",
+  "other_player_dismissed",
+  "other_wicket_type",
+  "over",
+  "path_start",
+  "path",
+  "penalty",
+  "player_dismissed",
+  "runs_off_bat",
+  "runs_scored_yet",
+  "season",
+  "start_date",
+  "striker",
+  "target",
+  "value",
+  "venue",
+  "wicket_type",
+  "wicket",
+  "wickets_lost_yet",
+  "wides"
+))
