@@ -171,7 +171,7 @@ cleaning_bbb_t20_cricsheet <- function(df) {
   df <- df %>%
     dplyr::mutate(
       # Wicket lost
-      wicket = (wicket_type != ""),
+      wicket = !(wicket_type %in% c("", "retired hurt")),
       # Over number
       over = ceiling(ball),
       # Extra ball to follow
