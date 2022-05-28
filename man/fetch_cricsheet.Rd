@@ -39,5 +39,5 @@ wbbl_player <- fetch_cricsheet(competition = "wbbl", type = "player")
 }
 }
 \author{
-Jacquie Tran and Rob J Hyndman
+Jacquie Tran, Hassan Rafique and Rob J Hyndman
 }

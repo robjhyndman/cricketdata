@@ -12,7 +12,7 @@
 #' @param type Character string giving type of data: ball-by-ball, match info or player info.
 #' @param gender Character string giving player gender: female or male.
 #' @param competition Character string giving name of competition.
-#' @author Jacquie Tran and Rob J Hyndman
+#' @author Jacquie Tran, Hassan Rafique and Rob J Hyndman
 #' @return A \code{tibble} object, similar to a \code{data.frame}.
 #' @examples
 #' \dontrun{
