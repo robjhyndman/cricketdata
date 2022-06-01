@@ -215,7 +215,8 @@ cleaning_bbb_t20_cricsheet <- function(df) {
       names_from  = "innings",
       values_from = c("total_score")
     ) %>%
-    dplyr::rename(innings1_total = "1", innings2_total = "2")
+    dplyr::rename(innings1_total = "1", innings2_total = "2") %>%
+    dplyr::select(match_id, innings1_total, innings2_total)
 
   # Joining all the dfs
   df <- df %>%
