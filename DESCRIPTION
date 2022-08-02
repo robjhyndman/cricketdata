@@ -41,7 +41,7 @@ Suggests:
 License: GPL-3
 Encoding: UTF-8
 ByteCompile: true
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1
 VignetteBuilder: knitr
 URL: http://pkg.robjhyndman.com/cricketdata/,
     https://github.com/robjhyndman/cricketdata
