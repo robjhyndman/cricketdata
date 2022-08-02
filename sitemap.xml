@@ -34,6 +34,9 @@
     <loc>http://pkg.robjhyndman.com/cricketdata/reference/fetch_player_data.html</loc>
   </url>
   <url>
+    <loc>http://pkg.robjhyndman.com/cricketdata/reference/fetch_player_meta.html</loc>
+  </url>
+  <url>
     <loc>http://pkg.robjhyndman.com/cricketdata/reference/find_player_id.html</loc>
   </url>
   <url>
