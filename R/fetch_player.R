@@ -89,7 +89,6 @@ fetch_player_data <- function(playerid,
     stop(paste("Player has never played", matchtype, "format", sep = " "), call. = F)
   }
   # Remove redundant missings columns
-  
   tab <- tibble::as_tibble(tab[, colSums(is.na(tab)) != NROW(tab)],.name_repair = "check_unique")
   
   # Convert "-" to NA
@@ -98,7 +97,7 @@ fetch_player_data <- function(playerid,
   # Convert some columns to numeric or Date
   tab$Innings <- as.integer(tab$Inns)
   tab$Date <- lubridate::dmy(tab$`Start Date`)
-  tab$Start_Date <- NULL
+  tab$`Start Date` <- NULL
   tab$Opposition <- substring(tab$Opposition, 3)
   tab$Ground <- as.character(tab$Ground)
   tab$Mins <- as.numeric(tab$Mins)
