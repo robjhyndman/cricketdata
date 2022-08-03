@@ -15,6 +15,8 @@
 #' @return A tibble containing data on the selected player, with one row for every innings
 #' of every match in which they have played.
 #' @author Rob J Hyndman and Sayani Gupta
+#' @seealso \code{\link{find_player_id}()} to find a player ID by searching on their name, 
+#' and \code{\link{fetch_player_meta}()} to download meta data for players.
 #' @examples
 #' \dontrun{
 #' # Download data on some players

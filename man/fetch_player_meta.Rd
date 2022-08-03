@@ -28,7 +28,8 @@ aus_women <- fetch_player_meta(c(329336, 275487))
 }
 }
 \seealso{
-[find_player_id()]
+\code{\link{find_player_id}()} to find a player ID by searching on their name, 
+and \code{\link{fetch_player_data}()} to download playing statistics for a player.
 }
 \author{
 Hassan Rafique and Rob J Hyndman
