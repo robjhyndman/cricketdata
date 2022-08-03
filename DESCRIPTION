@@ -45,3 +45,4 @@ RoxygenNote: 7.2.1
 VignetteBuilder: knitr
 URL: http://pkg.robjhyndman.com/cricketdata/,
     https://github.com/robjhyndman/cricketdata
+LazyData: true

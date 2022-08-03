@@ -28,8 +28,10 @@ aus_women <- fetch_player_meta(c(329336, 275487))
 }
 }
 \seealso{
-\code{\link{find_player_id}()} to find a player ID by searching on their name, 
-and \code{\link{fetch_player_data}()} to download playing statistics for a player.
+It is usually simpler to just use the saved data set \code{\link{player_meta}}
+which contains the meta data for all players on ESPNCricinfo as at 3 August 2022.
+To find a player ID, use \code{\link{find_player_id}()}. 
+Use \code{\link{fetch_player_data}()} to download playing statistics for a player.
 }
 \author{
 Hassan Rafique and Rob J Hyndman

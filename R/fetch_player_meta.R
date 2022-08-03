@@ -12,8 +12,10 @@
 #' @return A tibble containing meta data on the selected players, with one row for 
 #' each player. 
 #' @author Hassan Rafique and Rob J Hyndman
-#' @seealso \code{\link{find_player_id}()} to find a player ID by searching on their name, 
-#' and \code{\link{fetch_player_data}()} to download playing statistics for a player.
+#' @seealso It is usually simpler to just use the saved data set \code{\link{player_meta}}
+#' which contains the meta data for all players on ESPNCricinfo as at 3 August 2022.
+#' To find a player ID, use \code{\link{find_player_id}()}. 
+#' Use \code{\link{fetch_player_data}()} to download playing statistics for a player.
 #' @examples
 #' \dontrun{
 #' # Download meta data on Meg Lanning and Ellyse Perry
@@ -23,7 +25,7 @@
 fetch_player_meta <- function(playerid) {
   output <- NULL
   for(j in seq_along(playerid)) {
-    print(j)
+    #print(j)
     output <- rbind(output, fetch_player_meta_individual(playerid[j]))
   }
   return(output)
