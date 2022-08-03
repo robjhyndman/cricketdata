@@ -56,3 +56,5 @@ update_player_meta <- function() {
   options(warn = store_warning)
   return(output)
 }
+
+utils::globalVariables(c("identifier","key_cricinfo","key_cricinfo_2","name","unique_name","player_meta"))
