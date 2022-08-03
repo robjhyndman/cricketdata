@@ -43,6 +43,9 @@
     <loc>http://pkg.robjhyndman.com/cricketdata/reference/index.html</loc>
   </url>
   <url>
+    <loc>http://pkg.robjhyndman.com/cricketdata/reference/player_meta.html</loc>
+  </url>
+  <url>
     <loc>http://pkg.robjhyndman.com/cricketdata/reference/reexports.html</loc>
   </url>
 </urlset>
