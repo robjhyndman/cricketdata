@@ -2,7 +2,7 @@
 #'
 #' @param searchstring Part of a player name(s) to search for. Can be a character vector.
 #' @return A table of matching players, their ids, and teams they played for.
-#' @seealso \code{\link{find_player_data}()} to download playing statistics for
+#' @seealso \code{\link{fetch_player_data}()} to download playing statistics for
 #' a player, and \code{\link{fetch_player_meta}()} to download meta data on players.
 #' @examples
 #' \dontrun{

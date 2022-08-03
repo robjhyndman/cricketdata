@@ -22,7 +22,7 @@ EllysePerry <- fetch_player_data(perry[2,"ID"], "test")
 }
 }
 \seealso{
-\code{\link{find_player_data}()} to download playing statistics for
+\code{\link{fetch_player_data}()} to download playing statistics for
 a player, and \code{\link{fetch_player_meta}()} to download meta data on players.
 }
 \author{

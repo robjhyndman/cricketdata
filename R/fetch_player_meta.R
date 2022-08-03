@@ -87,6 +87,10 @@ fetch_player_meta_individual <- function(playerid) {
     output$playing_role <- NA_character_
   
   tibble::as_tibble(output) |> 
-    select(cricinfo_id, full_name, country, dob, birthplace, batting_style,
+    dplyr::select(cricinfo_id, full_name, country, dob, birthplace, batting_style,
            bowling_style, playing_role)
 }
+
+utils::globalVariables(c("cricinfo_id","full_name","country","dob","birthplace",
+                         "batting_style","bowling_style","playing_role",
+                         "title","values"))
