@@ -27,7 +27,7 @@ fetch_cricinfo(
 A \code{tibble} object, similar to a \code{data.frame}.
 }
 \description{
-Fetch data from ESPNCricinfo and return a tibble. 
+Fetch data from ESPNCricinfo and return a tibble.
 All arguments are case-insensitive and partially matched.
 }
 \examples{

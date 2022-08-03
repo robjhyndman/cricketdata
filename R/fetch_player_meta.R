@@ -12,10 +12,10 @@
 #' @return A tibble containing meta data on the selected players, with one row for 
 #' each player. 
 #' @author Hassan Rafique and Rob J Hyndman
-#' @seealso It is usually simpler to just use the saved data set \code{\link{player_meta}}
+#' @seealso It is usually simpler to just use the saved data set [player_meta]
 #' which contains the meta data for all players on ESPNCricinfo as at 3 August 2022.
-#' To find a player ID, use \code{\link{find_player_id}()}. 
-#' Use \code{\link{fetch_player_data}()} to download playing statistics for a player.
+#' To find a player ID, use [find_player_id()]. 
+#' Use [fetch_player_data()] to download playing statistics for a player.
 #' @examples
 #' \dontrun{
 #' # Download meta data on Meg Lanning and Ellyse Perry

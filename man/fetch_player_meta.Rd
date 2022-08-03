@@ -10,11 +10,11 @@ fetch_player_meta(playerid)
 \item{playerid}{A vector of player IDs as given in Cricinfo profiles. Integer or character.}
 }
 \value{
-A tibble containing meta data on the selected players, with one row for 
+A tibble containing meta data on the selected players, with one row for
 each player.
 }
 \description{
-Fetch player meta data from ESPNCricinfo and return a tibble with one line 
+Fetch player meta data from ESPNCricinfo and return a tibble with one line
 per player. To identify the players, use their Cricinfo player IDs.
 The simplest way to find this is to look up their Cricinfo Profile page. The number
 at the end of the URL is the ID. For example, Meg Lanning's profile page is
@@ -28,10 +28,10 @@ aus_women <- fetch_player_meta(c(329336, 275487))
 }
 }
 \seealso{
-It is usually simpler to just use the saved data set \code{\link{player_meta}}
+It is usually simpler to just use the saved data set \link{player_meta}
 which contains the meta data for all players on ESPNCricinfo as at 3 August 2022.
-To find a player ID, use \code{\link{find_player_id}()}. 
-Use \code{\link{fetch_player_data}()} to download playing statistics for a player.
+To find a player ID, use \code{\link[=find_player_id]{find_player_id()}}.
+Use \code{\link[=fetch_player_data]{fetch_player_data()}} to download playing statistics for a player.
 }
 \author{
 Hassan Rafique and Rob J Hyndman

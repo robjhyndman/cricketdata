@@ -26,7 +26,7 @@ A \code{tibble} object, similar to a \code{data.frame}.
 \description{
 Download csv data from Cricsheet \url{https://cricsheet.org/downloads/}.
 Data must be specified by three factors:
-(a) type of data: `bbb` (ball-by-ball), `match` or `player`.
+(a) type of data: \code{bbb} (ball-by-ball), \code{match} or \code{player}.
 (b) gender;
 (c) competition.
 See \url{https://cricsheet.org/downloads/} for what the competition character codes mean.

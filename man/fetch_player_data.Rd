@@ -46,8 +46,8 @@ ggplot(aes(x=Start_Date, y=Runs, col = Dismissal, na.rm = TRUE)) + geom_point() 
 }
 }
 \seealso{
-\code{\link{find_player_id}()} to find a player ID by searching on their name, 
-and \code{\link{fetch_player_meta}()} to download meta data for players.
+\code{\link[=find_player_id]{find_player_id()}} to find a player ID by searching on their name,
+and \code{\link[=fetch_player_meta]{fetch_player_meta()}} to download meta data for players.
 }
 \author{
 Rob J Hyndman and Sayani Gupta

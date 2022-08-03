@@ -3,7 +3,7 @@
 \docType{data}
 \name{player_meta}
 \alias{player_meta}
-\title{Meta data on all players listed at ESPNCricinfo}
+\title{Meta data on players listed at ESPNCricinfo}
 \format{
 A data frame with 11342 rows and 8 variables.
 }
@@ -14,7 +14,8 @@ A data frame with 11342 rows and 8 variables.
 player_meta
 }
 \description{
-A dataset containing the names and other attributes of players
-with profiles on ESPNCricinfo, as at 3 August 2022.
+A dataset containing the names and other attributes of players who appear
+on both \href{https://cricsheet.org}{cricsheet} and
+\href{https://www.espncricinfo.com}{ESPNCricinfo}, as at 3 August 2022.
 }
 \keyword{datasets}
