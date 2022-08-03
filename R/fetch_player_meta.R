@@ -64,8 +64,8 @@ fetch_player_meta_individual <- function(playerid) {
       rvest::html_text(trim = TRUE)
 
     # data frame with one row
-    output <- data.frame(title = player.col, values = player.info) %>%
-      tidyr::pivot_wider(names_from = title, values_from = values) %>%
+    output <- data.frame(title = player.col, values = player.info) |>
+      tidyr::pivot_wider(names_from = title, values_from = values) |>
       janitor::clean_names()
     output$cricinfo_id <- playerid
     output$country <- p.country.raw[1]

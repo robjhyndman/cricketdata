@@ -168,7 +168,7 @@ fetch_cricsheet <- function(
 # Function to clean raw t20 bbb data from cricsheet
 # Provided by
 cleaning_bbb_t20_cricsheet <- function(df) {
-  df <- df %>%
+  df <- df |>
     dplyr::mutate(
       # Wicket lost
       wicket = !(wicket_type %in% c("", "retired hurt")),
@@ -176,18 +176,18 @@ cleaning_bbb_t20_cricsheet <- function(df) {
       over = ceiling(ball),
       # Extra ball to follow
       extra_ball = (!is.na(wides) | !is.na(noballs))
-    ) %>%
-    dplyr::group_by(match_id, innings, over) %>%
+    ) |>
+    dplyr::group_by(match_id, innings, over) |>
     # Adjusting the ball values by introducing raw_balls, so that 1.1 and 1.10
     # are correctly differentiated as the first & tenth ball, respectively
-    dplyr::mutate(ball = dplyr::row_number()) %>%
+    dplyr::mutate(ball = dplyr::row_number()) |>
     dplyr::ungroup()
 
   # Evaluating and joining runs scored, wickets lost at each stage of an innings
-  df <- df %>%
+  df <- df |>
     dplyr::inner_join(
-      df %>%
-        dplyr::group_by(match_id, innings) %>%
+      df |>
+        dplyr::group_by(match_id, innings) |>
         dplyr::summarise(
           runs_scored_yet = cumsum(runs_off_bat + extras),
           wickets_lost_yet = cumsum(wicket),
@@ -198,34 +198,34 @@ cleaning_bbb_t20_cricsheet <- function(df) {
     )
 
   # Evaluating the balls in over after adjusting for extra balls and balls remaining in an innings
-  remaining_balls <- df %>%
-    dplyr::group_by(match_id, innings, over) %>%
-    dplyr::summarise(ball = ball, extra_ball = cumsum(extra_ball), .groups = "drop") %>%
+  remaining_balls <- df |>
+    dplyr::group_by(match_id, innings, over) |>
+    dplyr::summarise(ball = ball, extra_ball = cumsum(extra_ball), .groups = "drop") |>
     dplyr::mutate(
       ball_in_over = ball - extra_ball,
       balls_remaining = ifelse(innings %in% c(1, 2), 120 - ((over - 1) * 6 + ball_in_over), 6 - ball_in_over)
-    ) %>%
+    ) |>
     dplyr::select(-extra_ball)
 
   # Evaluating innings totals using ball-by-ball data
-  innings_total <- df %>%
-    dplyr::group_by(match_id, innings) %>%
-    dplyr::summarise(total_score = sum(runs_off_bat + extras), .groups = "drop") %>%
+  innings_total <- df |>
+    dplyr::group_by(match_id, innings) |>
+    dplyr::summarise(total_score = sum(runs_off_bat + extras), .groups = "drop") |>
     tidyr::pivot_wider(
       names_from  = "innings",
       values_from = c("total_score")
-    ) %>%
-    dplyr::rename(innings1_total = "1", innings2_total = "2") %>%
+    ) |>
+    dplyr::rename(innings1_total = "1", innings2_total = "2") |>
     dplyr::select(match_id, innings1_total, innings2_total)
 
   # Joining all the dfs
-  df <- df %>%
-    dplyr::inner_join(remaining_balls, by = c("match_id", "innings", "over", "ball")) %>%
-    dplyr::inner_join(innings_total, by = "match_id") %>%
+  df <- df |>
+    dplyr::inner_join(remaining_balls, by = c("match_id", "innings", "over", "ball")) |>
+    dplyr::inner_join(innings_total, by = "match_id") |>
     dplyr::mutate(target = innings1_total + 1)
 
   # Re-ordering the columns in the df
-  df <- df %>%
+  df <- df |>
     dplyr::select(
       match_id, season, start_date, venue, innings, over, ball, batting_team,
       bowling_team, striker, non_striker, bowler, runs_off_bat, extras,
