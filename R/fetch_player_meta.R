@@ -70,23 +70,25 @@ fetch_player_meta_individual <- function(playerid) {
     output$cricinfo_id <- playerid
     output$country <- p.country.raw[1]
   }
+  # Extract DOB and Birthplace
+  output$dob <- as.Date(NA)
+  output$birthplace <- NA_character_
   if ("born" %in% colnames(output)) {
     output$dob <- stringr::str_extract(output$born, "[A-Za-z0-9 ,]*[1-2][0-9][0-9][0-9]")
-    # Is there a date or only a month and year?
-    if (stringr::str_detect(output$dob, ",")) {
-      output$dob <- lubridate::mdy(output$dob)
-    } else {
-      # Set date to first of month
-      output$dob <- lubridate::dmy(paste("01", output$dob))
+    if(!is.na(output$dob)) {
+      # Is there a date or only a month and year?
+      if (stringr::str_detect(output$dob, ",")) {
+        output$dob <- lubridate::mdy(output$dob)
+      } else {
+        # Set date to first of month
+        output$dob <- lubridate::dmy(paste("01", output$dob))
+      }
     }
-    output$birthplace <- stringr::str_remove(output$born, "[A-Za-z0-9 ,]*[1-2][0-9][0-9][0-9], ")
+    output$birthplace <- stringr::str_remove(output$born, "[A-Za-z0-9 ,]*[0-9], ")
     output$born <- NULL
     if (output$birthplace == "") {
       output$birthplace <- NA_character_
     }
-  } else {
-    output$dob <- as.Date(NA)
-    output$birthplace <- NA_character_
   }
   if (!("batting_style" %in% colnames(output))) {
     output$batting_style <- NA_character_
