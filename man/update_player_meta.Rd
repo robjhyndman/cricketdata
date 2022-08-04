@@ -4,7 +4,11 @@
 \alias{update_player_meta}
 \title{Update player_meta}
 \usage{
-update_player_meta()
+update_player_meta(start_again = FALSE)
+}
+\arguments{
+\item{start_again}{If TRUE, downloads all data from ESPNCricinfo without
+using player_meta as a starting point.}
 }
 \value{
 A tibble containing meta data on cricket players.

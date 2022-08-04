@@ -6,6 +6,8 @@
 #' This function returns an updated version of the data set based on information
 #' currently available online. 
 #'
+#' @param start_again If TRUE, downloads all data from ESPNCricinfo without 
+#' using player_meta as a starting point. This can take a long time.
 #' @return A tibble containing meta data on cricket players.
 #' @author Hassan Rafique and Rob J Hyndman
 #' @seealso [player_meta], [fetch_player_meta()].
@@ -15,46 +17,64 @@
 #' new_player_meta <- update_player_meta()
 #'}
 #' @export
-update_player_meta <- function() {
+update_player_meta <- function(start_again = FALSE) {
   store_warning <- options(warn = -1)$warn
   # Read people file from cricsheet
   people <- readr::read_csv("https://cricsheet.org/register/people.csv", 
                       col_types = "ccccccccccccccc", lazy=FALSE) |>
     dplyr::select(cricsheet_id = identifier,
            cricinfo_id = key_cricinfo,
-           cricinfo2 = key_cricinfo_2,
+           cricinfo_id2 = key_cricinfo_2,
            name, unique_name) |>
     # Remove people not on Cricinfo
     dplyr::filter(!is.na(cricinfo_id))
 
   # Compare existing version of player_meta and find missing players
-  missing_df <- people |>
-    dplyr::anti_join(player_meta, by = "cricinfo_id") |>
-    dplyr::anti_join(player_meta, by = c("cricinfo2" = "cricinfo_id"))
-
-  # Now update it with any missing players
-  updates <- fetch_player_meta(missing_df$cricinfo_id) |>
-    dplyr::filter(!is.na(full_name))
-  new_player_meta <- player_meta |>
-    dplyr::bind_rows(updates)
+  if(start_again) {
+    missing_df <- people
+  } else {
+    missing_df <- people |>
+      dplyr::anti_join(player_meta, by = "cricinfo_id") |>
+      dplyr::anti_join(player_meta, by = c("cricinfo_id2" = "cricinfo_id"))
+  }
+  
+  # Now download meta data for new players
+  new_player_meta <- fetch_player_meta(missing_df$cricinfo_id) 
 
   # For people missing on cricinfo, try the other cricinfo id
-  missing_df <- people |>
-    dplyr::right_join(new_player_meta |> 
-                        dplyr::filter(is.na(full_name)), by='cricinfo_id') |>
-    dplyr::filter(!is.na(cricinfo2))
-  cricinfo2 <- fetch_player_meta(missing_df$cricinfo2)
-  new_player_meta <- new_player_meta |>
-    dplyr::filter(!is.na(full_name)) |>
-    dplyr::bind_rows(cricinfo2) |>
-    dplyr::arrange(full_name)
+  cricinfo2 <- new_player_meta |>
+    dplyr::left_join(people |> dplyr::select(-name), by="cricinfo_id") |> 
+    dplyr::filter(is.na(full_name) & !is.na(cricinfo_id2)) |> 
+    dplyr::pull(cricinfo_id2) 
+  if(length(cricinfo2) > 0) {
+    new_player_meta <- new_player_meta |> 
+      dplyr::bind_rows(fetch_player_meta(cricinfo2))
+  }
+  
+  # Add to existing player_meta  
+  if(!start_again) {
+    new_player_meta <- new_player_meta |>
+      dplyr::bind_rows(player_meta) 
+  }
 
-  # Clean up some fields and return the result
-  output <- new_player_meta |>
-    dplyr::distinct() |>
-    dplyr::mutate(country = stringr::str_remove(country, " Wmn"))
+  # Clean up and arrange
+  new_player_meta <- new_player_meta |> 
+    # Remove missing people
+    dplyr::filter(!is.na(full_name)) |>
+    # Fix country names
+    dplyr::mutate(country = stringr::str_remove(country, " Wmn")) |> 
+    # Add in cricsheet id
+    dplyr::left_join(people |> dplyr::select(-name), by="cricinfo_id") |> 
+    # Organize by column and row
+    dplyr::select(cricinfo_id, cricsheet_id, unique_name, full_name,
+                  everything()) |> 
+    dplyr::select(-cricinfo_id2) |> 
+    dplyr::arrange(full_name) |>
+    # Remove duplicates
+    dplyr::distinct()
+
   options(warn = store_warning)
-  return(output)
+  return(new_player_meta)
 }
 
 utils::globalVariables(c("identifier","key_cricinfo","key_cricinfo_2","name","unique_name","player_meta"))
