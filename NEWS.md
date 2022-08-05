@@ -1,3 +1,5 @@
+# cricketdata (development version)
+
 # cricketdata 0.2.0 (5 August 2022)
   * Added fetch_player_meta(), update_player_meta() and player_meta.
   * Improved data cleaning for cricinfo data and cricsheet data
