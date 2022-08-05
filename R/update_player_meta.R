@@ -73,7 +73,9 @@ update_player_meta <- function(start_again = FALSE) {
     dplyr::select(
       cricinfo_id, cricsheet_id, unique_name, full_name,
       dplyr::everything()
-    )
+    ) |> 
+    # Remove missing people
+    dplyr::filter(!is.na(full_name))
 
   # Add to existing player_meta
   if (!start_again) {
@@ -83,8 +85,6 @@ update_player_meta <- function(start_again = FALSE) {
 
   # Clean up and arrange
   new_player_meta <- new_player_meta |>
-    # Remove missing people
-    dplyr::filter(!is.na(full_name)) |>
     # Fix country names
     dplyr::mutate(country = stringr::str_remove(country, " Wmn")) |>
     # Arrange in alphabetic order
