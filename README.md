@@ -21,9 +21,21 @@ Please respect the terms of use for each website:
 
 ## Installation
 
-You can install cricketdata from github with:
+You can install the **stable** version from
+[CRAN](https://cran.r-project.org/package=cricketdata).
+
+``` r
+install.packages("cricketdata", dependencies = TRUE)
+```
+
+You can install the **development** version
+[Github](https://github.com/robjhyndman/cricketdata):
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("ropenscilabs/cricketdata")
+devtools::install_github("robjhyndman/cricketdata")
 ```
+
+## License
+
+This package is free and open source software, licensed under GPL-3.
