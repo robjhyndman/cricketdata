@@ -13,7 +13,7 @@
 #' each player.
 #' @author Hassan Rafique and Rob J Hyndman
 #' @seealso It is usually simpler to just use the saved data set [player_meta]
-#' which contains the meta data for all players on ESPNCricinfo as at 3 August 2022.
+#' which contains the meta data for all players on ESPNCricinfo as at 5 August 2022.
 #' To find a player ID, use [find_player_id()].
 #' Use [fetch_player_data()] to download playing statistics for a player.
 #' @examples
@@ -25,7 +25,7 @@
 fetch_player_meta <- function(playerid) {
   output <- NULL
   for (j in seq_along(playerid)) {
-    # print(j)
+    #print(j)
     output <- rbind(output, fetch_player_meta_individual(playerid[j]))
   }
   return(output)
@@ -53,12 +53,13 @@ fetch_player_meta_individual <- function(playerid) {
       rvest::html_elements(".ds-grid p") |>
       rvest::html_text(trim = TRUE) |>
       stringr::str_squish()
-    player.col <- player.col[player.col %in%
-      c("Full Name", "Born", "Age", "Batting Style", "Bowling Style", "Playing Role")]
+    keep_cols <- which(player.col %in%
+      c("Full Name", "Born", "Age", "Batting Style", "Bowling Style", "Playing Role"))
+    player.col <- player.col[keep_cols]
     player.info <- html |>
       rvest::html_nodes(".ds-text-title-s") |>
       rvest::html_text(trim = TRUE)
-    player.info <- player.info[seq_along(player.col)]
+    player.info <- player.info[keep_cols]
     p.country.raw <- html |>
       rvest::html_nodes(".ds-text-comfortable-s") |>
       rvest::html_text(trim = TRUE)
@@ -75,7 +76,7 @@ fetch_player_meta_individual <- function(playerid) {
   output$birthplace <- NA_character_
   if ("born" %in% colnames(output)) {
     output$dob <- stringr::str_extract(output$born, "[A-Za-z0-9 ,]*[1-2][0-9][0-9][0-9]")
-    if(!is.na(output$dob)) {
+    if (!is.na(output$dob)) {
       # Is there a date or only a month and year?
       if (stringr::str_detect(output$dob, ",")) {
         output$dob <- lubridate::mdy(output$dob)
@@ -84,10 +85,16 @@ fetch_player_meta_individual <- function(playerid) {
         output$dob <- lubridate::dmy(paste("01", output$dob))
       }
     }
-    output$birthplace <- stringr::str_remove(output$born, "[A-Za-z0-9 ,]*[0-9], ")
+    output$birthplace <- stringr::str_remove(output$born, "[A-Za-z0-9 ,]*[0-9]")
     output$born <- NULL
     if (output$birthplace == "") {
       output$birthplace <- NA_character_
+    } else {
+      output$birthplace <- stringr::str_remove(output$birthplace, "^[, ]*")
+      # Fix missing countries
+      if (is.na(output$country) & output$birthplace == "South Korea") {
+        output$country <- "South Korea"
+      }
     }
   }
   if (!("batting_style" %in% colnames(output))) {

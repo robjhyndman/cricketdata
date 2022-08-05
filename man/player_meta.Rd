@@ -5,7 +5,7 @@
 \alias{player_meta}
 \title{Meta data on players listed at ESPNCricinfo}
 \format{
-A data frame with 11342 rows and 8 variables.
+A data frame with 11355 rows and 10 variables.
 }
 \source{
 \url{https://www.espncricinfo.com}
@@ -16,6 +16,6 @@ player_meta
 \description{
 A dataset containing the names and other attributes of players who appear
 on both \href{https://cricsheet.org}{cricsheet} and
-\href{https://www.espncricinfo.com}{ESPNCricinfo}, as at 3 August 2022.
+\href{https://www.espncricinfo.com}{ESPNCricinfo}, as at 5 August 2022.
 }
 \keyword{datasets}

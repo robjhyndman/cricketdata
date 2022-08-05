@@ -8,7 +8,7 @@ update_player_meta(start_again = FALSE)
 }
 \arguments{
 \item{start_again}{If TRUE, downloads all data from ESPNCricinfo without
-using player_meta as a starting point.}
+using player_meta as a starting point. This can take a long time.}
 }
 \value{
 A tibble containing meta data on cricket players.
@@ -16,7 +16,7 @@ A tibble containing meta data on cricket players.
 \description{
 The \link{player_meta} data set contains the names and other
 attributes of players who appear on both \href{https://cricsheet.org}{cricsheet}
-and \href{https://www.espncricinfo.com}{ESPNCricinfo} as at 3 August 2022.
+and \href{https://www.espncricinfo.com}{ESPNCricinfo} as at 5 August 2022.
 This function returns an updated version of the data set based on information
 currently available online.
 }
