@@ -1,4 +1,5 @@
-# cricketdata (development version)
+# cricketdata (0.2.1)
+  * Bux fix due to changes in gghighlight
 
 # cricketdata 0.2.0 (5 August 2022)
   * Added fetch_player_meta(), update_player_meta() and player_meta.
