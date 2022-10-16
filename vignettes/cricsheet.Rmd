@@ -29,7 +29,6 @@ library(showtext)
 library(ggplot2)
 library(gghighlight)
 library(ggtext)
-library(paletteer)
 library(patchwork)
 ```
 
@@ -116,20 +115,26 @@ showtext_auto()
 
 # Build plot
 batting_per_season %>%
-  ggplot(aes(x = season, y = runs_per_innings_avg,
-             group = striker, colour = is_healy)) +
-  geom_line(size = 2, colour = paletteer_d("beyonce::X25")[5]) +
-  gghighlight(is_healy, label_key = striker,
+  ggplot(aes(
+    x = season, y = runs_per_innings_avg,
+    group = striker, colour = is_healy
+  )) +
+  geom_line(size = 2, colour = "#F80F61FF") +
+  gghighlight(is_healy,
+    label_key = striker,
     label_params = aes(
       size = 6, force_pull = 0.1, nudge_y = 10, label.size = 1,
       family = "roboto_con", label.padding = 0.5,
-      fill = paletteer_d("beyonce::X116")[4],
-      colour = paletteer_d("beyonce::X25")[5]
+      fill = "#19232FFF",
+      colour = "#F80F61FF"
     ),
-    unhighlighted_params = list(size = 1, color = paletteer_d("beyonce::X73")[[7]])
-  ) + labs(title = "WBBL: Average runs scored per innings (3+ innings)",
-           x = NULL, y = NULL,
-           caption = "**Source:** Cricsheet.org // **Plot:** @jacquietran") +
+    unhighlighted_params = list(size = 1, color = "#187999FF")
+  ) +
+  labs(
+    title = "WBBL: Average runs scored per innings (3+ innings)",
+    x = NULL, y = NULL,
+    caption = "**Source:** Cricsheet.org // **Plot:** @jacquietran"
+  ) +
   theme_minimal() +
   theme(
     text = element_text(size = 18, family = "roboto_con", colour = "#FFFFFF"),
@@ -140,7 +145,7 @@ batting_per_season %>%
     panel.grid.major = element_line(linetype = "dashed"),
     panel.grid.minor = element_blank(),
     plot.background = element_rect(
-      fill = paletteer_d("beyonce::X116")[3], colour = NA
+      fill = "#171F2AFF", colour = NA
     ),
     panel.spacing = unit(2, "lines"),
     plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm")
@@ -197,9 +202,9 @@ With the ball-by-ball data prepared for the analysis question, we can then calcu
 ```{r}
 # Merge data and summarise to league-wide dismissals rate by ball number
 dismissals_by_ball_number_summary <- left_join(
-    ball_number_faced_summary, dismissals_by_ball_number,
-    by = c("ball_num_in_over", "striker")
-  ) %>%
+  ball_number_faced_summary, dismissals_by_ball_number,
+  by = c("ball_num_in_over", "striker")
+) %>%
   tidyr::replace_na(list(dismissals_n = 0)) %>%
   group_by(striker) %>%
   mutate(total_balls_faced = sum(balls_faced)) %>%
@@ -257,7 +262,7 @@ plot_features <- list(
     panel.grid.major.x = element_blank(),
     panel.grid.minor = element_blank(),
     plot.background = element_rect(
-      fill = paletteer_d("beyonce::X116")[3], colour = NA
+      fill = "#171F2AFF", colour = NA
     ),
     panel.spacing = unit(2, "lines"),
     plot.margin = unit(c(0.25, 0.25, 0.25, 0.25), "cm")
@@ -277,7 +282,7 @@ p1 <- dismissals_by_ball_number_summary %>%
   ) +
   geom_point(
     data = dismissals_by_ball_number_summary_healy,
-    colour = paletteer_d("beyonce::X25")[5], size = 3
+    colour = "#F80F61FF", size = 3
   ) +
   labs(
     title = "WBBL: % dismissals by ball number",
@@ -294,7 +299,7 @@ p2 <- dismissals_by_ball_number_summary %>%
   ) +
   geom_point(
     data = dismissals_by_ball_number_summary_mooney,
-    colour = paletteer_d("NineteenEightyR::miami1")[5], size = 3
+    colour = "#FA6900FF", size = 3
   ) +
   labs(subtitle = "BL Mooney") +
   plot_features
@@ -308,7 +313,7 @@ p3 <- dismissals_by_ball_number_summary %>%
   ) +
   geom_point(
     data = dismissals_by_ball_number_summary_lanning,
-    colour = paletteer_d("beyonce::X93")[31], size = 3
+    colour = "#018821FF", size = 3
   ) +
   labs(subtitle = "MM Lanning") +
   plot_features
@@ -322,7 +327,7 @@ p4 <- dismissals_by_ball_number_summary %>%
   ) +
   geom_point(
     data = dismissals_by_ball_number_summary_perry,
-    colour = paletteer_d("beyonce::X25")[5], size = 3
+    colour = "#F80F61FF", size = 3
   ) +
   labs(subtitle = "EA Perry") +
   plot_features
@@ -336,7 +341,7 @@ p5 <- dismissals_by_ball_number_summary %>%
   ) +
   geom_point(
     data = dismissals_by_ball_number_summary_devine,
-    colour = paletteer_d("NineteenEightyR::miami1")[5], size = 3
+    colour = "#FA6900FF", size = 3
   ) +
   labs(subtitle = "SFM Devine") +
   plot_features
@@ -350,7 +355,7 @@ p6 <- dismissals_by_ball_number_summary %>%
   ) +
   geom_point(
     data = dismissals_by_ball_number_summary_knight,
-    colour = paletteer_d("LaCroixColoR::Lime")[2], size = 3
+    colour = "#95C65CFF", size = 3
   ) +
   labs(
     subtitle = "HC Knight",
@@ -390,8 +395,10 @@ For a more granular focus, I created a subset from the Cricsheet data that inclu
 # Subset match metadata for WBB07 games
 wbbl07_match_info_tidy <- wbbl_match_info %>%
   filter(season == "2021/22", date <= "2021/11/07") %>%
-  select(match_id, winner, winner_runs, winner_wickets, method, outcome,
-    eliminator) %>%
+  select(
+    match_id, winner, winner_runs, winner_wickets, method, outcome,
+    eliminator
+  ) %>%
   mutate(match_id = factor(match_id))
 
 # Subset ball-by-ball data for WBBL07 games
@@ -500,9 +507,12 @@ team_strike_rate_renegades %>%
   geom_hline(yintercept = 100, linetype = "dashed", colour = "#CCCCCC") +
   geom_line(aes(colour = outcome_batting_team), size = 1.5) +
   geom_point(
-    aes(x = team_strike_rate_renegades$wicket_ball_num,
-        y = team_strike_rate_renegades$wicket_strike_rate),
-    colour = "red", size = 3, alpha = 0.75) +
+    aes(
+      x = team_strike_rate_renegades$wicket_ball_num,
+      y = team_strike_rate_renegades$wicket_strike_rate
+    ),
+    colour = "red", size = 3, alpha = 0.75
+  ) +
   labs(
     title = "WBBL07: Melbourne Renegades - Team strike rate (games up to 7 Nov 2021)",
     x = "Ball number in an innings", y = NULL,
@@ -533,7 +543,7 @@ team_strike_rate_renegades %>%
     panel.grid.major.x = element_line(colour = "#203b60", linetype = "dotted"),
     panel.grid.minor.x = element_blank(),
     plot.background = element_rect(
-      fill = paletteer_d("beyonce::X116")[3],
+      fill = "#171F2AFF",
       colour = NA
     ),
     panel.spacing = unit(2, "lines"),
