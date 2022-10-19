@@ -2,30 +2,32 @@
 title: "**cricketdata: An Open Source R package**"
 abstract: "Open and accessible data streams are crucial for reproducible research and further development. Cricket data sources are limited and are usually not in a format ready for analysis. [`cricketdata` R](http://pkg.robjhyndman.com/cricketdata/) package allows the users to download the data as a tibble ready for analysis from two primary sources: ESPNCricinfo and Cricsheet. [fetch_cricinfo()](http://pkg.robjhyndman.com/cricketdata/reference/fetch_cricinfo.html) and [fetch_player_data()](http://pkg.robjhyndman.com/cricketdata/reference/fetch_player_data.html) functions allow the user to download the data from ESPNCricinfo for different formats of international cricket (tests, odis, T20), player position (batter, bowler, fielding), and whole career or innings wise. Cricsheet is another data source, primarily for ball-by-ball data. [fetch_cricsheet()](http://pkg.robjhyndman.com/cricketdata/reference/fetch_cricsheet.html) function downloads the ball-by-ball, match, and player data for different competitions/formats (tests, odis, T20 internationals, T20 leagues). The T20 data is further processed by adding more features (columns) using the raw data. Some other [functions](http://pkg.robjhyndman.com/cricketdata/reference/fetch_player_meta.html) provide access to the individual players' playing career data and information about their playing style, country of origin, etc. The package essentially provides (almost) all publicly available cricket data ready for analysis. The package saves the user significant time in building the data pipeline, which may now be used for analysis. Here's an example of project built using `cricketdata`:  <https://dazzalytics.shinyapps.io/cricwar/>"
 bibliography: bibliography.bib
+link-citations: true
 author: Hassan Rafique and Jacquie Tran
 date: "18 October 2022"
 date-format: "D MMM YYYY"
-bibliography-engine: biblatex
-number-sections: true
-number-depth: 5
+format:
+  pdf:
+    #documentclass: scrartcl
+    documentclass: article
+    cite-method: biblatex
+    number-sections: true
+    number-depth: 5
+    #colorlinks: true
+    citecolor: "green"
+    urlcolor: "cyan"
+    geometry:
+      - top=30mm
+      - left=20mm
+      - heightrounded
+editor: visual
 highlight-style: zenburn
-output:
-  rmarkdown::html_vignette:
-    fig_width: 10
-    fig_height: 5
-vignette: >
-  %\VignetteIndexEntry{cricketdata: An Open Source R package}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+#arrow-dark
+execute:
+  #echo: false
+  warning: false
+  freeze: auto
 ---
-
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  echo = TRUE
-)
-```
 
 # Introduction
 
