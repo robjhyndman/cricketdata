@@ -1,4 +1,4 @@
-# cricketdata (0.2.1)
+# cricketdata 0.2.1 (19 October 2022)
   * Bux fix due to changes in gghighlight
 
 # cricketdata 0.2.0 (5 August 2022)
@@ -14,7 +14,7 @@
 # cricketdata 0.1.0 (7 February 2022)
   * Added fetch_cricsheet() functions, thanks to @jacquietran.
   * Added vignettes for fetch_cricsheet() and fetch_cricinfo().
- 
+
 # cricketdata 0.0.3 (9 January 2019)
   * Updated to handle change in format for female data on cricinfo.
 
@@ -28,4 +28,3 @@
 # cricinfo 0.0.1 (October 2017)
   * Package started at Melbourne ozunconf in October 2017
   * Functions added: fetch_player and fetch_cricinfo
-
