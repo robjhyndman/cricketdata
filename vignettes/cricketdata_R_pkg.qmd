@@ -5,7 +5,7 @@ bibliography: bibliography.bib
 link-citations: true
 author: Hassan Rafique and Jacquie Tran
 date: "18 October 2022"
-date-format: "D MMM YYYY"
+date-format: "D MMMM YYYY"
 format:
   pdf:
     #documentclass: scrartcl
