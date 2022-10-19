@@ -37,6 +37,7 @@ Suggests:
   paletteer,
   patchwork,
   rmarkdown,
+  R.rsp,
   showtext,
   tidyverse
 License: GPL-3
@@ -45,6 +46,8 @@ ByteCompile: true
 URL: http://pkg.robjhyndman.com/cricketdata/,
     https://github.com/robjhyndman/cricketdata
 LazyData: true
-VignetteBuilder: knitr
+VignetteBuilder: 
+  knitr, 
+  R.rsp
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
