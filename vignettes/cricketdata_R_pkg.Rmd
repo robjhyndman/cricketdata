@@ -205,7 +205,7 @@ meg_lanning_id
 
 ### `fetch_player_data`
 
-Fetch individual player data from all matches played. The function will scrape the data from ESPNCricinfo and return a tibble with one line per innings for all games a player has played. To identify a player, use their Cricinfo player ID. The simplest way to find this is to look up their Cricinfo Profile page. The number at the end of the URL is the ID. For example, Meg Lanning's profile page is <http://www.espncricinfo.com/australia/content/player/329336.html>, so her ID is 329336. Or you may use the `find_player_id` function.
+Fetch individual player data from all matches played. The function will scrape the data from ESPNCricinfo and return a tibble with one line per innings for all games a player has played. To identify a player, use their Cricinfo player ID. The simplest way to find this is to look up their Cricinfo Profile page. The number at the end of the URL is the ID. For example, Meg Lanning's profile page is <https://www.espncricinfo.com/player/meg-lanning-329336>, so her ID is 329336. Or you may use the `find_player_id` function.
 
 *Argument*
 
