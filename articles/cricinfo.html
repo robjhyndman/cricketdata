@@ -42,6 +42,7 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/cricinfo.html">ESPNCricinfo data</a>
+    <a class="dropdown-item" href="../articles/cricketdata_R_pkg.html">**cricketdata: An Open Source R package**</a>
     <a class="dropdown-item" href="../articles/cricsheet.html">Cricsheet data</a>
   </div>
 </li>
@@ -100,9 +101,9 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Fetch all Women's T20 data</span></span>
 <span><span class="va">wt20</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_cricinfo.html">fetch_cricinfo</a></span><span class="op">(</span><span class="st">"T20"</span>, <span class="st">"Women"</span>, <span class="st">"Bowling"</span><span class="op">)</span></span></code></pre></div>
-<table class="table">
+<table style="width:100%;" class="table">
 <colgroup>
-<col width="8%">
+<col width="7%">
 <col width="8%">
 <col width="4%">
 <col width="3%">
@@ -157,6 +158,24 @@
 <td align="right">3</td>
 </tr>
 <tr class="even">
+<td align="left">S Ismail</td>
+<td align="left">South Africa</td>
+<td align="right">2007</td>
+<td align="right">2022</td>
+<td align="right">105</td>
+<td align="right">104</td>
+<td align="right">370.5</td>
+<td align="right">15</td>
+<td align="right">2153</td>
+<td align="right">115</td>
+<td align="right">18.72</td>
+<td align="right">5.81</td>
+<td align="right">19.35</td>
+<td align="left">5/12</td>
+<td align="right">0</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
 <td align="left">EA Perry</td>
 <td align="left">Australia</td>
 <td align="right">2008</td>
@@ -174,76 +193,58 @@
 <td align="right">4</td>
 <td align="right">0</td>
 </tr>
-<tr class="odd">
-<td align="left">S Ismail</td>
-<td align="left">South Africa</td>
-<td align="right">2007</td>
-<td align="right">2021</td>
-<td align="right">98</td>
-<td align="right">97</td>
-<td align="right">343.5</td>
-<td align="right">14</td>
-<td align="right">1990</td>
-<td align="right">110</td>
-<td align="right">18.09</td>
-<td align="right">5.79</td>
-<td align="right">18.75</td>
-<td align="left">5/12</td>
-<td align="right">0</td>
-<td align="right">2</td>
-</tr>
 <tr class="even">
 <td align="left">Nida Dar</td>
 <td align="left">Pakistan</td>
 <td align="right">2010</td>
-<td align="right">2021</td>
-<td align="right">108</td>
-<td align="right">103</td>
-<td align="right">347.2</td>
-<td align="right">8</td>
-<td align="right">1871</td>
-<td align="right">103</td>
-<td align="right">18.17</td>
-<td align="right">5.39</td>
-<td align="right">20.23</td>
+<td align="right">2022</td>
+<td align="right">121</td>
+<td align="right">114</td>
+<td align="right">386.2</td>
+<td align="right">9</td>
+<td align="right">2070</td>
+<td align="right">114</td>
+<td align="right">18.16</td>
+<td align="right">5.36</td>
+<td align="right">20.33</td>
 <td align="left">5/21</td>
 <td align="right">1</td>
 <td align="right">1</td>
 </tr>
 <tr class="odd">
-<td align="left">A Shrubsole</td>
-<td align="left">England</td>
-<td align="right">2008</td>
-<td align="right">2020</td>
-<td align="right">79</td>
-<td align="right">79</td>
-<td align="right">266.2</td>
-<td align="right">10</td>
-<td align="right">1587</td>
-<td align="right">102</td>
-<td align="right">15.56</td>
-<td align="right">5.96</td>
-<td align="right">15.67</td>
-<td align="left">5/11</td>
-<td align="right">2</td>
+<td align="left">SFM Devine</td>
+<td align="left">New Zealand</td>
+<td align="right">2006</td>
+<td align="right">2022</td>
+<td align="right">112</td>
+<td align="right">100</td>
+<td align="right">297.3</td>
+<td align="right">6</td>
+<td align="right">1884</td>
+<td align="right">109</td>
+<td align="right">17.28</td>
+<td align="right">6.33</td>
+<td align="right">16.38</td>
+<td align="left">4/22</td>
 <td align="right">1</td>
+<td align="right">0</td>
 </tr>
 <tr class="even">
 <td align="left">KH Brunt</td>
 <td align="left">England</td>
 <td align="right">2005</td>
 <td align="right">2022</td>
-<td align="right">96</td>
-<td align="right">95</td>
-<td align="right">340.5</td>
-<td align="right">15</td>
-<td align="right">1888</td>
-<td align="right">98</td>
-<td align="right">19.27</td>
-<td align="right">5.54</td>
-<td align="right">20.87</td>
-<td align="left">3/6</td>
-<td align="right">0</td>
+<td align="right">104</td>
+<td align="right">103</td>
+<td align="right">366.5</td>
+<td align="right">16</td>
+<td align="right">2019</td>
+<td align="right">108</td>
+<td align="right">18.69</td>
+<td align="right">5.50</td>
+<td align="right">20.38</td>
+<td align="left">4/15</td>
+<td align="right">1</td>
 <td align="right">0</td>
 </tr>
 </tbody>
@@ -526,23 +527,6 @@
 <span><span class="va">MegLanning</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_player_data.html">fetch_player_data</a></span><span class="op">(</span><span class="va">meg_lanning_id</span>, <span class="st">"ODI"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>NotOut <span class="op">=</span> <span class="op">(</span><span class="va">Dismissal</span> <span class="op">==</span> <span class="st">"not out"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
-<colgroup>
-<col width="10%">
-<col width="7%">
-<col width="10%">
-<col width="11%">
-<col width="4%">
-<col width="4%">
-<col width="3%">
-<col width="3%">
-<col width="3%">
-<col width="5%">
-<col width="3%">
-<col width="9%">
-<col width="4%">
-<col width="10%">
-<col width="6%">
-</colgroup>
 <thead><tr class="header">
 <th align="left">Date</th>
 <th align="right">Innings</th>
@@ -557,7 +541,6 @@
 <th align="right">Pos</th>
 <th align="left">Dismissal</th>
 <th align="right">Inns</th>
-<th align="left">Start_Date</th>
 <th align="left">NotOut</th>
 </tr></thead>
 <tbody>
@@ -575,7 +558,6 @@
 <td align="right">2</td>
 <td align="left">caught</td>
 <td align="right">1</td>
-<td align="left">5 Jan 2011</td>
 <td align="left">FALSE</td>
 </tr>
 <tr class="even">
@@ -592,7 +574,6 @@
 <td align="right">2</td>
 <td align="left">not out</td>
 <td align="right">2</td>
-<td align="left">7 Jan 2011</td>
 <td align="left">TRUE</td>
 </tr>
 <tr class="odd">
@@ -609,7 +590,6 @@
 <td align="right">2</td>
 <td align="left">bowled</td>
 <td align="right">2</td>
-<td align="left">14 Jun 2011</td>
 <td align="left">FALSE</td>
 </tr>
 <tr class="even">
@@ -626,7 +606,6 @@
 <td align="right">2</td>
 <td align="left">caught</td>
 <td align="right">1</td>
-<td align="left">16 Jun 2011</td>
 <td align="left">FALSE</td>
 </tr>
 <tr class="odd">
@@ -643,7 +622,6 @@
 <td align="right">2</td>
 <td align="left">caught</td>
 <td align="right">1</td>
-<td align="left">30 Jun 2011</td>
 <td align="left">FALSE</td>
 </tr>
 <tr class="even">
@@ -660,7 +638,6 @@
 <td align="right">2</td>
 <td align="left">run out</td>
 <td align="right">2</td>
-<td align="left">2 Jul 2011</td>
 <td align="left">FALSE</td>
 </tr>
 </tbody>

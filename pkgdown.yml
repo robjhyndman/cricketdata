@@ -3,8 +3,9 @@ pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   cricinfo: cricinfo.html
+  cricketdata_R_pkg: cricketdata_R_pkg.html
   cricsheet: cricsheet.html
-last_built: 2022-10-19T06:49Z
+last_built: 2022-10-22T02:34Z
 urls:
   reference: http://pkg.robjhyndman.com/cricketdata/reference
   article: http://pkg.robjhyndman.com/cricketdata/articles
