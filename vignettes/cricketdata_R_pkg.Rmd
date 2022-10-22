@@ -1,33 +1,64 @@
 ---
 title: "**cricketdata: An Open Source R package**"
-abstract: "Open and accessible data streams are crucial for reproducible research and further development. Cricket data sources are limited and are usually not in a format ready for analysis. [`cricketdata` R](http://pkg.robjhyndman.com/cricketdata/) package allows the users to download the data as a tibble ready for analysis from two primary sources: ESPNCricinfo and Cricsheet. [fetch_cricinfo()](http://pkg.robjhyndman.com/cricketdata/reference/fetch_cricinfo.html) and [fetch_player_data()](http://pkg.robjhyndman.com/cricketdata/reference/fetch_player_data.html) functions allow the user to download the data from ESPNCricinfo for different formats of international cricket (tests, odis, T20), player position (batter, bowler, fielding), and whole career or innings wise. Cricsheet is another data source, primarily for ball-by-ball data. [fetch_cricsheet()](http://pkg.robjhyndman.com/cricketdata/reference/fetch_cricsheet.html) function downloads the ball-by-ball, match, and player data for different competitions/formats (tests, odis, T20 internationals, T20 leagues). The T20 data is further processed by adding more features (columns) using the raw data. Some other [functions](http://pkg.robjhyndman.com/cricketdata/reference/fetch_player_meta.html) provide access to the individual players' playing career data and information about their playing style, country of origin, etc. The package essentially provides (almost) all publicly available cricket data ready for analysis. The package saves the user significant time in building the data pipeline, which may now be used for analysis. Here's an example of project built using `cricketdata`:  <https://dazzalytics.shinyapps.io/cricwar/>"
-bibliography: bibliography.bib
-link-citations: true
 author: Hassan Rafique and Jacquie Tran
 date: "18 October 2022"
-date-format: "D MMMM YYYY"
-format:
-  pdf:
-    #documentclass: scrartcl
-    documentclass: article
-    cite-method: biblatex
-    number-sections: true
-    number-depth: 5
-    #colorlinks: true
-    citecolor: "green"
-    urlcolor: "cyan"
-    geometry:
-      - top=30mm
-      - left=20mm
-      - heightrounded
-editor: visual
-highlight-style: zenburn
-#arrow-dark
-execute:
-  #echo: false
-  warning: false
-  freeze: auto
+abstract: "Open and accessible data streams are crucial for reproducible research and further development. Cricket data sources are limited and are usually not in a format ready for analysis. [`cricketdata` R](http://pkg.robjhyndman.com/cricketdata/) package allows the users to download the data as a tibble ready for analysis from two primary sources: ESPNCricinfo and Cricsheet. [fetch_cricinfo()](http://pkg.robjhyndman.com/cricketdata/reference/fetch_cricinfo.html) and [fetch_player_data()](http://pkg.robjhyndman.com/cricketdata/reference/fetch_player_data.html) functions allow the user to download the data from ESPNCricinfo for different formats of international cricket (tests, odis, T20), player position (batter, bowler, fielding), and whole career or innings wise. Cricsheet is another data source, primarily for ball-by-ball data. [fetch_cricsheet()](http://pkg.robjhyndman.com/cricketdata/reference/fetch_cricsheet.html) function downloads the ball-by-ball, match, and player data for different competitions/formats (tests, odis, T20 internationals, T20 leagues). The T20 data is further processed by adding more features (columns) using the raw data. Some other [functions](http://pkg.robjhyndman.com/cricketdata/reference/fetch_player_meta.html) provide access to the individual players' playing career data and information about their playing style, country of origin, etc. The package essentially provides (almost) all publicly available cricket data ready for analysis. The package saves the user significant time in building the data pipeline, which may now be used for analysis. Here's an example of project built using `cricketdata`:  <https://dazzalytics.shinyapps.io/cricwar/>"
+bibliography: bibliography.bib
+bibengine: biblatex
+output:
+  rmarkdown::html_vignette:
+    fig_width: 8
+    fig_height: 5
+vignette: >
+  %\VignetteIndexEntry{cricketdata: An Open Source R package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  echo = TRUE,
+  cache = TRUE,
+  warning = FALSE
+)
+```
+
+```{r}
+library(cricketdata)
+library(tidyverse)
+```
+
+```{r getdata, eval=FALSE, echo=FALSE}
+# Avoid downloading the data when the package is checked by CRAN.
+# This only needs to be run once to store the data locally
+ipl_bbb <- fetch_cricsheet("bbb", "male", "ipl")
+wt20 <- fetch_cricinfo("T20", "Women", "Bowling")
+menODI <- fetch_cricinfo("ODI", "Men", "Batting", type = "innings",
+                         country = "United States of America")
+meg_lanning_id <- find_player_id("Meg Lanning")$ID
+MegLanning <- fetch_player_data(meg_lanning_id, "ODI") %>%
+  mutate(NotOut = (Dismissal == "not out"))
+aus_women <- fetch_player_meta(c(329336, 275487))
+
+saveRDS(wt20, here::here("inst/extdata/wt20.rds"))
+saveRDS(menODI, here::here("inst/extdata/usmenODI.rds"))
+saveRDS(MegLanning, here::here("inst/extdata/MegLanning.rds"))
+saveRDS(meg_lanning_id, here::here("inst/extdata/meg_lanning_id.rds"))
+saveRDS(ipl_bbb, here::here("inst/extdata/ipl_bbb.rds"))
+saveRDS(aus_women, here::here("inst/extdata/aus_women.rds"))
+```
+
+```{r loaddata, include=FALSE}
+ipl_bbb <- readRDS(here::here("inst/extdata/ipl_bbb.rds"))
+wt20 <- readRDS(here::here("inst/extdata/wt20.rds"))
+menODI <- readRDS(here::here("inst/extdata/usmenODI.rds"))
+MegLanning <- readRDS(here::here("inst/extdata/MegLanning.rds"))
+meg_lanning_id <- readRDS(here::here("inst/extdata/meg_lanning_id.rds"))
+aus_women <- readRDS(here::here("inst/extdata/aus_women.rds"))
+```
+
 
 # Introduction
 
@@ -56,15 +87,13 @@ In the following sections, we will show how to install the package and take full
 
 `cricketdata` is available on CRAN and the *stable* version can be installed.
 
-```{r}
-#| eval = FALSE
+```{r, eval=FALSE}
 install.packages("cricketdata", dependencies = TRUE)
 ```
 
 You may also download the *development* version from [Github](https://github.com/robjhyndman/cricketdata)
 
-```{r}
-#| eval = FALSE
+```{r, eval=FALSE}
 install.packages("devtools")
 devtools::install_github("robjhyndman/cricketdata")
 ```
@@ -100,19 +129,12 @@ Fetch team data on international cricket matches provided by ESPNCricinfo. It do
 
 **Women's T20 Bowling Data**
 
-```{r}
-library(cricketdata)
-library(tidyverse)
-```
-
-```{r}
+```{r, eval=FALSE, echo=TRUE}
 # Fetch all Women's Bowling data for T20 format
 wt20 <- fetch_cricinfo("T20", "Women", "Bowling")
 ```
 
-```{r}
-#| label: tbl-wt20
-#| tbl-cap: Women Player career profile for international T20
+```{r tbl-wt20}
 # Looking at data
 wt20 %>%
   glimpse()
@@ -121,12 +143,12 @@ wt20 %>%
 wt20 %>%
   select(Player, Country, Matches, Runs, Wickets, Economy, StrikeRate)%>%
  head() %>%
-  knitr::kable(digits=2, align = "c")
+  knitr::kable(digits=2, align = "c",
+    caption = "Women Player career profile for international T20"
+  )
 ```
 
-```{r}
-#| label: fig-wt20SRvER
-#| fig-cap: "Strike Rate (balls bowled per wicket) Vs Average (runs conceded per wicket) for Women international T20 bowlers. Each observation represents one player, who has taken at least 50 international wickets.  "
+```{r fig-wt20SRvER, fig.cap="Strike Rate (balls bowled per wicket) Vs Average (runs conceded per wicket) for Women international T20 bowlers. Each observation represents one player, who has taken at least 50 international wickets."}
 # Plotting Data
 wt20 %>%
   filter(Wickets >= 50) %>%
@@ -138,14 +160,15 @@ wt20 %>%
 
 **USA men's ODI data by innings**
 
-```{r}
-#| label: tbl-USA100s
-#| tbl-cap: Centuries, 100 runs or more in a single innings, scored by USA Batters
 
+```{r, echo=TRUE, eval=FALSE}
 # Fetch all USA Men's ODI data by innings
 menODI <- fetch_cricinfo("ODI", "Men", "Batting", type = "innings",
                          country = "United States of America")
+```
 
+```{r tbl-USA100s}
+#| tbl-cap: Centuries, 100 runs or more in a single innings, scored by USA Batters
 # Table of USA player who have scored a century
 menODI %>%
   filter(Runs >= 100) %>%
@@ -153,8 +176,7 @@ menODI %>%
   knitr::kable(digits=2)
 ```
 
-```{r}
-#| echo = FALSE
+```{r, echo=FALSE}
 # menODI %>%
 #   filter(Runs >= 50) %>%
 #   ggplot(aes(y = Runs, x = BallsFaced) ) +
@@ -172,13 +194,13 @@ Each player has a player id on ESPNCricinfo, which is useful to access a individ
 
 -   searchstring: string of a player's name or part of the name
 
-```{r}
+```r
 # Fetching a player, Meg Lanning's, ID
-meg_lanning <- find_player_id("Meg Lanning")
-# ID
-meg_lanning_id <- meg_lanning$ID
-meg_lanning_id
+meg_lanning_id <- find_player_id("Meg Lanning")$ID
+```
 
+```{r}
+meg_lanning_id
 ```
 
 ### `fetch_player_data`
@@ -191,13 +213,13 @@ Fetch individual player data from all matches played. The function will scrape t
 -   matchtype: Character indicating test (default), odi, or t20.
 -   activity: Character indicating batting (default), bowling or fielding.
 
-```{r}
-#| label: fig-meglanning
-#| fig-cap: Meg Lanning, Australian captain, has shown amazing consistency over her career, with centuries scored in every year of her career except for 2021, when her highest score from 6 matches was 53
+```{r echo=TRUE, eval=FALSE}
 # Fetching the player Meg Lanning's playing data
 MegLanning <- fetch_player_data(meg_lanning_id, "ODI") %>%
   mutate(NotOut = (Dismissal == "not out"))
+```
 
+```{r fig-meglanning, fig.cap="Meg Lanning, Australian captain, has shown amazing consistency over her career, with centuries scored in every year of her career except for 2021, when her highest score from 6 matches was 53."}
 dim(MegLanning)
 names(MegLanning)
 
@@ -232,18 +254,17 @@ The raw T20 data from cricsheet is further processed to add more columns (featur
 
 **Indian Premier League (IPL) Ball-by-Ball Data**
 
-```{r}
+```{r echo=TRUE, eval=FALSE}
 # Fetch all IPL ball-by-ball data
-
 ipl_bbb <- fetch_cricsheet("bbb", "male", "ipl")
+```
 
+```{r}
 ipl_bbb %>%
   glimpse()
 ```
 
-```{r}
-#| label: fig-iplbatter
-#| fig-cap: Top 20 prolific batters in IPL 2022. We show what percentage of balls they hit for a boundary (4 or 6) against percentage of how many balls they do not score off of (dot percent). Ideally we want to be in top left quadrant, high boundary % and low dot %.
+```{r fig-iplbatter, fig.cap="Top 20 prolific batters in IPL 2022. We show what percentage of balls they hit for a boundary (4 or 6) against percentage of how many balls they do not score off of (dot percent). Ideally we want to be in top left quadrant, high boundary % and low dot %."}
 # Top 20 batters wrt Boundary and Dot % in IPL 2022 season
 ipl_bbb %>%
   filter(season == "2022") %>%
@@ -261,8 +282,7 @@ ipl_bbb %>%
    ylab("Boundary Percent") + xlab("Dot Percent") + ggtitle("IPL 2022: Top 20 Batters")
 ```
 
-```{r}
-#| label: tbl-IPL2022Batters
+```{r tbl-IPL2022Batters}
 #| tbl-cap: Top 10 prolific batters of IPL 2022 season. JC Butler scored the most runs in total and scored at the highest strike rate (runs per ball). His boundary percent (percentage of balls faced hit for 4s or 6s) is also the highest, while his dot percent (percentage of balls not scored of) is also among the highest.
 # Top 10 prolific batters in IPL 2022 season.
 ipl_bbb %>%
@@ -283,8 +303,7 @@ ipl_bbb %>%
 
 It is a data set containing player's and cricket officials meta data such as full name, country of representation, data of birth, bowling and batting hand, bowling style, and playing role. More than 11,000 player's and officials data is available. This data was scraped from ESPNCricinfo website.
 
-```{r}
-#| label: tbl-playermetadata
+```{r tbl-playermetadata}
 #| tbl-cap: Player and officials meta data.
 player_meta %>%
   filter(!is.na(playing_role)) %>%
@@ -306,12 +325,14 @@ Fetch the player's meta data such as full name, country of representation, data 
 
 The cricinfo player ids can be accessed in multiple ways, e.g. use fetch_player_id() function, get the id from the player's cricinfo page or consult the `player_meta` data frame which has player meta data of more than 11,000 players.
 
-```{r}
-#| label: tbl-ausplayermetadata
-#| tbl-cap: Australian Women player meta data.
+
+```{r echo=TRUE, eval=FALSE}
 # Download meta data on Meg Lanning and Ellyse Perry
 aus_women <- fetch_player_meta(c(329336, 275487))
+```
 
+```{r tbl-ausplayermetadata}
+#| tbl-cap: Australian Women player meta data.
 aus_women %>%
   knitr::kable(digits=1, align = "c", format = "pipe",
   col.names = c("ID", "FullName", "Country", "DOB", "BirthPlace", "BattingStyle",
@@ -322,5 +343,4 @@ aus_women %>%
 
 This function is supposed to consult the directory of all players available on cricsheet website and include the meta data of new players into the `player_meta` data frame. The data for new players will be scraped from the ESPNCricinfo.
 
-::: {#refs}
-:::
+# References
