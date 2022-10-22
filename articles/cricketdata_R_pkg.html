@@ -119,12 +119,8 @@
 </div>
 </div>
 <div class="section level2">
-<h2 id="cricketdata-functionality">
-<code>cricketdata</code> Functionality<a class="anchor" aria-label="anchor" href="#cricketdata-functionality"></a>
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<div class="section level3">
-<h3 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
-</h3>
 <p><code>cricketdata</code> is available on CRAN and the <em>stable</em> version can be installed.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"cricketdata"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
@@ -133,9 +129,9 @@
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"robjhyndman/cricketdata"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a>
-</h3>
+<div class="section level2">
+<h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a>
+</h2>
 <p>There are six main functions,</p>
 <ul>
 <li><code><a href="../reference/fetch_cricinfo.html">fetch_cricinfo()</a></code></li>
@@ -150,10 +146,10 @@
 <li><code>player_meta</code></li>
 </ul>
 <p>We show the use of each function with examples below.</p>
-<div class="section level4">
-<h4 id="fetch_cricinfo">
+<div class="section level3">
+<h3 id="fetch_cricinfo">
 <code>fetch_cricinfo()</code><a class="anchor" aria-label="anchor" href="#fetch_cricinfo"></a>
-</h4>
+</h3>
 <p>Fetch team data on international cricket matches provided by ESPNCricinfo. It downloads data for international T20, ODI or Test matches, for men or women, and for batting, bowling or fielding. By default, it downloads career-level statistics for individual players.</p>
 <p><em>Arguments</em></p>
 <ul>
@@ -350,10 +346,10 @@ Strike Rate (balls bowled per wicket) Vs Average (runs conceded per wicket) for 
 </tbody>
 </table>
 </div>
-<div class="section level4">
-<h4 id="fetch_player_id">
+<div class="section level3">
+<h3 id="fetch_player_id">
 <code>fetch_player_id</code><a class="anchor" aria-label="anchor" href="#fetch_player_id"></a>
-</h4>
+</h3>
 <p>Each player has a player id on ESPNCricinfo, which is useful to access a individual player’s data. This function given a string of players name or part of the name would return the name of corresponding player(s), their cricinfo id(s), and some other information.</p>
 <p><em>Argument</em></p>
 <ul>
@@ -366,10 +362,10 @@ Strike Rate (balls bowled per wicket) Vs Average (runs conceded per wicket) for 
 <code class="sourceCode R"><span><span class="va">meg_lanning_id</span></span>
 <span><span class="co">#&gt; [1] 329336</span></span></code></pre></div>
 </div>
-<div class="section level4">
-<h4 id="fetch_player_data">
+<div class="section level3">
+<h3 id="fetch_player_data">
 <code>fetch_player_data</code><a class="anchor" aria-label="anchor" href="#fetch_player_data"></a>
-</h4>
+</h3>
 <p>Fetch individual player data from all matches played. The function will scrape the data from ESPNCricinfo and return a tibble with one line per innings for all games a player has played. To identify a player, use their Cricinfo player ID. The simplest way to find this is to look up their Cricinfo Profile page. The number at the end of the URL is the ID. For example, Meg Lanning’s profile page is <a href="https://www.espncricinfo.com/player/meg-lanning-329336" class="external-link uri">https://www.espncricinfo.com/player/meg-lanning-329336</a>, so her ID is 329336. Or you may use the <code>find_player_id</code> function.</p>
 <p><em>Argument</em></p>
 <ul>
@@ -408,10 +404,10 @@ Meg Lanning, Australian captain, has shown amazing consistency over her career, 
 </p>
 </div>
 </div>
-<div class="section level4">
-<h4 id="fetch_cricsheet">
+<div class="section level3">
+<h3 id="fetch_cricsheet">
 <code>fetch_cricsheet()</code><a class="anchor" aria-label="anchor" href="#fetch_cricsheet"></a>
-</h4>
+</h3>
 <p><a href="https://cricsheet.org/" class="external-link">Cricsheet</a> is the only open accessible source for cricket ball-by-ball data. <code><a href="../reference/fetch_cricsheet.html">fetch_cricsheet()</a></code> download csv data from cricsheet. Data must be specified by three factors: (a) type of data: bbb (ball-by-ball), match or player. (b) gender; (c) competition. See <a href="https://cricsheet.org/downloads/" class="external-link uri">https://cricsheet.org/downloads/</a> for what the competition character codes mean.</p>
 <p>The raw T20 data from cricsheet is further processed to add more columns (features) to facilitate analysis.</p>
 <p><em>Arguments</em></p>
@@ -588,10 +584,10 @@ Top 20 prolific batters in IPL 2022. We show what percentage of balls they hit f
 </tbody>
 </table>
 </div>
-<div class="section level4">
-<h4 id="player_meta">
+<div class="section level3">
+<h3 id="player_meta">
 <code>player_meta</code><a class="anchor" aria-label="anchor" href="#player_meta"></a>
-</h4>
+</h3>
 <p>It is a data set containing player’s and cricket officials meta data such as full name, country of representation, data of birth, bowling and batting hand, bowling style, and playing role. More than 11,000 player’s and officials data is available. This data was scraped from ESPNCricinfo website.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">player_meta</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -686,10 +682,10 @@ Top 20 prolific batters in IPL 2022. We show what percentage of balls they hit f
 </tbody>
 </table>
 </div>
-<div class="section level4">
-<h4 id="fetch_player_meta">
+<div class="section level3">
+<h3 id="fetch_player_meta">
 <code>fetch_player_meta()</code><a class="anchor" aria-label="anchor" href="#fetch_player_meta"></a>
-</h4>
+</h3>
 <p>Fetch the player’s meta data such as full name, country of representation, data of birth, bowling and batting hand, bowling style, and playing role. This meta data is useful for advance modeling, e,g, age curves, batter profile against bowling types etc.</p>
 <p><em>Argument</em></p>
 <ul>
@@ -749,12 +745,11 @@ Top 20 prolific batters in IPL 2022. We show what percentage of balls they hit f
 </tbody>
 </table>
 </div>
-<div class="section level4">
-<h4 id="update_player_meta">
+<div class="section level3">
+<h3 id="update_player_meta">
 <code>update_player_meta()</code><a class="anchor" aria-label="anchor" href="#update_player_meta"></a>
-</h4>
+</h3>
 <p>This function is supposed to consult the directory of all players available on cricsheet website and include the meta data of new players into the <code>player_meta</code> data frame. The data for new players will be scraped from the ESPNCricinfo.</p>
-</div>
 </div>
 </div>
 <div class="section level2">
@@ -762,7 +757,7 @@ Top 20 prolific batters in IPL 2022. We show what percentage of balls they hit f
 </h2>
 <div id="refs" class="references">
 <div id="ref-nflfastR">
-<p>Carl, Sebastian, and Ben Baldwin. n.d. “nflfastR: Functions to Efficiently Access NFL Play by Play Data.” <em>R Package</em>. <a href="https://cran.r-project.org/web/packages/nflfastR/index.html" class="external-link">https://cran.r-project.org/web/packages/nflfastR/index.html</a>.</p>
+<p>Carl, Sebastian, and Ben Baldwin. n.d. “nflfastR: Functions to Efficiently Access NFL Play by Play Data.” <em>R Package</em>. <a href="https://CRAN.R-project.org/package=nflfastR" class="external-link">https://CRAN.R-project.org/package=nflfastR</a>.</p>
 </div>
 <div id="ref-dataverse">
 <p>Gilani, Saiem. n.d. “Sports Dataverse.” <a href="https://sportsdataverse.org/" class="external-link">https://sportsdataverse.org/</a>.</p>
