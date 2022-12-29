@@ -27,14 +27,16 @@
 #' # Create a plot for Ellyse Perry's T20 scores
 #' library(dplyr)
 #' library(ggplot2)
-#' EllysePerry |> filter(!is.na(Runs)) |>
-#' ggplot(aes(x=Start_Date, y=Runs, col = Dismissal, na.rm = TRUE)) + geom_point() +
+#' EllysePerry |>
+#'   filter(!is.na(Runs)) |>
+#'   ggplot(aes(x = Start_Date, y = Runs, col = Dismissal, na.rm = TRUE)) +
+#'   geom_point() +
 #'   ggtitle("Ellyse Perry's T20 Scores")
 #' }
 #' @export
 fetch_player_data <- function(playerid,
-                              matchtype=c("test", "odi", "t20"),
-                              activity =c("batting", "bowling", "fielding")) {
+                              matchtype = c("test", "odi", "t20"),
+                              activity = c("batting", "bowling", "fielding")) {
   matchtype <- tolower(matchtype)
   matchtype <- match.arg(matchtype)
 
@@ -44,7 +46,8 @@ fetch_player_data <- function(playerid,
   # First figure out if player is female or male
   profile <- paste(
     "http://www.espncricinfo.com/ci/content/player/",
-    playerid, ".html", sep = ""
+    playerid, ".html",
+    sep = ""
   )
   raw <- try(xml2::read_html(profile), silent = TRUE)
   if ("try-error" %in% class(raw)) {
@@ -81,7 +84,7 @@ fetch_player_data <- function(playerid,
   if ("try-error" %in% class(raw)) {
     stop("Problem with URL")
   }
-  #closing previous html connections
+  # closing previous html connections
   # Grab relevant table
   tab_all_rec <- rvest::html_table(raw)
   tab <- tab_all_rec[[4]]
@@ -91,7 +94,7 @@ fetch_player_data <- function(playerid,
     stop(paste("Player has never played", matchtype, "format", sep = " "), call. = F)
   }
   # Remove redundant missings columns
-  tab <- tibble::as_tibble(tab[, colSums(is.na(tab)) != NROW(tab)],.name_repair = "check_unique")
+  tab <- tibble::as_tibble(tab[, colSums(is.na(tab)) != NROW(tab)], .name_repair = "check_unique")
 
   # Convert "-" to NA
   tab[tab == "-"] <- NA
@@ -114,9 +117,10 @@ fetch_player_data <- function(playerid,
   ## order the elements, no difference for different activities
   com_col <- c("Date", "Innings", "Opposition", "Ground")
 
-  ##Removing "*" in the column `Runs` and converting it to numeric
-  if("Runs" %in% colnames(tab))
+  ## Removing "*" in the column `Runs` and converting it to numeric
+  if ("Runs" %in% colnames(tab)) {
     tab$Runs <- suppressWarnings(as.numeric(gsub("*", "", x = tab$Runs, fixed = TRUE)))
+  }
 
   # Reorder columns
   return(
