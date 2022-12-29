@@ -102,7 +102,9 @@ fetch_player_data <- function(playerid,
   tab$`Start Date` <- NULL
   tab$Opposition <- substring(tab$Opposition, 3)
   tab$Ground <- as.character(tab$Ground)
-  tab$Mins <- as.numeric(tab$Mins)
+  if ("Mins" %in% colnames(tab)) {
+    tab$Mins <- as.numeric(tab$Mins)
+  }
 
   # Make tidy column names columns
   tidy.col <- make.names(colnames(tab), unique = TRUE)
