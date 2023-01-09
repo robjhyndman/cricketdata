@@ -1,5 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# cricketdata <img src="man/figures/cricketdata.png" width="15%" align="right" />
+
 <!-- badges: start -->
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/cricketdata)](https://cran.r-project.org/package=cricketdata)
@@ -7,8 +10,6 @@
 [![Licence](https://img.shields.io/badge/licence-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 [![R-CMD-check](https://github.com/robjhyndman/cricketdata/workflows/R-CMD-check/badge.svg)](https://github.com/robjhyndman/cricketdata/actions)
 <!-- badges: end -->
-
-# cricketdata
 
 Functions for downloading data on international and other major cricket
 matches from [ESPNCricinfo](https://www.espncricinfo.com) and
