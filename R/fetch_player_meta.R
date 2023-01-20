@@ -13,7 +13,7 @@
 #' each player.
 #' @author Hassan Rafique and Rob J Hyndman
 #' @seealso It is usually simpler to just use the saved data set [player_meta]
-#' which contains the meta data for all players on ESPNCricinfo as at 5 August 2022.
+#' which contains the meta data for all players on ESPNCricinfo as at 20 January 2023.
 #' To find a player ID, use [find_player_id()].
 #' Use [fetch_player_data()] to download playing statistics for a player.
 #' @examples
