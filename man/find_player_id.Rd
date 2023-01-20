@@ -18,7 +18,7 @@ Find a player id from cricinfo.com
 \examples{
 \dontrun{
 (perry <- find_player_id("Perry"))
-EllysePerry <- fetch_player_data(perry[2,"ID"], "test")
+EllysePerry <- fetch_player_data(perry[2, "ID"], "test")
 }
 }
 \seealso{

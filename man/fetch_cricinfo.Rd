@@ -32,8 +32,8 @@ All arguments are case-insensitive and partially matched.
 }
 \examples{
 \dontrun{
-auswt20 <- fetch_cricinfo("T20", "Women", country="Aust")
-IndiaODIBowling <- fetch_cricinfo("ODI", "men", "bowling", country="india")
+auswt20 <- fetch_cricinfo("T20", "Women", country = "Aust")
+IndiaODIBowling <- fetch_cricinfo("ODI", "men", "bowling", country = "india")
 }
 
 }
