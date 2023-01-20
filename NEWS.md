@@ -1,20 +1,23 @@
 # cricketdata (development version)
+  * Added hex sticker, thanks to @jacquietran
+  * fetch_cricsheet() can now handle all competitions with csv files.
+  * Bug fixes
 
-# cricketdata 0.2.1 (19 October 2022)
+# cricketdata 0.2.1
   * Added new vignette introducing package
   * Bux fix due to changes in gghighlight
 
-# cricketdata 0.2.0 (5 August 2022)
+# cricketdata 0.2.0
   * Added fetch_player_meta(), update_player_meta() and player_meta.
   * Improved data cleaning for cricinfo data and cricsheet data
   * Improved cricinfo vignette.
   * Bug fixes and improvements to documentation
 
-# cricketdata 0.1.1 (14 February 2022)
+# cricketdata 0.1.1
   * Fixes to vignettes
   * Dont run slow example
 
-# cricketdata 0.1.0 (7 February 2022)
+# cricketdata 0.1.0
   * Added fetch_cricsheet() functions, thanks to @jacquietran.
   * Added vignettes for fetch_cricsheet() and fetch_cricinfo().
 
