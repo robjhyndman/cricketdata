@@ -21,8 +21,8 @@ update_player_meta <- function(start_again = FALSE) {
   store_warning <- options(warn = -1)$warn
   # Read people file from cricsheet
   people <- readr::read_csv("https://cricsheet.org/register/people.csv",
-      col_types = "ccccccccccccccc", lazy = FALSE
-    ) |>
+    col_types = "ccccccccccccccc", lazy = FALSE
+  ) |>
     dplyr::select(
       cricsheet_id = identifier,
       cricinfo_id = key_cricinfo,
@@ -57,23 +57,23 @@ update_player_meta <- function(start_again = FALSE) {
 
   # Add in cricsheet id
   new_player_meta <- dplyr::bind_rows(
-      new_player_meta |>
-        dplyr::left_join(people |> dplyr::select(-name),
-          by = "cricinfo_id"
-        ) |>
-        dplyr::select(-cricinfo_id2) |>
-        dplyr::filter(!is.na(cricsheet_id)),
-      new_player_meta |>
-        dplyr::left_join(people |> dplyr::select(-name, -cricinfo_id),
-          by = c("cricinfo_id" = "cricinfo_id2")
-        ) |>
-        dplyr::filter(!is.na(cricsheet_id))
-    ) |>
+    new_player_meta |>
+      dplyr::left_join(people |> dplyr::select(-name),
+        by = "cricinfo_id"
+      ) |>
+      dplyr::select(-cricinfo_id2) |>
+      dplyr::filter(!is.na(cricsheet_id)),
+    new_player_meta |>
+      dplyr::left_join(people |> dplyr::select(-name, -cricinfo_id),
+        by = c("cricinfo_id" = "cricinfo_id2")
+      ) |>
+      dplyr::filter(!is.na(cricsheet_id))
+  ) |>
     # Organize by column and row
     dplyr::select(
       cricinfo_id, cricsheet_id, unique_name, full_name,
       dplyr::everything()
-    ) |> 
+    ) |>
     # Remove missing people
     dplyr::filter(!is.na(full_name))
 
@@ -97,6 +97,6 @@ update_player_meta <- function(start_again = FALSE) {
 }
 
 utils::globalVariables(c(
-  "identifier", "key_cricinfo", "key_cricinfo_2", "name", "unique_name", 
+  "identifier", "key_cricinfo", "key_cricinfo_2", "name", "unique_name",
   "player_meta", "cricinfo_id", "cricinfo_id2", "cricsheet_id"
 ))

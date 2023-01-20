@@ -25,7 +25,7 @@
 fetch_player_meta <- function(playerid) {
   output <- NULL
   for (j in seq_along(playerid)) {
-    #print(j)
+    # print(j)
     output <- rbind(output, fetch_player_meta_individual(playerid[j]))
   }
   return(output)

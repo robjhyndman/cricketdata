@@ -6,13 +6,13 @@
 #' Data must be specified by three factors:
 #' (a) type of data: `bbb` (ball-by-ball), `match` or `player`.
 #' (b) gender;
-#' (c) competition specified as a Cricsheet code. See \code{\link{cricsheet_codes}} for the 
-#' competitions and codes available. 
+#' (c) competition specified as a Cricsheet code. See \code{\link{cricsheet_codes}} for the
+#' competitions and codes available.
 #'
 #' @param type Character string giving type of data: ball-by-ball, match info or player info.
 #' @param gender Character string giving player gender: female or male.
-#' @param competition Character string giving code corresponding to competition. See \code{\link{cricsheet_codes}} for the 
-#' competitions and codes available. 
+#' @param competition Character string giving code corresponding to competition. See \code{\link{cricsheet_codes}} for the
+#' competitions and codes available.
 #' @author Jacquie Tran, Hassan Rafique and Rob J Hyndman
 #' @return A \code{tibble} object, similar to a \code{data.frame}.
 #' @examples
@@ -26,8 +26,7 @@
 fetch_cricsheet <- function(
     type = c("bbb", "match", "player"),
     gender = c("female", "male"),
-    competition = "tests"
-  ) {
+    competition = "tests") {
   # Match arguments
   type <- match.arg(type)
   gender <- match.arg(gender)
@@ -86,17 +85,22 @@ fetch_cricsheet <- function(
   match_filepaths <- file.path(tempdir(), subdir, match_files)
 
   if (type == "bbb") {
-      # Read data from CSVs stored in the temp directory
-      all_matches <- do.call("rbind",
-        lapply(match_filepaths, FUN = function(files) { read.csv(files) })
-      )
+    # Read data from CSVs stored in the temp directory
+    all_matches <- do.call(
+      "rbind",
+      lapply(match_filepaths, FUN = function(files) {
+        read.csv(files)
+      })
+    )
   } else {
     all_matches <- suppressWarnings(
       readr::read_csv(
-        match_filepaths, id = "path", guess_max = 100,
+        match_filepaths,
+        id = "path", guess_max = 100,
         col_names = c("col_to_delete", "key", "value"),
         skip = 1, show_col_types = FALSE,
-        col_types = readr::cols(.default = readr::col_character()))
+        col_types = readr::cols(.default = readr::col_character())
+      )
     )
     # Note: Warning suppressed because the source data
     # changes format slightly when displaying player metadata compared to match data

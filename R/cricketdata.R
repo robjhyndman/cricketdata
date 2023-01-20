@@ -26,4 +26,4 @@ magrittr::`%>%`
 #' @name cricketdata
 #' @keywords package
 NULL
-#"_PACKAGE"
+# "_PACKAGE"
