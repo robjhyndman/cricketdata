@@ -28,6 +28,9 @@
     <loc>http://pkg.robjhyndman.com/cricketdata/reference/cricketdata.html</loc>
   </url>
   <url>
+    <loc>http://pkg.robjhyndman.com/cricketdata/reference/cricsheet_codes.html</loc>
+  </url>
+  <url>
     <loc>http://pkg.robjhyndman.com/cricketdata/reference/fetch_cricinfo.html</loc>
   </url>
   <url>
