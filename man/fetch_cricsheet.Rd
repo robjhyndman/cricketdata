@@ -7,10 +7,7 @@
 fetch_cricsheet(
   type = c("bbb", "match", "player"),
   gender = c("female", "male"),
-  competition = c("tests", "multi_day", "odis", "odms", "t20is", "t20is_unofficial",
-    "apl", "bbl", "bpl", "county", "edwards_cup", "cpl", "the_hundred", "ipl", "lpl",
-    "msl", "t20_blast", "psl", "heyhoe_flint_trophy", "sheffield_shield", "super_smash",
-    "wbbl", "wt20c")
+  competition = "tests"
 )
 }
 \arguments{
@@ -18,7 +15,8 @@ fetch_cricsheet(
 
 \item{gender}{Character string giving player gender: female or male.}
 
-\item{competition}{Character string giving name of competition.}
+\item{competition}{Character string giving code corresponding to competition. See \code{\link{cricsheet_codes}} for the
+competitions and codes available.}
 }
 \value{
 A \code{tibble} object, similar to a \code{data.frame}.
@@ -28,8 +26,8 @@ Download csv data from Cricsheet \url{https://cricsheet.org/downloads/}.
 Data must be specified by three factors:
 (a) type of data: \code{bbb} (ball-by-ball), \code{match} or \code{player}.
 (b) gender;
-(c) competition.
-See \url{https://cricsheet.org/downloads/} for what the competition character codes mean.
+(c) competition specified as a Cricsheet code. See \code{\link{cricsheet_codes}} for the
+competitions and codes available.
 }
 \examples{
 \dontrun{

@@ -6,12 +6,13 @@
 #' Data must be specified by three factors:
 #' (a) type of data: `bbb` (ball-by-ball), `match` or `player`.
 #' (b) gender;
-#' (c) competition.
-#' See \url{https://cricsheet.org/downloads/} for what the competition character codes mean.
+#' (c) competition specified as a Cricsheet code. See \code{\link{cricsheet_codes}} for the 
+#' competitions and codes available. 
 #'
 #' @param type Character string giving type of data: ball-by-ball, match info or player info.
 #' @param gender Character string giving player gender: female or male.
-#' @param competition Character string giving name of competition.
+#' @param competition Character string giving code corresponding to competition. See \code{\link{cricsheet_codes}} for the 
+#' competitions and codes available. 
 #' @author Jacquie Tran, Hassan Rafique and Rob J Hyndman
 #' @return A \code{tibble} object, similar to a \code{data.frame}.
 #' @examples
@@ -25,23 +26,14 @@
 fetch_cricsheet <- function(
     type = c("bbb", "match", "player"),
     gender = c("female", "male"),
-    competition = c("tests", "multi_day", "odis", "odms",
-                    "t20is", "t20is_unofficial",
-                    "apl", "bbl", "bpl", "county", "edwards_cup", "cpl",
-                    "the_hundred", "ipl", "lpl", "msl", "t20_blast",
-                    "psl", "heyhoe_flint_trophy", "sheffield_shield", "super_smash",
-                    "wbbl", "wt20c")
+    competition = "tests"
   ) {
   # Match arguments
   type <- match.arg(type)
   gender <- match.arg(gender)
-  competition <- match.arg(competition)
 
-  # Construct codes for cricsheet files
-  formal.args <- formals(sys.function(sysP <- sys.parent()))
-  choices <- eval(formal.args[["competition"]], envir = sys.frame(sysP))
-  code_table <- data.frame(competition = choices)
-  code_table$code <- dplyr::recode(code_table$competition,
+  # Convert code for backwards compatibility
+  competition <- dplyr::recode(competition,
     county = "cch",
     edwards_cup = "cec",
     heyhoe_flint_trophy = "rhf",
@@ -55,9 +47,8 @@ fetch_cricsheet <- function(
     wbbl = "wbb",
     wt20c = "wtc"
   )
-  code <- code_table[code_table$competition == competition, "code"]
   # Construct file names and url
-  destfile <- paste0(code, "_", gender, "_csv2.zip")
+  destfile <- paste0(competition, "_", gender, "_csv2.zip")
   url <- paste0("https://cricsheet.org/downloads/", destfile)
   subdir <- paste0(sub("_csv2.zip", "", destfile), "_bbb")
   destfile <- file.path(tempdir(), destfile)
