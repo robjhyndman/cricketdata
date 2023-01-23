@@ -147,12 +147,8 @@ fetch_cricsheet <- function(
   output <- tibble::as_tibble(all_matches)
 
   # Clean data
-  t20 <- competition %in% c(
-    "t20is", "t20is_unofficial",
-    "apl", "bbl", "bpl", "edwards_cup", "cpl",
-    "ipl", "lpl", "msl", "t20_blast",
-    "psl", "super_smash", "wbbl", "wt20c"
-  )
+  # Was it a T20 match?
+  t20 <- max(output$ball, na.rm=TRUE) <= 21
   if (type == "bbb" & t20) {
     output <- cleaning_bbb_t20_cricsheet(output)
   }
