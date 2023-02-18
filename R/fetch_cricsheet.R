@@ -148,7 +148,11 @@ fetch_cricsheet <- function(
 
   # Clean data
   # Was it a T20 match?
-  t20 <- max(output$ball, na.rm=TRUE) <= 21
+  if (!("ball" %in% colnames(output))) {
+    t20 <- FALSE
+  } else {
+    t20 <- max(output$ball, na.rm = TRUE) <= 21
+  }
   if (type == "bbb" & t20) {
     output <- cleaning_bbb_t20_cricsheet(output)
   }
@@ -213,7 +217,8 @@ cleaning_bbb_t20_cricsheet <- function(df) {
   df <- df |>
     dplyr::inner_join(remaining_balls, by = c("match_id", "innings", "over", "ball")) |>
     dplyr::inner_join(innings_total, by = "match_id") |>
-    dplyr::mutate(target = innings1_total + 1)
+    dplyr::mutate(target = innings1_total + 1) |> 
+    dplyr::mutate(start_date = as.Date(start_date))
 
   # Re-ordering the columns in the df
   df <- df |>
