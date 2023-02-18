@@ -28,6 +28,7 @@ knitr::opts_chunk$set(
 ```{r}
 library(cricketdata)
 library(dplyr)
+library(ggplot2)
 ```
 
 ```{r getdata, eval=FALSE, echo=FALSE}
