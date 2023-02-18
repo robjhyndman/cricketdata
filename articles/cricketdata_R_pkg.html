@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">cricketdata</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -89,15 +89,16 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://pkg.robjhyndman.com/cricketdata/">cricketdata</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; ── <span style="font-weight: bold;">Attaching packages</span> ─────────────────────────────────────── tidyverse 1.3.2 ──</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">ggplot2</span> 3.4.0      <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">purrr  </span> 1.0.1 </span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tibble </span> 3.1.8      <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">dplyr  </span> 1.0.10</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tidyr  </span> 1.2.1      <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">stringr</span> 1.5.0 </span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">readr  </span> 2.1.3      <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">forcats</span> 0.5.2 </span></span>
-<span><span class="co">#&gt; ── <span style="font-weight: bold;">Conflicts</span> ────────────────────────────────────────── tidyverse_conflicts() ──</span></span>
-<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">filter()</span> masks <span style="color: #0000BB;">stats</span>::filter()</span></span>
-<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">lag()</span>    masks <span style="color: #0000BB;">stats</span>::lag()</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     filter, lag</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
@@ -167,24 +168,24 @@
 <code class="sourceCode R"><span><span class="co"># Looking at data</span></span>
 <span><span class="va">wt20</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Rows: 1,883</span></span>
+<span><span class="co">#&gt; Rows: 1,977</span></span>
 <span><span class="co">#&gt; Columns: 16</span></span>
-<span><span class="co">#&gt; $ Player             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "A Mohammed", "S Ismail", "EA Perry", "Nida Dar", "…</span></span>
-<span><span class="co">#&gt; $ Country            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "West Indies", "South Africa", "Australia", "Pakist…</span></span>
-<span><span class="co">#&gt; $ Start              <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 2008, 2007, 2008, 2010, 2006, 2005, 2013, 2008, 201…</span></span>
-<span><span class="co">#&gt; $ End                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 2021, 2022, 2021, 2022, 2022, 2022, 2022, 2020, 202…</span></span>
-<span><span class="co">#&gt; $ Matches            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 117, 105, 126, 121, 112, 104, 84, 79, 72, 111, 106,…</span></span>
-<span><span class="co">#&gt; $ Innings            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 113, 104, 119, 114, 100, 103, 83, 79, 72, 87, 105, …</span></span>
-<span><span class="co">#&gt; $ Overs              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 395.3, 370.5, 380.5, 386.2, 297.3, 366.5, 278.3, 26…</span></span>
-<span><span class="co">#&gt; $ Maidens            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 6, 15, 6, 9, 6, 16, 6, 10, 5, 4, 9, 7, 6, 17, 7, 8,…</span></span>
-<span><span class="co">#&gt; $ Runs               <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 2206, 2153, 2237, 2070, 1884, 2019, 1685, 1587, 149…</span></span>
-<span><span class="co">#&gt; $ Wickets            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 125, 115, 115, 114, 109, 108, 108, 102, 98, 98, 89,…</span></span>
-<span><span class="co">#&gt; $ Average            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 17.64800, 18.72174, 19.45217, 18.15789, 17.28440, 1…</span></span>
-<span><span class="co">#&gt; $ Economy            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 5.577750, 5.805843, 5.873961, 5.358067, 6.332773, 5…</span></span>
-<span><span class="co">#&gt; $ StrikeRate         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 18.98400, 19.34783, 19.86957, 20.33333, 16.37615, 2…</span></span>
-<span><span class="co">#&gt; $ BestBowlingInnings <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "5/10", "5/12", "4/12", "5/21", "4/22", "4/15", "4/…</span></span>
-<span><span class="co">#&gt; $ FourWickets        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 4, 0, 4, 1, 1, 1, 3, 2, 3, 2, 4, 3, 1, 1, 1, 1, 3, …</span></span>
-<span><span class="co">#&gt; $ FiveWickets        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 3, 2, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, …</span></span>
+<span><span class="co">#&gt; $ Player             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "A Mohammed", "Nida Dar", "EA Perry", "M Schutt", "…</span></span>
+<span><span class="co">#&gt; $ Country            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "West Indies", "Pakistan", "Australia", "Australia"…</span></span>
+<span><span class="co">#&gt; $ Start              <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 2008, 2010, 2008, 2013, 2007, 2005, 2006, 2008, 201…</span></span>
+<span><span class="co">#&gt; $ End                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 2021, 2023, 2023, 2023, 2023, 2023, 2023, 2020, 202…</span></span>
+<span><span class="co">#&gt; $ Matches            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 117, 128, 136, 93, 109, 109, 118, 79, 89, 72, 113, …</span></span>
+<span><span class="co">#&gt; $ Innings            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 113, 121, 128, 92, 108, 108, 103, 79, 87, 72, 87, 6…</span></span>
+<span><span class="co">#&gt; $ Overs              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 395.3, 410.2, 392.5, 309.3, 381.5, 381.1, 302.3, 26…</span></span>
+<span><span class="co">#&gt; $ Maidens            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 6, 10, 8, 7, 20, 17, 6, 10, 11, 5, 4, 10, 7, 9, 6, …</span></span>
+<span><span class="co">#&gt; $ Runs               <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 2206, 2231, 2297, 1916, 2191, 2102, 1920, 1587, 190…</span></span>
+<span><span class="co">#&gt; $ Wickets            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 125, 123, 121, 121, 117, 112, 110, 102, 100, 98, 98…</span></span>
+<span><span class="co">#&gt; $ Average            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 17.64800, 18.13821, 18.98347, 15.83471, 18.72650, 1…</span></span>
+<span><span class="co">#&gt; $ Economy            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 5.577750, 5.437043, 5.847263, 6.190630, 5.738106, 5…</span></span>
+<span><span class="co">#&gt; $ StrikeRate         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 18.98400, 20.01626, 19.47934, 15.34711, 19.58120, 2…</span></span>
+<span><span class="co">#&gt; $ BestBowlingInnings <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "5/10", "5/21", "4/12", "5/15", "5/12", "4/15", "4/…</span></span>
+<span><span class="co">#&gt; $ FourWickets        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 4, 1, 4, 4, 0, 1, 1, 2, 1, 3, 2, 1, 3, 4, 1, 1, 4, …</span></span>
+<span><span class="co">#&gt; $ FiveWickets        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 3, 1, 0, 1, 2, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, …</span></span>
 <span></span>
 <span><span class="co"># Table showing certain features of the data</span></span>
 <span><span class="va">wt20</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -216,49 +217,49 @@
 <td align="center">18.98</td>
 </tr>
 <tr class="even">
-<td align="center">S Ismail</td>
-<td align="center">South Africa</td>
-<td align="center">105</td>
-<td align="center">2153</td>
-<td align="center">115</td>
-<td align="center">5.81</td>
-<td align="center">19.35</td>
+<td align="center">Nida Dar</td>
+<td align="center">Pakistan</td>
+<td align="center">128</td>
+<td align="center">2231</td>
+<td align="center">123</td>
+<td align="center">5.44</td>
+<td align="center">20.02</td>
 </tr>
 <tr class="odd">
 <td align="center">EA Perry</td>
 <td align="center">Australia</td>
-<td align="center">126</td>
-<td align="center">2237</td>
-<td align="center">115</td>
-<td align="center">5.87</td>
-<td align="center">19.87</td>
+<td align="center">136</td>
+<td align="center">2297</td>
+<td align="center">121</td>
+<td align="center">5.85</td>
+<td align="center">19.48</td>
 </tr>
 <tr class="even">
-<td align="center">Nida Dar</td>
-<td align="center">Pakistan</td>
+<td align="center">M Schutt</td>
+<td align="center">Australia</td>
+<td align="center">93</td>
+<td align="center">1916</td>
 <td align="center">121</td>
-<td align="center">2070</td>
-<td align="center">114</td>
-<td align="center">5.36</td>
-<td align="center">20.33</td>
+<td align="center">6.19</td>
+<td align="center">15.35</td>
 </tr>
 <tr class="odd">
-<td align="center">SFM Devine</td>
-<td align="center">New Zealand</td>
-<td align="center">112</td>
-<td align="center">1884</td>
+<td align="center">S Ismail</td>
+<td align="center">South Africa</td>
 <td align="center">109</td>
-<td align="center">6.33</td>
-<td align="center">16.38</td>
+<td align="center">2191</td>
+<td align="center">117</td>
+<td align="center">5.74</td>
+<td align="center">19.58</td>
 </tr>
 <tr class="even">
 <td align="center">KH Brunt</td>
 <td align="center">England</td>
-<td align="center">104</td>
-<td align="center">2019</td>
-<td align="center">108</td>
-<td align="center">5.50</td>
-<td align="center">20.38</td>
+<td align="center">109</td>
+<td align="center">2102</td>
+<td align="center">112</td>
+<td align="center">5.51</td>
+<td align="center">20.42</td>
 </tr>
 </tbody>
 </table>
@@ -370,7 +371,7 @@ Strike Rate (balls bowled per wicket) Vs Average (runs conceded per wicket) for 
 <h3 id="fetch_player_data">
 <code>fetch_player_data</code><a class="anchor" aria-label="anchor" href="#fetch_player_data"></a>
 </h3>
-<p>Fetch individual player data from all matches played. The function will scrape the data from ESPNCricinfo and return a tibble with one line per innings for all games a player has played. To identify a player, use their Cricinfo player ID. The simplest way to find this is to look up their Cricinfo Profile page. The number at the end of the URL is the ID. For example, Meg Lanning’s profile page is <a href="https://www.espncricinfo.com/player/meg-lanning-329336" class="external-link uri">https://www.espncricinfo.com/player/meg-lanning-329336</a>, so her ID is 329336. Or you may use the <code>find_player_id</code> function.</p>
+<p>Fetch individual player data from all matches played. The function will scrape the data from ESPNCricinfo and return a tibble with one line per innings for all games a player has played. To identify a player, use their Cricinfo player ID. The simplest way to find this is to look up their Cricinfo Profile page. The number at the end of the URL is the ID. For example, Meg Lanning’s profile page is <a href="https://www.espncricinfo.com/cricketers/meg-lanning-329336" class="external-link uri">https://www.espncricinfo.com/cricketers/meg-lanning-329336</a>, so her ID is 329336. Or you may use the <code>find_player_id</code> function.</p>
 <p><em>Argument</em></p>
 <ul>
 <li>playerid</li>
@@ -383,7 +384,7 @@ Strike Rate (balls bowled per wicket) Vs Average (runs conceded per wicket) for 
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>NotOut <span class="op">=</span> <span class="op">(</span><span class="va">Dismissal</span> <span class="op">==</span> <span class="st">"not out"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">MegLanning</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 100  14</span></span>
+<span><span class="co">#&gt; [1] 103  14</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">MegLanning</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "Date"       "Innings"    "Opposition" "Ground"     "Runs"      </span></span>
 <span><span class="co">#&gt;  [6] "Mins"       "BF"         "X4s"        "X6s"        "SR"        </span></span>
@@ -428,7 +429,7 @@ Meg Lanning, Australian captain, has shown amazing consistency over her career, 
 <code class="sourceCode R"><span><span class="va">ipl_bbb</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Rows: 225,954</span></span>
-<span><span class="co">#&gt; Columns: 32</span></span>
+<span><span class="co">#&gt; Columns: 33</span></span>
 <span><span class="co">#&gt; $ match_id               <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 335982, 335982, 335982, 335982, 335982, 335982,…</span></span>
 <span><span class="co">#&gt; $ season                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2007/08", "2007/08", "2007/08", "2007/08", "20…</span></span>
 <span><span class="co">#&gt; $ start_date             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2008-04-18", "2008-04-18", "2008-04-18", "2008…</span></span>
@@ -460,7 +461,8 @@ Meg Lanning, Australian captain, has shown amazing consistency over her career, 
 <span><span class="co">#&gt; $ wicket_type            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "", "", "", "", "", "", "", "", "", "", "", "",…</span></span>
 <span><span class="co">#&gt; $ player_dismissed       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "", "", "", "", "", "", "", "", "", "", "", "",…</span></span>
 <span><span class="co">#&gt; $ other_wicket_type      <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</span></span>
-<span><span class="co">#&gt; $ other_player_dismissed <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</span></span></code></pre></div>
+<span><span class="co">#&gt; $ other_player_dismissed <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</span></span>
+<span><span class="co">#&gt; $ .groups                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "drop", "drop", "drop", "drop", "drop", "drop",…</span></span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Top 20 batters wrt Boundary and Dot % in IPL 2022 season</span></span>
 <span><span class="va">ipl_bbb</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>

@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">cricketdata</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,15 +84,16 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://pkg.robjhyndman.com/cricketdata/">cricketdata</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; ── <span style="font-weight: bold;">Attaching packages</span> ─────────────────────────────────────── tidyverse 1.3.2 ──</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">ggplot2</span> 3.4.0      <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">purrr  </span> 1.0.1 </span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tibble </span> 3.1.8      <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">dplyr  </span> 1.0.10</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tidyr  </span> 1.2.1      <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">stringr</span> 1.5.0 </span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">readr  </span> 2.1.3      <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">forcats</span> 0.5.2 </span></span>
-<span><span class="co">#&gt; ── <span style="font-weight: bold;">Conflicts</span> ────────────────────────────────────────── tidyverse_conflicts() ──</span></span>
-<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">filter()</span> masks <span style="color: #0000BB;">stats</span>::filter()</span></span>
-<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">lag()</span>    masks <span style="color: #0000BB;">stats</span>::lag()</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     filter, lag</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
 <p>The <code><a href="../reference/fetch_cricinfo.html">fetch_cricinfo()</a></code> function will fetch data on all international cricket matches provided by ESPNCricinfo. Please respect the <a href="https://www.espncricinfo.com/ci/content/site/company/terms_use.html" class="external-link">ESPNCricinfo terms of use</a> when using this function.</p>
 <p>Here are some examples of its use.</p>
 <div class="section level2">
@@ -158,91 +159,91 @@
 <td align="right">3</td>
 </tr>
 <tr class="even">
-<td align="left">S Ismail</td>
-<td align="left">South Africa</td>
-<td align="right">2007</td>
-<td align="right">2022</td>
-<td align="right">105</td>
-<td align="right">104</td>
-<td align="right">370.5</td>
-<td align="right">15</td>
-<td align="right">2153</td>
-<td align="right">115</td>
-<td align="right">18.72</td>
-<td align="right">5.81</td>
-<td align="right">19.35</td>
-<td align="left">5/12</td>
-<td align="right">0</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">EA Perry</td>
-<td align="left">Australia</td>
-<td align="right">2008</td>
-<td align="right">2021</td>
-<td align="right">126</td>
-<td align="right">119</td>
-<td align="right">380.5</td>
-<td align="right">6</td>
-<td align="right">2237</td>
-<td align="right">115</td>
-<td align="right">19.45</td>
-<td align="right">5.87</td>
-<td align="right">19.87</td>
-<td align="left">4/12</td>
-<td align="right">4</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
 <td align="left">Nida Dar</td>
 <td align="left">Pakistan</td>
 <td align="right">2010</td>
-<td align="right">2022</td>
+<td align="right">2023</td>
+<td align="right">128</td>
 <td align="right">121</td>
-<td align="right">114</td>
-<td align="right">386.2</td>
-<td align="right">9</td>
-<td align="right">2070</td>
-<td align="right">114</td>
-<td align="right">18.16</td>
-<td align="right">5.36</td>
-<td align="right">20.33</td>
+<td align="right">410.2</td>
+<td align="right">10</td>
+<td align="right">2231</td>
+<td align="right">123</td>
+<td align="right">18.14</td>
+<td align="right">5.44</td>
+<td align="right">20.02</td>
 <td align="left">5/21</td>
 <td align="right">1</td>
 <td align="right">1</td>
 </tr>
 <tr class="odd">
-<td align="left">SFM Devine</td>
-<td align="left">New Zealand</td>
-<td align="right">2006</td>
-<td align="right">2022</td>
-<td align="right">112</td>
-<td align="right">100</td>
-<td align="right">297.3</td>
-<td align="right">6</td>
-<td align="right">1884</td>
-<td align="right">109</td>
-<td align="right">17.28</td>
-<td align="right">6.33</td>
-<td align="right">16.38</td>
-<td align="left">4/22</td>
-<td align="right">1</td>
+<td align="left">EA Perry</td>
+<td align="left">Australia</td>
+<td align="right">2008</td>
+<td align="right">2023</td>
+<td align="right">136</td>
+<td align="right">128</td>
+<td align="right">392.5</td>
+<td align="right">8</td>
+<td align="right">2297</td>
+<td align="right">121</td>
+<td align="right">18.98</td>
+<td align="right">5.85</td>
+<td align="right">19.48</td>
+<td align="left">4/12</td>
+<td align="right">4</td>
 <td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">M Schutt</td>
+<td align="left">Australia</td>
+<td align="right">2013</td>
+<td align="right">2023</td>
+<td align="right">93</td>
+<td align="right">92</td>
+<td align="right">309.3</td>
+<td align="right">7</td>
+<td align="right">1916</td>
+<td align="right">121</td>
+<td align="right">15.83</td>
+<td align="right">6.19</td>
+<td align="right">15.35</td>
+<td align="left">5/15</td>
+<td align="right">4</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">S Ismail</td>
+<td align="left">South Africa</td>
+<td align="right">2007</td>
+<td align="right">2023</td>
+<td align="right">109</td>
+<td align="right">108</td>
+<td align="right">381.5</td>
+<td align="right">20</td>
+<td align="right">2191</td>
+<td align="right">117</td>
+<td align="right">18.73</td>
+<td align="right">5.74</td>
+<td align="right">19.58</td>
+<td align="left">5/12</td>
+<td align="right">0</td>
+<td align="right">2</td>
 </tr>
 <tr class="even">
 <td align="left">KH Brunt</td>
 <td align="left">England</td>
 <td align="right">2005</td>
-<td align="right">2022</td>
-<td align="right">104</td>
-<td align="right">103</td>
-<td align="right">366.5</td>
-<td align="right">16</td>
-<td align="right">2019</td>
+<td align="right">2023</td>
+<td align="right">109</td>
 <td align="right">108</td>
-<td align="right">18.69</td>
-<td align="right">5.50</td>
-<td align="right">20.38</td>
+<td align="right">381.1</td>
+<td align="right">17</td>
+<td align="right">2102</td>
+<td align="right">112</td>
+<td align="right">18.77</td>
+<td align="right">5.51</td>
+<td align="right">20.42</td>
 <td align="left">4/15</td>
 <td align="right">1</td>
 <td align="right">0</td>
@@ -405,7 +406,7 @@
 <code class="sourceCode R"><span><span class="va">Indfielding</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_cricinfo.html">fetch_cricinfo</a></span><span class="op">(</span><span class="st">"Test"</span>, <span class="st">"Men"</span>, <span class="st">"Fielding"</span>, country <span class="op">=</span> <span class="st">"India"</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="11%">
+<col width="10%">
 <col width="5%">
 <col width="4%">
 <col width="7%">
@@ -484,6 +485,19 @@
 <td align="right">4</td>
 </tr>
 <tr class="odd">
+<td align="left">RR Pant</td>
+<td align="right">2018</td>
+<td align="right">2022</td>
+<td align="right">33</td>
+<td align="right">65</td>
+<td align="right">133</td>
+<td align="right">119</td>
+<td align="right">0</td>
+<td align="right">119</td>
+<td align="right">14</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
 <td align="left">KS More</td>
 <td align="right">1986</td>
 <td align="right">1993</td>
@@ -495,19 +509,6 @@
 <td align="right">110</td>
 <td align="right">20</td>
 <td align="right">5</td>
-</tr>
-<tr class="even">
-<td align="left">SR Tendulkar</td>
-<td align="right">1989</td>
-<td align="right">2013</td>
-<td align="right">200</td>
-<td align="right">366</td>
-<td align="right">115</td>
-<td align="right">115</td>
-<td align="right">115</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">3</td>
 </tr>
 </tbody>
 </table>
@@ -534,11 +535,11 @@
 <th align="left">Ground</th>
 <th align="right">Runs</th>
 <th align="right">Mins</th>
-<th align="right">BF</th>
-<th align="right">X4s</th>
-<th align="right">X6s</th>
-<th align="right">SR</th>
-<th align="right">Pos</th>
+<th align="left">BF</th>
+<th align="left">X4s</th>
+<th align="left">X6s</th>
+<th align="left">SR</th>
+<th align="left">Pos</th>
 <th align="left">Dismissal</th>
 <th align="right">Inns</th>
 <th align="left">NotOut</th>
@@ -547,15 +548,15 @@
 <tr class="odd">
 <td align="left">2011-01-05</td>
 <td align="right">1</td>
-<td align="left">ENG Women</td>
+<td align="left">ENG WMN</td>
 <td align="left">Perth</td>
 <td align="right">20</td>
 <td align="right">60</td>
-<td align="right">38</td>
-<td align="right">2</td>
-<td align="right">0</td>
-<td align="right">52.63</td>
-<td align="right">2</td>
+<td align="left">38</td>
+<td align="left">2</td>
+<td align="left">0</td>
+<td align="left">52.63</td>
+<td align="left">2</td>
 <td align="left">caught</td>
 <td align="right">1</td>
 <td align="left">FALSE</td>
@@ -563,15 +564,15 @@
 <tr class="even">
 <td align="left">2011-01-07</td>
 <td align="right">2</td>
-<td align="left">ENG Women</td>
+<td align="left">ENG WMN</td>
 <td align="left">Perth</td>
 <td align="right">104</td>
 <td align="right">148</td>
-<td align="right">118</td>
-<td align="right">8</td>
-<td align="right">1</td>
-<td align="right">88.13</td>
-<td align="right">2</td>
+<td align="left">118</td>
+<td align="left">8</td>
+<td align="left">1</td>
+<td align="left">88.13</td>
+<td align="left">2</td>
 <td align="left">not out</td>
 <td align="right">2</td>
 <td align="left">TRUE</td>
@@ -579,15 +580,15 @@
 <tr class="odd">
 <td align="left">2011-06-14</td>
 <td align="right">2</td>
-<td align="left">NZ Women</td>
+<td align="left">NZ WMN</td>
 <td align="left">Brisbane</td>
 <td align="right">11</td>
 <td align="right">15</td>
-<td align="right">14</td>
-<td align="right">2</td>
-<td align="right">0</td>
-<td align="right">78.57</td>
-<td align="right">2</td>
+<td align="left">14</td>
+<td align="left">2</td>
+<td align="left">0</td>
+<td align="left">78.57</td>
+<td align="left">2</td>
 <td align="left">bowled</td>
 <td align="right">2</td>
 <td align="left">FALSE</td>
@@ -595,15 +596,15 @@
 <tr class="even">
 <td align="left">2011-06-16</td>
 <td align="right">1</td>
-<td align="left">NZ Women</td>
+<td align="left">NZ WMN</td>
 <td align="left">Brisbane</td>
 <td align="right">5</td>
 <td align="right">8</td>
-<td align="right">8</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">62.50</td>
-<td align="right">2</td>
+<td align="left">8</td>
+<td align="left">1</td>
+<td align="left">0</td>
+<td align="left">62.50</td>
+<td align="left">2</td>
 <td align="left">caught</td>
 <td align="right">1</td>
 <td align="left">FALSE</td>
@@ -611,15 +612,15 @@
 <tr class="odd">
 <td align="left">2011-06-30</td>
 <td align="right">1</td>
-<td align="left">NZ Women</td>
+<td align="left">NZ WMN</td>
 <td align="left">Chesterfield</td>
 <td align="right">17</td>
 <td align="right">24</td>
-<td align="right">20</td>
-<td align="right">3</td>
-<td align="right">0</td>
-<td align="right">85.00</td>
-<td align="right">2</td>
+<td align="left">20</td>
+<td align="left">3</td>
+<td align="left">0</td>
+<td align="left">85.00</td>
+<td align="left">2</td>
 <td align="left">caught</td>
 <td align="right">1</td>
 <td align="left">FALSE</td>
@@ -631,11 +632,11 @@
 <td align="left">Chesterfield</td>
 <td align="right">23</td>
 <td align="right">40</td>
-<td align="right">32</td>
-<td align="right">3</td>
-<td align="right">0</td>
-<td align="right">71.87</td>
-<td align="right">2</td>
+<td align="left">32</td>
+<td align="left">3</td>
+<td align="left">0</td>
+<td align="left">71.87</td>
+<td align="left">2</td>
 <td align="left">run out</td>
 <td align="right">2</td>
 <td align="left">FALSE</td>
@@ -656,7 +657,11 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="va">MLave</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"gray"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Date</span>, y <span class="op">=</span> <span class="va">Runs</span>, col <span class="op">=</span> <span class="va">NotOut</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Meg Lanning ODI Scores"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>sec.axis <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/sec_axis.html" class="external-link">sec_axis</a></span><span class="op">(</span><span class="op">~</span><span class="va">.</span>, breaks <span class="op">=</span> <span class="va">MLave</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>sec.axis <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/sec_axis.html" class="external-link">sec_axis</a></span><span class="op">(</span><span class="op">~</span><span class="va">.</span>, breaks <span class="op">=</span> <span class="va">MLave</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in min(x): no non-missing arguments to min; returning Inf</span></span>
+<span><span class="co">#&gt; Warning in max(x): no non-missing arguments to max; returning -Inf</span></span>
+<span><span class="co">#&gt; Warning: Removed 103 rows containing missing values (`geom_hline()`).</span></span>
+<span><span class="co">#&gt; Warning: Removed 1 rows containing missing values (`geom_point()`).</span></span></code></pre></div>
 <p><img src="cricinfo_files/figure-html/meglanninggraph-1.png" width="700"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

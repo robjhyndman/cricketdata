@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">cricketdata</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -475,7 +475,9 @@
 <span>      <span class="va">winner</span> <span class="op">==</span> <span class="va">bowling_team</span> <span class="op">~</span> <span class="st">"won"</span>,</span>
 <span>      <span class="cn">TRUE</span> <span class="op">~</span> <span class="st">"lost"</span></span>
 <span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Expected 2 pieces. Missing pieces filled with `NA` in 7662 rows [1, 2, 3, 4, 5,</span></span>
+<span><span class="co">#&gt; 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].</span></span></code></pre></div>
 <p>Using the WBBL07 data subset, I did some further tidying to calculate team strike rates per innings:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">team_strike_rate</span> <span class="op">&lt;-</span> <span class="va">wbbl07_bbb_tidy</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
