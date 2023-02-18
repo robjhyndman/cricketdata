@@ -27,7 +27,7 @@ knitr::opts_chunk$set(
 
 ```{r}
 library(cricketdata)
-library(tidyverse)
+library(dplyr)
 ```
 
 ```{r getdata, eval=FALSE, echo=FALSE}

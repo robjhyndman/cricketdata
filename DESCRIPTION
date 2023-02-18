@@ -17,7 +17,7 @@ Authors@R: c(
   )
 Depends: R (>= 3.5.0)
 Imports:
-  dplyr,
+  dplyr (>= 1.1.0),
   janitor,
   lubridate,
   magrittr,
@@ -39,16 +39,15 @@ Suggests:
   patchwork,
   rmarkdown,
   R.rsp,
-  showtext,
-  tidyverse
+  showtext
 License: GPL-3
 Encoding: UTF-8
 ByteCompile: true
 URL: http://pkg.robjhyndman.com/cricketdata/,
     https://github.com/robjhyndman/cricketdata
 LazyData: true
-VignetteBuilder: 
-  knitr, 
+VignetteBuilder:
+  knitr,
   R.rsp
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3

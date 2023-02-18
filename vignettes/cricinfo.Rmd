@@ -1,7 +1,7 @@
 ---
 title: "ESPNCricinfo data"
 author: Rob J Hyndman
-output: 
+output:
   rmarkdown::html_vignette:
     fig_width: 10
     fig_height: 5
@@ -25,7 +25,8 @@ options(
 
 ```{r setup}
 library(cricketdata)
-library(tidyverse)
+library(dplyr)
+library(ggplot2)
 ```
 
 The `fetch_cricinfo()` function will fetch data on all international cricket matches provided by ESPNCricinfo. Please respect the [ESPNCricinfo terms of use](https://www.espncricinfo.com/ci/content/site/company/terms_use.html) when using this function.

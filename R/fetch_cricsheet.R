@@ -179,7 +179,7 @@ cleaning_bbb_t20_cricsheet <- function(df) {
     dplyr::inner_join(
       df |>
         dplyr::group_by(match_id, innings) |>
-        dplyr::summarise(
+        dplyr::reframe(
           runs_scored_yet = cumsum(runs_off_bat + extras),
           wickets_lost_yet = cumsum(wicket),
           ball = ball, over = over,
@@ -191,7 +191,7 @@ cleaning_bbb_t20_cricsheet <- function(df) {
   # Evaluating the balls in over after adjusting for extra balls and balls remaining in an innings
   remaining_balls <- df |>
     dplyr::group_by(match_id, innings, over) |>
-    dplyr::summarise(ball = ball, extra_ball = cumsum(extra_ball), .groups = "drop") |>
+    dplyr::reframe(ball = ball, extra_ball = cumsum(extra_ball)) |>
     dplyr::mutate(
       ball_in_over = ball - extra_ball,
       balls_remaining = ifelse(innings %in% c(1, 2), 120 - ((over - 1) * 6 + ball_in_over), 6 - ball_in_over)
@@ -201,7 +201,7 @@ cleaning_bbb_t20_cricsheet <- function(df) {
   # Evaluating innings totals using ball-by-ball data
   innings_total <- df |>
     dplyr::group_by(match_id, innings) |>
-    dplyr::summarise(total_score = sum(runs_off_bat + extras), .groups = "drop") |>
+    dplyr::reframe(total_score = sum(runs_off_bat + extras)) |>
     tidyr::pivot_wider(
       names_from  = "innings",
       values_from = c("total_score")
