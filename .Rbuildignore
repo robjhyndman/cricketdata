@@ -10,3 +10,4 @@
 ^CRAN-SUBMISSION$
 ^data-raw$
 ^.*_cache$
+^pkgdown$
