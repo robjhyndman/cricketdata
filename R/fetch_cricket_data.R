@@ -77,8 +77,8 @@ fetch_cricket_data <- function(matchtype = c("test", "odi", "t20"),
         stop("No data available")
       }
       maxpage <- as.numeric(strsplit(dplyr::pull(tables[[2]][1, 1]), "Page 1 of ")[[1]][2])
-      pb <- progress::progress_bar$new(total = maxpage)
-      pb$tick(0)
+      pb <- cli::cli_progress_bar("Downloading", total = maxpage)
+      cli::cli_progress_update()
       Sys.sleep(1 / 1000)
     }
     if (!theend) {
@@ -89,7 +89,7 @@ fetch_cricket_data <- function(matchtype = c("test", "odi", "t20"),
       alldata <- dplyr::bind_rows(alldata, tab)
 
       # Update progress bar
-      pb$tick()
+      cli::cli_progress_update()
       Sys.sleep(1 / 1000)
 
       # Increment page counter.
@@ -97,6 +97,8 @@ fetch_cricket_data <- function(matchtype = c("test", "odi", "t20"),
     }
   }
 
+  cli::cli_progress_done()
+  
   # Remove redundant missings columns.
   alldata <-
     suppressMessages(tibble::as_tibble(alldata[, colSums(is.na(alldata)) != NROW(alldata)], .name_repair = "check_unique"))

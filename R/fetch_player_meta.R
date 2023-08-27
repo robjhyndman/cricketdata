@@ -24,10 +24,12 @@
 #' @export
 fetch_player_meta <- function(playerid) {
   output <- NULL
+  pb <- cli::cli_progress_bar(total = length(playerid))
   for (j in seq_along(playerid)) {
-    # print(j)
+    cli::cli_progress_update()
     output <- rbind(output, fetch_player_meta_individual(playerid[j]))
   }
+  cli::cli_progress_done()
   return(output)
 }
 

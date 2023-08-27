@@ -17,10 +17,10 @@ Authors@R: c(
   )
 Depends: R (>= 3.5.0)
 Imports:
+  cli,
   dplyr (>= 1.1.0),
   janitor,
   lubridate,
-  progress,
   readr,
   rvest,
   stringr,
