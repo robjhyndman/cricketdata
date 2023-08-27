@@ -7,11 +7,11 @@ Description: Data on international and other major cricket matches from
   for analysis.
 Authors@R: c(
   person("Rob", "Hyndman", email="Rob.Hyndman@monash.edu", role=c("aut", "cre")),
-  person("Timothy", "Hyndman", email="Timothy.Hyndman@gmail.com", role="aut"),
   person("Charles", "Gray", email="C.Gray@latrobe.edu.au", role="aut"),
   person("Sayani", "Gupta", email="Sayani.Gupta@monash.edu", role="aut"),
-  person("Jacquie","Tran", email="jac@jacquietran.com", role="aut"),
+  person("Timothy", "Hyndman", email="Timothy.Hyndman@gmail.com", role="aut"),
   person("Hassan","Rafique", email="dazzalytics@protonmail.com", role="aut"),
+  person("Jacquie","Tran", email="jac@jacquietran.com", role="aut"),
   person("Puwasala", "Gamakumara", email="Puwasala.Gamakumara@monash.edu", role="ctb"),
   person("Alex", "Whan", email="alexwhan@gmail.com", role="ctb")
   )
