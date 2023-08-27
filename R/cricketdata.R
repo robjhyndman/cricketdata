@@ -1,4 +1,4 @@
-#' @importFrom magrittr %>%
+#' @importFrom dplyr %>%
 #' @importFrom dplyr pull
 #' @importFrom readr read_csv
 #' @importFrom tidyr separate pivot_wider
@@ -7,7 +7,7 @@
 #'
 
 #' @export
-magrittr::`%>%`
+dplyr::`%>%`
 
 
 #' Cricket Data from international and other major cricket matches.
