@@ -29,7 +29,7 @@ aus_women <- fetch_player_meta(c(329336, 275487))
 }
 \seealso{
 It is usually simpler to just use the saved data set \link{player_meta}
-which contains the meta data for all players on ESPNCricinfo as at 20 January 2023.
+which contains the meta data for all players on ESPNCricinfo as at 28 August 2023.
 To find a player ID, use \code{\link[=find_player_id]{find_player_id()}}.
 Use \code{\link[=fetch_player_data]{fetch_player_data()}} to download playing statistics for a player.
 }

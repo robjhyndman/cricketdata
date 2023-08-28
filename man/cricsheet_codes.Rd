@@ -5,7 +5,7 @@
 \alias{cricsheet_codes}
 \title{Codes used for competitions on Cricsheet}
 \format{
-A data frame with 37 rows and 2 variables.
+A data frame with 39 rows and 2 variables.
 }
 \source{
 \url{https://cricsheet.org/downloads/#experimental}
@@ -15,6 +15,6 @@ cricsheet_codes
 }
 \description{
 A dataset containing the names and codes used by
-\href{https://cricsheet.org}{cricsheet}, as at 18 February 2023.
+\href{https://cricsheet.org}{cricsheet}, as at 28 August 2023.
 }
 \keyword{datasets}

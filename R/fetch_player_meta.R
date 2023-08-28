@@ -13,7 +13,7 @@
 #' each player.
 #' @author Hassan Rafique and Rob J Hyndman
 #' @seealso It is usually simpler to just use the saved data set [player_meta]
-#' which contains the meta data for all players on ESPNCricinfo as at 20 January 2023.
+#' which contains the meta data for all players on ESPNCricinfo as at 28 August 2023.
 #' To find a player ID, use [find_player_id()].
 #' Use [fetch_player_data()] to download playing statistics for a player.
 #' @examples
@@ -95,6 +95,8 @@ fetch_player_meta_individual <- function(playerid) {
     }
     # Fix missing countries
     if(is.na(output$country)) {
+      output$country <- "South Korea"
+    } else if(str_detect(output$country, "INTL CAREER")) {
       output$country <- "South Korea"
     }
   }

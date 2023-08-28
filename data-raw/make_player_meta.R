@@ -5,7 +5,17 @@ library(stringr)
 # Create tibble of cricinfo meta data for all players who are on both cricsheet and cricinfo.
 # Using start_again = TRUE in case some data has been corrected online.
 # Much more efficient to set start_again = FALSE
-player_meta <- update_player_meta(start_again = TRUE)
+player_meta <- update_player_meta(start_again = FALSE)
+player_meta <- player_meta |> 
+  mutate(
+    country = if_else(str_detect(country, "INTL CAREER"), "South Korea", country)
+  )
+# Check all character fields are ascii
+for (j in seq_len(NCOL(player_meta))) {
+  if(inherits(player_meta[,j], "character")) {
+    player_meta[,j] <- iconv(player_meta[,j], from="utf8", to="ascii")
+  }
+}
 usethis::use_data(player_meta, overwrite = TRUE)
 
 # Need to update date and size of object in following files
