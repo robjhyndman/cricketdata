@@ -19,6 +19,9 @@
 #' @export
 update_player_meta <- function(start_again = FALSE) {
   store_warning <- options(warn = -1)$warn
+  # Remove people with no country from existing player_meta
+  player_meta <- player_meta |> 
+    dplyr::filter(!is.na(country))
   # Read people file from cricsheet
   people <- readr::read_csv("https://cricsheet.org/register/people.csv",
     col_types = "ccccccccccccccc", lazy = FALSE
@@ -38,7 +41,7 @@ update_player_meta <- function(start_again = FALSE) {
   } else {
     missing_df <- people |>
       dplyr::anti_join(player_meta, by = "cricinfo_id") |>
-      dplyr::anti_join(player_meta, by = c("cricinfo_id2" = "cricinfo_id"))
+      dplyr::anti_join(player_meta, by = c("cricinfo_id2" = "cricinfo_id")) 
   }
 
   # Now download meta data for new players
@@ -76,10 +79,11 @@ update_player_meta <- function(start_again = FALSE) {
     ) |>
     # Remove missing people
     dplyr::filter(!is.na(full_name))
-
+  
   # Add to existing player_meta
   if (!start_again) {
     new_player_meta <- new_player_meta |>
+      dplyr::mutate(dob = as.Date(dob)) |> 
       dplyr::bind_rows(player_meta)
   }
 
