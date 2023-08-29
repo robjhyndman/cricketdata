@@ -1,5 +1,5 @@
 Package: cricketdata
-Version: 0.2.2.9000
+Version: 0.2.3
 Title: International Cricket Data
 Description: Data on international and other major cricket matches from
   ESPNCricinfo <https://www.espncricinfo.com> and Cricsheet <https://cricsheet.org>.
@@ -50,3 +50,4 @@ VignetteBuilder:
   R.rsp
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+BugReports: https://github.com/robjhyndman/cricketdata/issues
