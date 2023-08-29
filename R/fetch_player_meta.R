@@ -96,7 +96,7 @@ fetch_player_meta_individual <- function(playerid) {
     # Fix missing countries
     if(is.na(output$country)) {
       output$country <- "South Korea"
-    } else if(str_detect(output$country, "INTL CAREER")) {
+    } else if(stringr::str_detect(output$country, "INTL CAREER")) {
       output$country <- "South Korea"
     }
   }

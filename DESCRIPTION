@@ -28,6 +28,7 @@ Imports:
   tidyr,
   xml2
 Suggests:
+  codetools,
   gghighlight,
   ggplot2,
   ggtext,
@@ -42,7 +43,7 @@ Suggests:
 License: GPL-3
 Encoding: UTF-8
 ByteCompile: true
-URL: http://pkg.robjhyndman.com/cricketdata/,
+URL: https://pkg.robjhyndman.com/cricketdata/,
     https://github.com/robjhyndman/cricketdata
 LazyData: true
 VignetteBuilder:

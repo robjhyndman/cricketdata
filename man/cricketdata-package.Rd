@@ -11,8 +11,9 @@ Data on international and other major cricket matches from ESPNCricinfo \url{htt
 \seealso{
 Useful links:
 \itemize{
-  \item \url{http://pkg.robjhyndman.com/cricketdata/}
+  \item \url{https://pkg.robjhyndman.com/cricketdata/}
   \item \url{https://github.com/robjhyndman/cricketdata}
+  \item Report bugs at \url{https://github.com/robjhyndman/cricketdata/issues}
 }
 
 }

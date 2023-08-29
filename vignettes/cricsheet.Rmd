@@ -2,7 +2,7 @@
 title: "Cricsheet data"
 author: Jacquie Tran
 date: 7 November 2021
-output: 
+output:
   rmarkdown::html_vignette:
     fig_width: 8
     fig_height: 5
@@ -32,7 +32,7 @@ library(ggtext)
 library(patchwork)
 ```
 
-The `fetch_cricsheet()` function will download csv data from [Cricsheet](https://cricsheet.org/downloads/). Data must be specified by three factors: (a) `type` of data: `bbb` (ball-by-ball), `match` or `player`; (b) `gender`; (c) `competition`. 
+The `fetch_cricsheet()` function will download csv data from [Cricsheet](https://cricsheet.org/downloads/). Data must be specified by three factors: (a) `type` of data: `bbb` (ball-by-ball), `match` or `player`; (b) `gender`; (c) `competition`.
 
 
 Here are some examples of its use with some WBBL data. An earlier version of this article was published at https://underthehood.jacquietran.com/post/wbbl-visualisations/.
@@ -61,22 +61,20 @@ wbbl_match_info <- fetch_cricsheet(competition = "wbbl", type = "match", gender 
 
 ## Alyssa Healy's WBBL batting record
 
-What is there to say about Alyssa Healy that hasn’t already been written by a far better writer than I? (If you haven’t seen it, check out [this recent feature article by Adam Burnett](https://www.cricket.com.au/news/feature/alyssa-healy-australia-india-mitch-starc-vice-captain-sister-kareen-family-lanning-mott/2021-10-10).)
-
-She’s a dangerous batter at every level she plays at, so I wanted to visualise her production across seasons, compared to other batters in the WBBL.
+What is there to say about Alyssa Healy that hasn’t already been written by a far better writer than I? She’s a dangerous batter at every level she plays at, so I wanted to visualise her production across seasons, compared to other batters in the WBBL.
 
 ### Tidying the data
 
 On exploring the Cricsheet data, I noticed that there are only 10 matches from WBBL01 with ball-by-ball data, but there were 59 matches played in the 1st season of WBBL (per [Wikipedia](https://en.wikipedia.org/wiki/2015%E2%80%9316_Women%27s_Big_Bash_League_season)).
 
-Additionally, when I originally worked on this plot of [Healy vs. the world](https://twitter.com/jacquietran/status/1448534315202080773), it was mid-October 2021 and the first ball of #WBBL07 had yet to be bowled. Now, we are reproducing the chart as we are part-way through the current season, so the code below also omits data from any matches played so far in this 7th season.
+Additionally, when I originally worked on this plot of Healy vs. the world, it was mid-October 2021 and the first ball of #WBBL07 had yet to be bowled. Now, we are reproducing the chart as we are part-way through the current season, so the code below also omits data from any matches played so far in this 7th season.
 
 ```{r}
 # Data from 2015/16 (WBBL01) excluded due to only having 10 matches worth of data
 # in the Cricsheet spreadsheet.
 # Data from 2021/22 and later (WBBL07) excluded as incomplete at time of article
 wbbl_bbb_tidy <- wbbl_bbb %>%
-  filter(!season %in% c("2015/16", "2021/22")) %>% 
+  filter(!season %in% c("2015/16", "2021/22")) %>%
   filter(start_date < "2021-11-07")
 ```
 
@@ -103,7 +101,7 @@ batting_per_season <- wbbl_bbb_tidy %>%
     strike_rate = round(runs_off_bat_total / balls_faced_total * 100, 1)
   ) %>%
   filter(innings_total > 2) %>%
-  mutate(is_healy = (striker == "AJ Healy")) %>% 
+  mutate(is_healy = (striker == "AJ Healy")) %>%
   ungroup()
 ```
 
@@ -192,13 +190,13 @@ The code above shapes up the ball-by-ball data to record:
 
  * How many balls a batter has faced at each ball number in an over (1-6),
  * How many times a batter has been dismissed at each ball number.
- 
+
 I made some editorial judgments too:
 
  * Excluded data from WBBL01 due to limited games from that season in the Cricsheet-hosted data
  * Excluded balls numbered 7+
  * League-wide data only includes batters who have faced 200+ balls total (across WBBL02-06, inclusive)
- 
+
 With the ball-by-ball data prepared for the analysis question, we can then calculate league-wide and player-specific summary statistics for dismissals by ball number:
 
 ```{r}
@@ -240,7 +238,7 @@ dismissals_by_ball_number_summary_knight <- dismissals_by_ball_number_summary %>
 
 ### Making plots
 
-Here’s the code for building [the plot I tweeted out](https://twitter.com/jacquietran/status/1449247570656522241). I decided to build one plot per player of interest and then “quilt” the plots together using the `patchwork` package (https://github.com/thomasp85/patchwork). I’m sure you could achieve the same / similar result using `ggplot2::facet_wrap()` but I just love using `patchwork` ...
+Here’s the code for building the plot I tweeted out. I decided to build one plot per player of interest and then “quilt” the plots together using the `patchwork` package (https://github.com/thomasp85/patchwork). I’m sure you could achieve the same / similar result using `ggplot2::facet_wrap()` but I just love using `patchwork` ...
 
 ```{r, out.width="100%"}
 # Define consistent plot features ----------------------------------------------
@@ -369,14 +367,14 @@ p6 <- dismissals_by_ball_number_summary %>%
 (p1 + p2 + p3) / (p4 + p5 + p6)
 ```
 
-My key observations (covered in [this tweet thread](https://twitter.com/jacquietran/status/1449247570656522241)):
+My key observations:
 
   1. Lanning doesn’t give much away on any ball number in an over - of balls faced at each ball number (1-6), her dismissals percentages range from 2.7-3.4%. Well under league medians of 4.3-5.1%.
   2. Perry is a stalwart too, but relative to her own standards, you might have a better shot bowling to her on balls 5 (2.7%) and 6 (3.4%) than earlier in an over (1.4-2.4%).
   3. Healy is obviously dangerous with how quickly she can accelerate her run-scoring, but is she susceptible on ball 5? (dismissed 7.1% out of balls faced vs. 4.7% as the league median for ball number 5)
   4. The opening partnership of Mooney / Devine is a scary prospect, reason #4182: they’re both hard to shift from the crease. Devine’s “worst” ball is ball number 3 (4.3%), Mooney’s is ball number 5 (4.5%) - both are still below league medians (4.8% and 4.7%, respectively).
   5. Knight is stubborn for balls 1-3 (1.7-2.8%), looser than the league medians for balls 4 and 5 (7.7% and 5.5%, respectively), then clamps down again for ball 6 (3.2%).
-  
+
 ## “Wiggly bois”: Visualising team strike rates
 
 Player and league summaries across seasons are great and all, but what really piques my interest with ball-by-ball / play-by-play data is using it to understand how matches unfold from moment to moment.
@@ -391,7 +389,7 @@ Instead of looking at player strike rates, what can we learn by analysing team *
 
 ### Tidying the data
 
-For a more granular focus, I created a subset from the Cricsheet data that includes matches played in season 7 of the WBBL. At the time I produced [my original visualisation](https://twitter.com/jacquietran/status/1458000166397480962), the ball-by-ball data included all games played up to 7 November 2021.
+For a more granular focus, I created a subset from the Cricsheet data that includes matches played in season 7 of the WBBL. At the time I produced my original visualisation, the ball-by-ball data included all games played up to 7 November 2021.
 
 ```{r}
 # Subset match metadata for WBB07 games
