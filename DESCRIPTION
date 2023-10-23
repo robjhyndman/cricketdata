@@ -15,7 +15,7 @@ Authors@R: c(
   person("Puwasala", "Gamakumara", email="Puwasala.Gamakumara@monash.edu", role="ctb"),
   person("Alex", "Whan", email="alexwhan@gmail.com", role="ctb")
   )
-Depends: R (>= 3.5.0)
+Depends: R (>= 4.1.0)
 Imports:
   cli,
   dplyr (>= 1.1.0),
