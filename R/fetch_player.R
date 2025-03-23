@@ -49,9 +49,11 @@ fetch_player_data <- function(
 
   # Try male URL
   output <- get_cricinfo_data(playerid, matchclass, matchtype, activity)
-  if (output %in% c("No records", "No player")) {
-    # Try female URL
-    output <- get_cricinfo_data(playerid, matchclass + 7L, matchtype, activity)
+  if (inherits(output, "character")) {
+    if (output %in% c("No records")) {
+      # Player exists. So try female URL
+      output <- get_cricinfo_data(playerid, matchclass + 7L, matchtype, activity)
+    }
   }
   if (inherits(output, "character")) {
     if (output == "No player") {
