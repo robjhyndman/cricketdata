@@ -44,16 +44,15 @@ fetch_player_data <- function(playerid,
   activity <- match.arg(activity)
 
   # First figure out if player is female or male
-  profile <- paste(
-    "http://www.espncricinfo.com/ci/content/player/",
-    playerid, ".html",
-    sep = ""
-  )
-  raw <- try(xml2::read_html(profile), silent = TRUE)
-  if ("try-error" %in% class(raw)) {
+  json <- try(jsonlite::fromJSON(
+    paste0(
+      "http://core.espnuk.org/v2/sports/cricket/athletes/",
+      playerid
+    )), silent = TRUE) |> suppressWarnings()
+  if ("try-error" %in% class(json)) {
     stop("Player not found")
   }
-  female <- length(grep("format=women", as.character(raw))) > 0
+  female <- json$gender == "F"
 
   matchclass_male <- match(matchtype, c("test", "odi", "t20"))
   matchclass_female <- match(matchtype, c("test", "odi", "t20")) + 7
