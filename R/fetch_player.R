@@ -34,66 +34,38 @@
 #'   ggtitle("Ellyse Perry's T20 Scores")
 #' }
 #' @export
-fetch_player_data <- function(playerid,
-                              matchtype = c("test", "odi", "t20"),
-                              activity = c("batting", "bowling", "fielding")) {
+fetch_player_data <- function(
+  playerid,
+  matchtype = c("test", "odi", "t20"),
+  activity = c("batting", "bowling", "fielding")
+) {
   matchtype <- tolower(matchtype)
   matchtype <- match.arg(matchtype)
 
   activity <- tolower(activity)
   activity <- match.arg(activity)
 
-  # First figure out if player is female or male
-  json <- try(jsonlite::fromJSON(
-    paste0(
-      "http://core.espnuk.org/v2/sports/cricket/athletes/",
-      playerid
-    )), silent = TRUE) |> suppressWarnings()
-  if ("try-error" %in% class(json)) {
-    stop("Player not found")
+  matchclass <- match(matchtype, c("test", "odi", "t20"))
+
+  # Try male URL
+  output <- get_cricinfo_data(playerid, matchclass, matchtype, activity)
+  if (output %in% c("No records", "No player")) {
+    # Try female URL
+    output <- get_cricinfo_data(playerid, matchclass + 7L, matchtype, activity)
   }
-  female <- json$gender == "F"
-
-  matchclass_male <- match(matchtype, c("test", "odi", "t20"))
-  matchclass_female <- match(matchtype, c("test", "odi", "t20")) + 7
-
-  url <- paste(
-    "http://stats.espncricinfo.com/ci/engine/player/",
-    playerid,
-    ".html?class=",
-    matchclass_male,
-    ";template=results;type=", activity, ";view=innings;wrappertype=print",
-    sep = ""
-  )
-  raw <- try(xml2::read_html(url), silent = TRUE)
-  check1 <- rvest::html_table(raw)
-
-  if ("No records available to match this query" %in% unlist(check1)) {
-    url <- paste(
-      "http://stats.espncricinfo.com/ci/engine/player/",
-      playerid,
-      ".html?class=",
-      matchclass_female,
-      ";template=results;type=", activity, ";view=innings;wrappertype=print",
-      sep = ""
-    )
+  if (inherits(output, "character")) {
+    if (output == "No player") {
+      stop("Player not found")
+    } else if (output == "No records") {
+      stop("Player did not play this format")
+    }
   }
 
-  raw <- try(xml2::read_html(url), silent = TRUE)
-  if ("try-error" %in% class(raw)) {
-    stop("Problem with URL")
-  }
-  # closing previous html connections
-  # Grab relevant table
-  tab_all_rec <- rvest::html_table(raw)
-  tab <- tab_all_rec[[4]]
-  tab_no_rec <- tab_all_rec[[3]]
-
-  if ("No records available to match this query" %in% unlist(tab_no_rec)) {
-    stop(paste("Player has never played", matchtype, "format", sep = " "), call. = F)
-  }
   # Remove redundant missings columns
-  tab <- tibble::as_tibble(tab[, colSums(is.na(tab)) != NROW(tab)], .name_repair = "check_unique")
+  tab <- tibble::as_tibble(
+    output[, colSums(is.na(output)) != NROW(output)],
+    .name_repair = "check_unique"
+  )
 
   # Convert "-" to NA
   tab[tab == "-"] <- NA
@@ -118,11 +90,41 @@ fetch_player_data <- function(playerid,
 
   ## Removing "*" in the column `Runs` and converting it to numeric
   if ("Runs" %in% colnames(tab)) {
-    tab$Runs <- suppressWarnings(as.numeric(gsub("*", "", x = tab$Runs, fixed = TRUE)))
+    tab$Runs <- suppressWarnings(as.numeric(gsub(
+      "*",
+      "",
+      x = tab$Runs,
+      fixed = TRUE
+    )))
   }
 
   # Reorder columns
   return(
     tab[, c(com_col, tidy.col[!tidy.col %in% com_col])]
   )
+}
+
+get_cricinfo_data <- function(playerid, matchclass, matchtype, activity) {
+  url <- paste(
+    "http://stats.espncricinfo.com/ci/engine/player/",
+    playerid,
+    ".html?class=",
+    matchclass,
+    ";template=results;type=",
+    activity,
+    ";view=innings;wrappertype=print",
+    sep = ""
+  )
+  raw <- try(xml2::read_html(url), silent = TRUE)
+  if (!("try-error" %in% class(raw))) {
+    output <- rvest::html_table(raw)
+    if ("No records available to match this query" %in% unlist(output)) {
+      return("No records")
+    } else {
+      # Grab relevant table
+      return(output[[4]])
+    }
+  } else {
+    return("No player")
+  }
 }
