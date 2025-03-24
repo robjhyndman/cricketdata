@@ -16,7 +16,7 @@ A tibble containing meta data on cricket players.
 \description{
 The \link{player_meta} data set contains the names and other
 attributes of players who appear on both \href{https://cricsheet.org}{cricsheet}
-and \href{https://www.espncricinfo.com}{ESPNCricinfo} as at 28 August 2023.
+and \href{https://www.espncricinfo.com}{ESPNCricinfo} as at 24 March 2025.
 This function returns an updated version of the data set based on information
 currently available online.
 }

@@ -18,7 +18,7 @@ Fetch player meta data from ESPNCricinfo and return a tibble with one line
 per player. To identify the players, use their Cricinfo player IDs.
 The simplest way to find this is to look up their Cricinfo Profile page. The number
 at the end of the URL is the ID. For example, Meg Lanning's profile page is
-http://www.espncricinfo.com/australia/content/player/329336.html,
+https://www.espncricinfo.com/cricketers/meg-lanning-329336,
 so her ID is 329336.
 }
 \examples{
@@ -29,7 +29,7 @@ aus_women <- fetch_player_meta(c(329336, 275487))
 }
 \seealso{
 It is usually simpler to just use the saved data set \link{player_meta}
-which contains the meta data for all players on ESPNCricinfo as at 28 August 2023.
+which contains the meta data for all players on ESPNCricinfo as at 24 March 2025.
 To find a player ID, use \code{\link[=find_player_id]{find_player_id()}}.
 Use \code{\link[=fetch_player_data]{fetch_player_data()}} to download playing statistics for a player.
 }
