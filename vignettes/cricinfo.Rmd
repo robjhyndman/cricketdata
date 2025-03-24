@@ -40,8 +40,8 @@ wt20 <- fetch_cricinfo("T20", "Women", "Bowling")
 menODI <- fetch_cricinfo("ODI", "Men", "Batting", type = "innings", country = "Australia")
 Indfielding <- fetch_cricinfo("Test", "Men", "Fielding", country = "India")
 meg_lanning_id <- find_player_id("Meg Lanning")$ID
-MegLanning <- fetch_player_data(meg_lanning_id, "ODI") %>%
-  mutate(NotOut = (Dismissal == "not out")) %>%
+MegLanning <- fetch_player_data(meg_lanning_id, "ODI") |>
+  mutate(NotOut = (Dismissal == "not out")) |>
   mutate(NotOut = tidyr::replace_na(NotOut, FALSE))
 
 saveRDS(wt20, here::here("inst/extdata/wt20.rds"))
@@ -65,14 +65,14 @@ wt20 <- fetch_cricinfo("T20", "Women", "Bowling")
 ```
 
 ```{r woment20, message=FALSE, echo = FALSE}
-wt20 %>%
-  head() %>%
+wt20 |>
+  head() |>
   knitr::kable(digits = 2)
 ```
 
 ```{r woment20graph, fig.width=10, fig.height=8}
-wt20 %>%
-  filter(Wickets > 20, !is.na(Country)) %>%
+wt20 |>
+  filter(Wickets > 20, !is.na(Country)) |>
   ggplot(aes(y = StrikeRate, x = Country)) +
   geom_boxplot() +
   geom_point(alpha = 0.3, col = "blue") +
@@ -89,13 +89,13 @@ menODI <- fetch_cricinfo("ODI", "Men", "Batting", type = "innings", country = "A
 ```
 
 ```{r menodi, message=FALSE, echo=FALSE}
-menODI %>%
-  head() %>%
+menODI |>
+  head() |>
   knitr::kable()
 ```
 
 ```{r menodigraph, warning=FALSE, message=FALSE}
-menODI %>%
+menODI |>
   ggplot(aes(y = Runs, x = Date)) +
   geom_point(alpha = 0.2, col = "#D55E00") +
   geom_smooth() +
@@ -109,14 +109,14 @@ Indfielding <- fetch_cricinfo("Test", "Men", "Fielding", country = "India")
 ```
 
 ```{r indiafielding, echo=FALSE}
-Indfielding %>%
-  head() %>%
+Indfielding |>
+  head() |>
   knitr::kable()
 ```
 
 ```{r indiafieldinggraph}
-Indfielding %>%
-  mutate(wktkeeper = (CaughtBehind > 0) | (Stumped > 0)) %>%
+Indfielding |>
+  mutate(wktkeeper = (CaughtBehind > 0) | (Stumped > 0)) |>
   ggplot(aes(x = Matches, y = Dismissals, col = wktkeeper)) +
   geom_point() +
   ggtitle("Indian Men Test Fielding")
@@ -126,24 +126,24 @@ Indfielding %>%
 
 ```r
 meg_lanning_id <- find_player_id("Meg Lanning")$ID
-MegLanning <- fetch_player_data(meg_lanning_id, "ODI") %>%
-  mutate(NotOut = (Dismissal == "not out")) %>%
+MegLanning <- fetch_player_data(meg_lanning_id, "ODI") |>
+  mutate(NotOut = (Dismissal == "not out")) |>
   mutate(NotOut = tidyr::replace_na(NotOut, FALSE))
 ```
 
 ```{r meglanning, echo=FALSE}
-MegLanning %>%
-  head() %>%
+MegLanning |>
+  head() |>
   knitr::kable()
 ```
 
 ```{r meglanninggraph}
 # Compute batting average
-MLave <- MegLanning %>%
+MLave <- MegLanning |>
   summarise(
     Innings = sum(!is.na(Runs)),
     Average = sum(Runs, na.rm = TRUE) / (Innings - sum(NotOut, na.rm=TRUE))
-  ) %>%
+  ) |>
   pull(Average)
 names(MLave) <- paste("Average =", round(MLave, 2))
 # Plot ODI scores

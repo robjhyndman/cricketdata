@@ -41,7 +41,7 @@ menODI <- fetch_cricinfo("ODI", "Men", "Batting",
   country = "United States of America"
 )
 meg_lanning_id <- find_player_id("Meg Lanning")$ID
-MegLanning <- fetch_player_data(meg_lanning_id, "ODI") %>%
+MegLanning <- fetch_player_data(meg_lanning_id, "ODI") |>
   mutate(NotOut = (Dismissal == "not out"))
 aus_women <- fetch_player_meta(c(329336, 275487))
 
@@ -137,13 +137,13 @@ wt20 <- fetch_cricinfo("T20", "Women", "Bowling")
 
 ```{r tbl-wt20}
 # Looking at data
-wt20 %>%
+wt20 |>
   glimpse()
 
 # Table showing certain features of the data
-wt20 %>%
-  select(Player, Country, Matches, Runs, Wickets, Economy, StrikeRate) %>%
-  head() %>%
+wt20 |>
+  select(Player, Country, Matches, Runs, Wickets, Economy, StrikeRate) |>
+  head() |>
   knitr::kable(
     digits = 2, align = "c",
     caption = "Women Player career profile for international T20"
@@ -152,8 +152,8 @@ wt20 %>%
 
 ```{r fig-wt20SRvER, fig.cap="Strike Rate (balls bowled per wicket) Vs Average (runs conceded per wicket) for Women international T20 bowlers. Each observation represents one player, who has taken at least 50 international wickets."}
 # Plotting Data
-wt20 %>%
-  filter(Wickets >= 50) %>%
+wt20 |>
+  filter(Wickets >= 50) |>
   ggplot(aes(y = StrikeRate, x = Average)) +
   geom_point(alpha = 0.3, col = "blue") +
   ggtitle("Women International T20 Bowlers") +
@@ -175,15 +175,15 @@ menODI <- fetch_cricinfo("ODI", "Men", "Batting",
 ```{r tbl-USA100s}
 #| tbl-cap: Centuries, 100 runs or more in a single innings, scored by USA Batters
 # Table of USA player who have scored a century
-menODI %>%
-  filter(Runs >= 100) %>%
-  select(Player, Runs, BallsFaced, Fours, Sixes, Opposition) %>%
+menODI |>
+  filter(Runs >= 100) |>
+  select(Player, Runs, BallsFaced, Fours, Sixes, Opposition) |>
   knitr::kable(digits = 2)
 ```
 
 ```{r, echo=FALSE}
-# menODI %>%
-#   filter(Runs >= 50) %>%
+# menODI |>
+#   filter(Runs >= 50) |>
 #   ggplot(aes(y = Runs, x = BallsFaced) ) +
 #   geom_point(size = 2) +
 #   geom_text(aes(label= Player), vjust=-0.5, color="#013369",
@@ -220,7 +220,7 @@ Fetch individual player data from all matches played. The function will scrape t
 
 ```{r echo=TRUE, eval=FALSE}
 # Fetching the player Meg Lanning's playing data
-MegLanning <- fetch_player_data(meg_lanning_id, "ODI") %>%
+MegLanning <- fetch_player_data(meg_lanning_id, "ODI") |>
   mutate(NotOut = (Dismissal == "not out"))
 ```
 
@@ -229,9 +229,9 @@ dim(MegLanning)
 names(MegLanning)
 
 # Compute batting average
-MLave <- MegLanning %>%
-  filter(!is.na(Runs)) %>%
-  summarise(Average = sum(Runs) / (n() - sum(NotOut))) %>%
+MLave <- MegLanning |>
+  filter(!is.na(Runs)) |>
+  summarise(Average = sum(Runs) / (n() - sum(NotOut))) |>
   pull(Average)
 names(MLave) <- paste("Average =", round(MLave, 2))
 
@@ -265,23 +265,23 @@ ipl_bbb <- fetch_cricsheet("bbb", "male", "ipl")
 ```
 
 ```{r}
-ipl_bbb %>%
+ipl_bbb |>
   glimpse()
 ```
 
 ```{r fig-iplbatter, fig.cap="Top 20 prolific batters in IPL 2022. We show what percentage of balls they hit for a boundary (4 or 6) against percentage of how many balls they do not score off of (dot percent). Ideally we want to be in top left quadrant, high boundary % and low dot %."}
 # Top 20 batters wrt Boundary and Dot % in IPL 2022 season
-ipl_bbb %>%
-  filter(season == "2022") %>%
-  group_by(striker) %>%
+ipl_bbb |>
+  filter(season == "2022") |>
+  group_by(striker) |>
   summarize(
     Runs = sum(runs_off_bat), BallsFaced = n() - sum(!is.na(wides)),
     StrikeRate = Runs / BallsFaced, DotPercent = sum(runs_off_bat == 0) * 100 / BallsFaced,
     BoundaryPercent = sum(runs_off_bat %in% c(4, 6)) * 100 / BallsFaced
-  ) %>%
-  arrange(desc(Runs)) %>%
-  rename(Batter = striker) %>%
-  slice(1:20) %>%
+  ) |>
+  arrange(desc(Runs)) |>
+  rename(Batter = striker) |>
+  slice(1:20) |>
   ggplot(aes(y = BoundaryPercent, x = DotPercent, size = BallsFaced)) +
   geom_point(color = "red", alpha = 0.3) +
   geom_text(aes(label = Batter),
@@ -296,18 +296,18 @@ ipl_bbb %>%
 ```{r tbl-IPL2022Batters}
 #| tbl-cap: Top 10 prolific batters of IPL 2022 season. JC Butler scored the most runs in total and scored at the highest strike rate (runs per ball). His boundary percent (percentage of balls faced hit for 4s or 6s) is also the highest, while his dot percent (percentage of balls not scored of) is also among the highest.
 # Top 10 prolific batters in IPL 2022 season.
-ipl_bbb %>%
-  filter(season == "2022") %>%
-  group_by(striker) %>%
+ipl_bbb |>
+  filter(season == "2022") |>
+  group_by(striker) |>
   summarize(
     Runs = sum(runs_off_bat), BallsFaced = n() - sum(!is.na(wides)),
     StrikeRate = Runs / BallsFaced,
     DotPercent = sum(runs_off_bat == 0) * 100 / BallsFaced,
     BoundaryPercent = sum(runs_off_bat %in% c(4, 6)) * 100 / BallsFaced
-  ) %>%
-  arrange(desc(Runs)) %>%
-  rename(Batter = striker) %>%
-  slice(1:10) %>%
+  ) |>
+  arrange(desc(Runs)) |>
+  rename(Batter = striker) |>
+  slice(1:10) |>
   knitr::kable(digits = 1, align = "c")
 ```
 
@@ -317,10 +317,10 @@ It is a data set containing player's and cricket officials meta data such as ful
 
 ```{r tbl-playermetadata}
 #| tbl-cap: Player and officials meta data.
-player_meta %>%
-  filter(!is.na(playing_role)) %>%
-  select(-cricinfo_id, -unique_name, -name) %>%
-  head() %>%
+player_meta |>
+  filter(!is.na(playing_role)) |>
+  select(-cricinfo_id, -unique_name, -name) |>
+  head() |>
   knitr::kable(
     digits = 1, align = "c", format = "pipe",
     col.names = c(
@@ -348,7 +348,8 @@ aus_women <- fetch_player_meta(c(329336, 275487))
 
 ```{r tbl-ausplayermetadata}
 #| tbl-cap: Australian Women player meta data.
-aus_women %>%
+aus_women |>
+  select(-name) |>
   knitr::kable(
     digits = 1, align = "c", format = "pipe",
     col.names = c(

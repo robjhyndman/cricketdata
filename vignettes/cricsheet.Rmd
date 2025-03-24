@@ -73,8 +73,8 @@ Additionally, when I originally worked on this plot of Healy vs. the world, it w
 # Data from 2015/16 (WBBL01) excluded due to only having 10 matches worth of data
 # in the Cricsheet spreadsheet.
 # Data from 2021/22 and later (WBBL07) excluded as incomplete at time of article
-wbbl_bbb_tidy <- wbbl_bbb %>%
-  filter(!season %in% c("2015/16", "2021/22")) %>%
+wbbl_bbb_tidy <- wbbl_bbb |>
+  filter(!season %in% c("2015/16", "2021/22")) |>
   filter(start_date < "2021-11-07")
 ```
 
@@ -88,20 +88,20 @@ All things considered, including the T20 format of the WBBL, I was more interest
 
 ```{r}
 # Alyssa Healy compared to all players who have batted in 3+ innings in a season.
-batting_per_season <- wbbl_bbb_tidy %>%
-  group_by(season, striker) %>%
+batting_per_season <- wbbl_bbb_tidy |>
+  group_by(season, striker) |>
   summarise(
     innings_total = length(unique(match_id)),
     runs_off_bat_total = sum(runs_off_bat),
     balls_faced_total = length(ball),
     .groups = "keep"
-  ) %>%
+  ) |>
   mutate(
     runs_per_innings_avg = round(runs_off_bat_total / innings_total, 1),
     strike_rate = round(runs_off_bat_total / balls_faced_total * 100, 1)
-  ) %>%
-  filter(innings_total > 2) %>%
-  mutate(is_healy = (striker == "AJ Healy")) %>%
+  ) |>
+  filter(innings_total > 2) |>
+  mutate(is_healy = (striker == "AJ Healy")) |>
   ungroup()
 ```
 
@@ -114,7 +114,7 @@ font_add_google("Staatliches", "staat")
 showtext_auto()
 
 # Build plot
-batting_per_season %>%
+batting_per_season |>
   ggplot(aes(
     x = season, y = runs_per_innings_avg,
     group = striker, colour = is_healy
@@ -170,19 +170,19 @@ In the absence of fancy Hawkeye data from the WBBL, I took a simpler route throu
 
 ```{r}
 # Create new variable for ball number in each over
-ball_number_faced <- wbbl_bbb_tidy %>%
+ball_number_faced <- wbbl_bbb_tidy |>
   mutate(ball_num_in_over = sub(".*\\.", "", ball))
 
 # Summarise number of balls faced of each ball number, per batter
-ball_number_faced_summary <- ball_number_faced %>%
-  group_by(ball_num_in_over, striker) %>%
+ball_number_faced_summary <- ball_number_faced |>
+  group_by(ball_num_in_over, striker) |>
   summarise(balls_faced = n(), .groups = "drop")
 
 # Dismissals by ball number
-dismissals_by_ball_number <- ball_number_faced %>%
-  select(ball_num_in_over, striker, wicket_type) %>%
-  filter(wicket_type != "") %>%
-  group_by(ball_num_in_over, striker) %>%
+dismissals_by_ball_number <- ball_number_faced |>
+  select(ball_num_in_over, striker, wicket_type) |>
+  filter(wicket_type != "") |>
+  group_by(ball_num_in_over, striker) |>
   summarise(dismissals_n = n(), .groups = "drop")
 ```
 
@@ -204,35 +204,35 @@ With the ball-by-ball data prepared for the analysis question, we can then calcu
 dismissals_by_ball_number_summary <- left_join(
   ball_number_faced_summary, dismissals_by_ball_number,
   by = c("ball_num_in_over", "striker")
-) %>%
-  tidyr::replace_na(list(dismissals_n = 0)) %>%
-  group_by(striker) %>%
-  mutate(total_balls_faced = sum(balls_faced)) %>%
-  ungroup() %>%
-  mutate(dismissals_pct = round(dismissals_n / balls_faced * 100, 2)) %>%
+) |>
+  tidyr::replace_na(list(dismissals_n = 0)) |>
+  group_by(striker) |>
+  mutate(total_balls_faced = sum(balls_faced)) |>
+  ungroup() |>
+  mutate(dismissals_pct = round(dismissals_n / balls_faced * 100, 2)) |>
   # Include those who have faced more than 200 balls total
-  filter(total_balls_faced >= 200) %>%
+  filter(total_balls_faced >= 200) |>
   # Exclude balls beyond 6 - infrequent occurrences
   filter(ball_num_in_over < 7)
 
 # Extract data for specific players
 # Healy
-dismissals_by_ball_number_summary_healy <- dismissals_by_ball_number_summary %>%
+dismissals_by_ball_number_summary_healy <- dismissals_by_ball_number_summary |>
   filter(striker == "AJ Healy")
 # Mooney
-dismissals_by_ball_number_summary_mooney <- dismissals_by_ball_number_summary %>%
+dismissals_by_ball_number_summary_mooney <- dismissals_by_ball_number_summary |>
   filter(striker == "BL Mooney")
 # Lanning
-dismissals_by_ball_number_summary_lanning <- dismissals_by_ball_number_summary %>%
+dismissals_by_ball_number_summary_lanning <- dismissals_by_ball_number_summary |>
   filter(striker == "MM Lanning")
 # Perry
-dismissals_by_ball_number_summary_perry <- dismissals_by_ball_number_summary %>%
+dismissals_by_ball_number_summary_perry <- dismissals_by_ball_number_summary |>
   filter(striker == "EA Perry")
 # Devine
-dismissals_by_ball_number_summary_devine <- dismissals_by_ball_number_summary %>%
+dismissals_by_ball_number_summary_devine <- dismissals_by_ball_number_summary |>
   filter(striker == "SFM Devine")
 # Knight
-dismissals_by_ball_number_summary_knight <- dismissals_by_ball_number_summary %>%
+dismissals_by_ball_number_summary_knight <- dismissals_by_ball_number_summary |>
   filter(striker == "HC Knight")
 ```
 
@@ -274,7 +274,7 @@ plot_features <- list(
 showtext_auto()
 
 # Healy
-p1 <- dismissals_by_ball_number_summary %>%
+p1 <- dismissals_by_ball_number_summary |>
   ggplot(aes(x = ball_num_in_over, y = dismissals_pct)) +
   geom_boxplot(
     fill = "#FFFFFF", colour = "#FFFFFF", size = .5,
@@ -291,7 +291,7 @@ p1 <- dismissals_by_ball_number_summary %>%
   plot_features
 
 # Mooney
-p2 <- dismissals_by_ball_number_summary %>%
+p2 <- dismissals_by_ball_number_summary |>
   ggplot(aes(x = ball_num_in_over, y = dismissals_pct)) +
   geom_boxplot(
     fill = "#FFFFFF", colour = "#FFFFFF", size = .5,
@@ -305,7 +305,7 @@ p2 <- dismissals_by_ball_number_summary %>%
   plot_features
 
 # Lanning
-p3 <- dismissals_by_ball_number_summary %>%
+p3 <- dismissals_by_ball_number_summary |>
   ggplot(aes(x = ball_num_in_over, y = dismissals_pct)) +
   geom_boxplot(
     fill = "#FFFFFF", colour = "#FFFFFF", size = .5,
@@ -319,7 +319,7 @@ p3 <- dismissals_by_ball_number_summary %>%
   plot_features
 
 # Perry
-p4 <- dismissals_by_ball_number_summary %>%
+p4 <- dismissals_by_ball_number_summary |>
   ggplot(aes(x = ball_num_in_over, y = dismissals_pct)) +
   geom_boxplot(
     fill = "#FFFFFF", colour = "#FFFFFF", size = .5,
@@ -333,7 +333,7 @@ p4 <- dismissals_by_ball_number_summary %>%
   plot_features
 
 # Devine
-p5 <- dismissals_by_ball_number_summary %>%
+p5 <- dismissals_by_ball_number_summary |>
   ggplot(aes(x = ball_num_in_over, y = dismissals_pct)) +
   geom_boxplot(
     fill = "#FFFFFF", colour = "#FFFFFF", size = .5,
@@ -347,7 +347,7 @@ p5 <- dismissals_by_ball_number_summary %>%
   plot_features
 
 # Knight
-p6 <- dismissals_by_ball_number_summary %>%
+p6 <- dismissals_by_ball_number_summary |>
   ggplot(aes(x = ball_num_in_over, y = dismissals_pct)) +
   geom_boxplot(
     fill = "#FFFFFF", colour = "#FFFFFF", size = .5,
@@ -393,17 +393,17 @@ For a more granular focus, I created a subset from the Cricsheet data that inclu
 
 ```{r}
 # Subset match metadata for WBB07 games
-wbbl07_match_info_tidy <- wbbl_match_info %>%
-  filter(season == "2021/22", date <= "2021/11/07") %>%
+wbbl07_match_info_tidy <- wbbl_match_info |>
+  filter(season == "2021/22", date <= "2021/11/07") |>
   select(
     match_id, winner, winner_runs, winner_wickets, method, outcome,
     eliminator
-  ) %>%
+  ) |>
   mutate(match_id = factor(match_id))
 
 # Subset ball-by-ball data for WBBL07 games
-wbbl07_bbb_tidy <- wbbl_bbb %>%
-  filter(match_id %in% wbbl07_match_info_tidy$match_id) %>%
+wbbl07_bbb_tidy <- wbbl_bbb |>
+  filter(match_id %in% wbbl07_match_info_tidy$match_id) |>
   mutate(
     match_id = factor(match_id),
     runs_scored = runs_off_bat + extras,
@@ -411,18 +411,18 @@ wbbl07_bbb_tidy <- wbbl_bbb %>%
       wicket_type == "" ~ NA_character_,
       TRUE ~ wicket_type
     )
-  ) %>%
-  group_by(match_id, innings) %>%
+  ) |>
+  group_by(match_id, innings) |>
   mutate(
     temp_var = 1,
     balls_cumulative = cumsum(temp_var),
     runs_cumulative = cumsum(runs_scored),
     runs_total = max(runs_cumulative)
-  ) %>%
-  ungroup() %>%
-  select(-temp_var) %>%
+  ) |>
+  ungroup() |>
+  select(-temp_var) |>
   # Merge match metadata and ball-by-ball data
-  left_join(., wbbl07_match_info_tidy, by = "match_id") %>%
+  left_join(wbbl07_match_info_tidy, by = "match_id") |>
   mutate(
     outcome_batting_team = case_when(
       outcome %in% c("no result", "tie") ~ as.character(outcome),
@@ -440,11 +440,11 @@ wbbl07_bbb_tidy <- wbbl_bbb %>%
 Using the WBBL07 data subset, I did some further tidying to calculate team strike rates per innings:
 
 ```{r}
-team_strike_rate <- wbbl07_bbb_tidy %>%
+team_strike_rate <- wbbl07_bbb_tidy |>
   # Exclude matches that ended with a Super Over ("tie")
   # and matches that were called off ("no result")
-  filter(!outcome_batting_team %in% c("tie", "no result")) %>%
-  group_by(match_id, innings) %>%
+  filter(!outcome_batting_team %in% c("tie", "no result")) |>
+  group_by(match_id, innings) |>
   mutate(
     rolling_strike_rate = round(
       runs_cumulative / balls_cumulative * 100, 1
@@ -467,8 +467,8 @@ team_strike_rate <- wbbl07_bbb_tidy %>%
     match_details = glue::glue(
       "{innings_description} vs. {bowling_team_short} ({start_date_day}/{start_date_month})"
     )
-  ) %>%
-  arrange(match_id, innings, balls_cumulative) %>%
+  ) |>
+  arrange(match_id, innings, balls_cumulative) |>
   mutate(
     match_details = factor(
       match_details,
@@ -493,12 +493,12 @@ knitr::include_graphics("figs/tweet.png")
 
 ```{r, fig.width=9, fig.height=12, out.width="100%", warning=FALSE, message=FALSE}
 # Filter to Renegades' innings only --------------------------------------------
-team_strike_rate_renegades <- team_strike_rate %>%
+team_strike_rate_renegades <- team_strike_rate |>
   filter(str_detect(batting_team, "Renegades"))
 
 # Build plot -------------------------------------------------------------------
 showtext_auto()
-team_strike_rate_renegades %>%
+team_strike_rate_renegades |>
   ggplot(aes(x = balls_cumulative, y = rolling_strike_rate)) +
   facet_wrap(~match_details, ncol = 3) +
   geom_hline(yintercept = 100, linetype = "dashed", colour = "#CCCCCC") +
