@@ -26,15 +26,15 @@ You can install the **stable** version from
 [CRAN](https://cran.r-project.org/package=cricketdata).
 
 ``` r
-install.packages("cricketdata", dependencies = TRUE)
+# install.packages("pak")
+pak::pak("cricketdata")
 ```
 
 You can install the **development** version
 [Github](https://github.com/robjhyndman/cricketdata):
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("robjhyndman/cricketdata")
+pak::pak("robjhyndman/cricketdata")
 ```
 
 ## License
