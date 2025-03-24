@@ -1,3 +1,7 @@
+# cricketdata (0.2.4)
+  * Updated data
+  * Bug fixes due to changes in cricinfo URLs
+
 # cricketdata (0.2.3)
   * Updated data
   * Bug fixes

@@ -44,17 +44,17 @@ MegLanning <- fetch_player_data(meg_lanning_id, "ODI") %>%
   mutate(NotOut = (Dismissal == "not out")) %>%
   mutate(NotOut = tidyr::replace_na(NotOut, FALSE))
 
-saveRDS(wt20, "inst/extdata/wt20.rds")
-saveRDS(menODI, "inst/extdata/menODI.rds")
-saveRDS(Indfielding, "inst/extdata/Indfielding.rds")
-saveRDS(MegLanning, "inst/extdata/MegLanning.rds")
+saveRDS(wt20, here::here("inst/extdata/wt20.rds"))
+saveRDS(menODI, here::("inst/extdata/menODI.rds"))
+saveRDS(Indfielding, here::("inst/extdata/Indfielding.rds"))
+saveRDS(MegLanning, here::("inst/extdata/MegLanning.rds"))
 ```
 
 ```{r loaddata, include=FALSE}
-wt20 <- readRDS("../inst/extdata/wt20.rds")
-menODI <- readRDS("../inst/extdata/menODI.rds")
-Indfielding <- readRDS("../inst/extdata/Indfielding.rds")
-MegLanning <- readRDS("../inst/extdata/MegLanning.rds")
+wt20 <- readRDS(here::here("inst/extdata/wt20.rds"))
+menODI <- readRDS(here::here("inst/extdata/menODI.rds"))
+Indfielding <- readRDS(here::here("inst/extdata/Indfielding.rds"))
+MegLanning <- readRDS(here::here("inst/extdata/MegLanning.rds"))
 ```
 
 ## Women's T20 bowling data
