@@ -1,5 +1,5 @@
 Package: cricketdata
-Version: 0.2.3
+Version: 0.3.0
 Title: International Cricket Data
 Description: Data on international and other major cricket matches from
   ESPNCricinfo <https://www.espncricinfo.com> and Cricsheet <https://cricsheet.org>.
