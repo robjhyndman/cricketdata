@@ -319,7 +319,7 @@ It is a data set containing player's and cricket officials meta data such as ful
 #| tbl-cap: Player and officials meta data.
 player_meta %>%
   filter(!is.na(playing_role)) %>%
-  select(-cricinfo_id, -unique_name) %>%
+  select(-cricinfo_id, -unique_name, -name) %>%
   head() %>%
   knitr::kable(
     digits = 1, align = "c", format = "pipe",
