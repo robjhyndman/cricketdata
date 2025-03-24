@@ -1,12 +1,12 @@
-# cricketdata (0.2.4)
+# cricketdata 0.2.4
   * Updated data
   * Bug fixes due to changes in cricinfo URLs
 
-# cricketdata (0.2.3)
+# cricketdata 0.2.3
   * Updated data
   * Bug fixes
 
-# cricketdata (0.2.2)
+# cricketdata 0.2.2
   * Added hex sticker, thanks to @jacquietran
   * fetch_cricsheet() can now handle all competitions with csv files.
   * Reduced dependencies
