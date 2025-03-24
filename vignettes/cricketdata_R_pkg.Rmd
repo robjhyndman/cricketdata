@@ -54,12 +54,12 @@ saveRDS(aus_women, here::here("inst/extdata/aus_women.rds"))
 ```
 
 ```{r loaddata, include=FALSE}
-ipl_bbb <- readRDS(here::here("../inst/extdata/ipl_bbb.rds"))
-wt20 <- readRDS(here::here("../inst/extdata/wt20.rds"))
-menODI <- readRDS(here::here("../inst/extdata/usmenODI.rds"))
-MegLanning <- readRDS(here::here("../inst/extdata/MegLanning.rds"))
-meg_lanning_id <- readRDS(here::here("../inst/extdata/meg_lanning_id.rds"))
-aus_women <- readRDS(here::here("../inst/extdata/aus_women.rds"))
+ipl_bbb <- readRDS("../inst/extdata/ipl_bbb.rds")
+wt20 <- readRDS("../inst/extdata/wt20.rds")
+menODI <- readRDS("../inst/extdata/usmenODI.rds")
+MegLanning <- readRDS("../inst/extdata/MegLanning.rds")
+meg_lanning_id <- readRDS("../inst/extdata/meg_lanning_id.rds")
+aus_women <- readRDS("../inst/extdata/aus_women.rds")
 ```
 
 
