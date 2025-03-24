@@ -353,8 +353,7 @@ aus_women |>
   knitr::kable(
     digits = 1, align = "c", format = "pipe",
     col.names = c(
-      "ID", "FullName", "Country", "DOB", "BirthPlace", "BattingStyle",
-      "BowlingStyle", "PlayingRole"
+      "ID", "FullName", "Country", "DOB", "BattingStyle", "BowlingStyle"
     )
   )
 ```
