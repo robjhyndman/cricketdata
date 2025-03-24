@@ -2,7 +2,7 @@
 #'
 #' The [player_meta] data set contains the names and other
 #' attributes of players who appear on both [cricsheet](https://cricsheet.org)
-#' and [ESPNCricinfo](https://www.espncricinfo.com) as at 28 August 2023.
+#' and [ESPNCricinfo](https://www.espncricinfo.com) as at 24 March 2025.
 #' This function returns an updated version of the data set based on information
 #' currently available online.
 #'
