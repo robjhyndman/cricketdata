@@ -9,6 +9,7 @@
 [![Downloads](https://cranlogs.r-pkg.org/badges/cricketdata)](https://cran.r-project.org/package=cricketdata)
 [![Licence](https://img.shields.io/badge/licence-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 [![R-CMD-check](https://github.com/robjhyndman/cricketdata/workflows/R-CMD-check/badge.svg)](https://github.com/robjhyndman/cricketdata/actions)
+[![R-CMD-check](https://github.com/robjhyndman/cricketdata/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/robjhyndman/cricketdata/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 Functions for downloading data on international and other major cricket
