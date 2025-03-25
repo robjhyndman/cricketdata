@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">cricketdata</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,7 +67,7 @@ and Jacquie Tran</h4>
             
             <h4 data-toc-skip class="date">18 October 2022</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/robjhyndman/cricketdata/blob/master/vignettes/cricketdata_R_pkg.Rmd" class="external-link"><code>vignettes/cricketdata_R_pkg.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/robjhyndman/cricketdata/blob/v0.2.3/vignettes/cricketdata_R_pkg.Rmd" class="external-link"><code>vignettes/cricketdata_R_pkg.Rmd</code></a></small>
       <div class="d-none name"><code>cricketdata_R_pkg.Rmd</code></div>
     </div>
 
@@ -115,7 +115,7 @@ and Jacquie Tran</h4>
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
 <p>The coverage of cricket as a sport has been limited compared to other
-global sports. <a href="https://www.espncricinfo.com" class="external-link">ESPN Cricinfo</a>
+global sports. <a href="https://www.espncricinfo.com/" class="external-link">ESPN Cricinfo</a>
 is the major and one of the few online platforms dedicated to cricket
 coverage. It started as <a href="https://en.wikipedia.org/wiki/ESPNcricinfo#/media/File:Cricinfo_in_1995.jpg" class="external-link">Cricinfo</a>
 in the late 90s, and it was maintained by students and cricket fans who
@@ -217,31 +217,31 @@ for all countries.</li>
 <span><span class="va">wt20</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_cricinfo.html">fetch_cricinfo</a></span><span class="op">(</span><span class="st">"T20"</span>, <span class="st">"Women"</span>, <span class="st">"Bowling"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Looking at data</span></span>
-<span><span class="va">wt20</span> <span class="op">|&gt;</span></span>
+<span><span class="va">wt20</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Rows: 2,753</span></span>
+<span><span class="co">#&gt; Rows: 1,977</span></span>
 <span><span class="co">#&gt; Columns: 16</span></span>
-<span><span class="co">#&gt; $ Player             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "M Schutt", "Nida Dar", "DB Sharma", "S Ecclestone"…</span></span>
-<span><span class="co">#&gt; $ Country            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Australia", "Pakistan", "India", "England", "THA",…</span></span>
-<span><span class="co">#&gt; $ Start              <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 2013, 2010, 2016, 2016, 2018, 2008, 2008, 2007, 200…</span></span>
-<span><span class="co">#&gt; $ End                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 2025, 2024, 2024, 2025, 2025, 2025, 2021, 2023, 202…</span></span>
-<span><span class="co">#&gt; $ Matches            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 122, 160, 124, 96, 99, 167, 117, 113, 145, 98, 112,…</span></span>
-<span><span class="co">#&gt; $ Innings            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 121, 152, 121, 95, 98, 137, 113, 112, 122, 93, 111,…</span></span>
-<span><span class="co">#&gt; $ Overs              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 413.1, 510.2, 436.5, 355.2, 331.4, 407.5, 395.3, 39…</span></span>
-<span><span class="co">#&gt; $ Maidens            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 10, 13, 12, 10, 23, 8, 6, 21, 6, 21, 17, 30, 4, 13,…</span></span>
-<span><span class="co">#&gt; $ Runs               <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 2632, 2910, 2642, 2089, 1363, 2385, 2206, 2291, 227…</span></span>
-<span><span class="co">#&gt; $ Wickets            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 149, 144, 138, 137, 126, 126, 125, 123, 118, 116, 1…</span></span>
-<span><span class="co">#&gt; $ Average            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 17.664430, 20.208333, 19.144928, 15.248175, 10.8174…</span></span>
-<span><span class="co">#&gt; $ Economy            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 6.370311, 5.702155, 6.048073, 5.878987, 4.109548, 5…</span></span>
-<span><span class="co">#&gt; $ StrikeRate         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 16.63758, 21.26389, 18.99275, 15.56204, 15.79365, 1…</span></span>
-<span><span class="co">#&gt; $ BestBowlingInnings <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "5/15", "5/21", "4/10", "4/18", "5/5", "4/12", "5/1…</span></span>
-<span><span class="co">#&gt; $ FourWickets        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 4, 1, 1, 2, 5, 4, 4, 0, 1, 6, 1, 2, 4, 1, 3, 2, 3, …</span></span>
-<span><span class="co">#&gt; $ FiveWickets        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 1, 1, 0, 0, 1, 0, 3, 2, 0, 2, 0, 0, 0, 2, 3, 1, 0, …</span></span>
+<span><span class="co">#&gt; $ Player             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "A Mohammed", "Nida Dar", "EA Perry", "M Schutt", "…</span></span>
+<span><span class="co">#&gt; $ Country            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "West Indies", "Pakistan", "Australia", "Australia"…</span></span>
+<span><span class="co">#&gt; $ Start              <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 2008, 2010, 2008, 2013, 2007, 2005, 2006, 2008, 201…</span></span>
+<span><span class="co">#&gt; $ End                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 2021, 2023, 2023, 2023, 2023, 2023, 2023, 2020, 202…</span></span>
+<span><span class="co">#&gt; $ Matches            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 117, 128, 136, 93, 109, 109, 118, 79, 89, 72, 113, …</span></span>
+<span><span class="co">#&gt; $ Innings            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 113, 121, 128, 92, 108, 108, 103, 79, 87, 72, 87, 6…</span></span>
+<span><span class="co">#&gt; $ Overs              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 395.3, 410.2, 392.5, 309.3, 381.5, 381.1, 302.3, 26…</span></span>
+<span><span class="co">#&gt; $ Maidens            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 6, 10, 8, 7, 20, 17, 6, 10, 11, 5, 4, 10, 7, 9, 6, …</span></span>
+<span><span class="co">#&gt; $ Runs               <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 2206, 2231, 2297, 1916, 2191, 2102, 1920, 1587, 190…</span></span>
+<span><span class="co">#&gt; $ Wickets            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 125, 123, 121, 121, 117, 112, 110, 102, 100, 98, 98…</span></span>
+<span><span class="co">#&gt; $ Average            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 17.64800, 18.13821, 18.98347, 15.83471, 18.72650, 1…</span></span>
+<span><span class="co">#&gt; $ Economy            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 5.577750, 5.437043, 5.847263, 6.190630, 5.738106, 5…</span></span>
+<span><span class="co">#&gt; $ StrikeRate         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 18.98400, 20.01626, 19.47934, 15.34711, 19.58120, 2…</span></span>
+<span><span class="co">#&gt; $ BestBowlingInnings <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "5/10", "5/21", "4/12", "5/15", "5/12", "4/15", "4/…</span></span>
+<span><span class="co">#&gt; $ FourWickets        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 4, 1, 4, 4, 0, 1, 1, 2, 1, 3, 2, 1, 3, 4, 1, 1, 4, …</span></span>
+<span><span class="co">#&gt; $ FiveWickets        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 3, 1, 0, 1, 2, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, …</span></span>
 <span></span>
 <span><span class="co"># Table showing certain features of the data</span></span>
-<span><span class="va">wt20</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Player</span>, <span class="va">Country</span>, <span class="va">Matches</span>, <span class="va">Runs</span>, <span class="va">Wickets</span>, <span class="va">Economy</span>, <span class="va">StrikeRate</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="va">wt20</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Player</span>, <span class="va">Country</span>, <span class="va">Matches</span>, <span class="va">Runs</span>, <span class="va">Wickets</span>, <span class="va">Economy</span>, <span class="va">StrikeRate</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
 <span>    digits <span class="op">=</span> <span class="fl">2</span>, align <span class="op">=</span> <span class="st">"c"</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Women Player career profile for international T20"</span></span>
@@ -249,13 +249,13 @@ for all countries.</li>
 <table class="table">
 <caption>Women Player career profile for international T20</caption>
 <colgroup>
-<col width="20%">
-<col width="15%">
+<col width="16%">
+<col width="19%">
 <col width="12%">
 <col width="8%">
 <col width="12%">
 <col width="12%">
-<col width="17%">
+<col width="16%">
 </colgroup>
 <thead><tr class="header">
 <th align="center">Player</th>
@@ -268,65 +268,65 @@ for all countries.</li>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="center">M Schutt</td>
-<td align="center">Australia</td>
-<td align="center">122</td>
-<td align="center">2632</td>
-<td align="center">149</td>
-<td align="center">6.37</td>
-<td align="center">16.64</td>
+<td align="center">A Mohammed</td>
+<td align="center">West Indies</td>
+<td align="center">117</td>
+<td align="center">2206</td>
+<td align="center">125</td>
+<td align="center">5.58</td>
+<td align="center">18.98</td>
 </tr>
 <tr class="even">
 <td align="center">Nida Dar</td>
 <td align="center">Pakistan</td>
-<td align="center">160</td>
-<td align="center">2910</td>
-<td align="center">144</td>
-<td align="center">5.70</td>
-<td align="center">21.26</td>
+<td align="center">128</td>
+<td align="center">2231</td>
+<td align="center">123</td>
+<td align="center">5.44</td>
+<td align="center">20.02</td>
 </tr>
 <tr class="odd">
-<td align="center">DB Sharma</td>
-<td align="center">India</td>
-<td align="center">124</td>
-<td align="center">2642</td>
-<td align="center">138</td>
-<td align="center">6.05</td>
-<td align="center">18.99</td>
-</tr>
-<tr class="even">
-<td align="center">S Ecclestone</td>
-<td align="center">England</td>
-<td align="center">96</td>
-<td align="center">2089</td>
-<td align="center">137</td>
-<td align="center">5.88</td>
-<td align="center">15.56</td>
-</tr>
-<tr class="odd">
-<td align="center">N Boochatham</td>
-<td align="center">THA</td>
-<td align="center">99</td>
-<td align="center">1363</td>
-<td align="center">126</td>
-<td align="center">4.11</td>
-<td align="center">15.79</td>
-</tr>
-<tr class="even">
 <td align="center">EA Perry</td>
 <td align="center">Australia</td>
-<td align="center">167</td>
-<td align="center">2385</td>
-<td align="center">126</td>
+<td align="center">136</td>
+<td align="center">2297</td>
+<td align="center">121</td>
 <td align="center">5.85</td>
-<td align="center">19.42</td>
+<td align="center">19.48</td>
+</tr>
+<tr class="even">
+<td align="center">M Schutt</td>
+<td align="center">Australia</td>
+<td align="center">93</td>
+<td align="center">1916</td>
+<td align="center">121</td>
+<td align="center">6.19</td>
+<td align="center">15.35</td>
+</tr>
+<tr class="odd">
+<td align="center">S Ismail</td>
+<td align="center">South Africa</td>
+<td align="center">109</td>
+<td align="center">2191</td>
+<td align="center">117</td>
+<td align="center">5.74</td>
+<td align="center">19.58</td>
+</tr>
+<tr class="even">
+<td align="center">KH Brunt</td>
+<td align="center">England</td>
+<td align="center">109</td>
+<td align="center">2102</td>
+<td align="center">112</td>
+<td align="center">5.51</td>
+<td align="center">20.42</td>
 </tr>
 </tbody>
 </table>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plotting Data</span></span>
-<span><span class="va">wt20</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Wickets</span> <span class="op">&gt;=</span> <span class="fl">50</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="va">wt20</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Wickets</span> <span class="op">&gt;=</span> <span class="fl">50</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">StrikeRate</span>, x <span class="op">=</span> <span class="va">Average</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.3</span>, col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Women International T20 Bowlers"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -348,9 +348,9 @@ one player, who has taken at least 50 international wickets.
 <span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Table of USA player who have scored a century</span></span>
-<span><span class="va">menODI</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Runs</span> <span class="op">&gt;=</span> <span class="fl">100</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Player</span>, <span class="va">Runs</span>, <span class="va">BallsFaced</span>, <span class="va">Fours</span>, <span class="va">Sixes</span>, <span class="va">Opposition</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="va">menODI</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Runs</span> <span class="op">&gt;=</span> <span class="fl">100</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Player</span>, <span class="va">Runs</span>, <span class="va">BallsFaced</span>, <span class="va">Fours</span>, <span class="va">Sixes</span>, <span class="va">Opposition</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -371,14 +371,6 @@ one player, who has taken at least 50 international wickets.
 <td align="left">Papau New Guinea</td>
 </tr>
 <tr class="even">
-<td align="left">Milind Kumar</td>
-<td align="right">155</td>
-<td align="right">110</td>
-<td align="right">16</td>
-<td align="right">5</td>
-<td align="left">United Arab Emirates</td>
-</tr>
-<tr class="odd">
 <td align="left">MD Patel</td>
 <td align="right">130</td>
 <td align="right">101</td>
@@ -386,7 +378,7 @@ one player, who has taken at least 50 international wickets.
 <td align="right">6</td>
 <td align="left">Oman</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Aaron Jones</td>
 <td align="right">123</td>
 <td align="right">87</td>
@@ -394,23 +386,7 @@ one player, who has taken at least 50 international wickets.
 <td align="right">6</td>
 <td align="left">Scotland</td>
 </tr>
-<tr class="odd">
-<td align="left">MD Patel</td>
-<td align="right">121</td>
-<td align="right">95</td>
-<td align="right">7</td>
-<td align="right">5</td>
-<td align="left">Canada</td>
-</tr>
 <tr class="even">
-<td align="left">SR Mukkamalla</td>
-<td align="right">120</td>
-<td align="right">114</td>
-<td align="right">11</td>
-<td align="right">0</td>
-<td align="left">United Arab Emirates</td>
-</tr>
-<tr class="odd">
 <td align="left">SR Taylor</td>
 <td align="right">114</td>
 <td align="right">123</td>
@@ -418,7 +394,7 @@ one player, who has taken at least 50 international wickets.
 <td align="right">3</td>
 <td align="left">Nepal</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">SJ Modani</td>
 <td align="right">111</td>
 <td align="right">133</td>
@@ -426,39 +402,7 @@ one player, who has taken at least 50 international wickets.
 <td align="right">0</td>
 <td align="left">Oman</td>
 </tr>
-<tr class="odd">
-<td align="left">SR Mukkamalla</td>
-<td align="right">107</td>
-<td align="right">99</td>
-<td align="right">15</td>
-<td align="right">1</td>
-<td align="left">United Arab Emirates</td>
-</tr>
 <tr class="even">
-<td align="left">Shayan Jahangir</td>
-<td align="right">104</td>
-<td align="right">97</td>
-<td align="right">12</td>
-<td align="right">4</td>
-<td align="left">Nepal</td>
-</tr>
-<tr class="odd">
-<td align="left">G Singh</td>
-<td align="right">101</td>
-<td align="right">109</td>
-<td align="right">8</td>
-<td align="right">2</td>
-<td align="left">West Indies</td>
-</tr>
-<tr class="even">
-<td align="left">Shayan Jahangir</td>
-<td align="right">100</td>
-<td align="right">79</td>
-<td align="right">10</td>
-<td align="right">3</td>
-<td align="left">Nepal</td>
-</tr>
-<tr class="odd">
 <td align="left">MD Patel</td>
 <td align="right">100</td>
 <td align="right">114</td>
@@ -509,7 +453,7 @@ fielding.</li>
 </ul>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Fetching the player Meg Lanning's playing data</span></span>
-<span><span class="va">MegLanning</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_player_data.html">fetch_player_data</a></span><span class="op">(</span><span class="va">meg_lanning_id</span>, <span class="st">"ODI"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="va">MegLanning</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_player_data.html">fetch_player_data</a></span><span class="op">(</span><span class="va">meg_lanning_id</span>, <span class="st">"ODI"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>NotOut <span class="op">=</span> <span class="op">(</span><span class="va">Dismissal</span> <span class="op">==</span> <span class="st">"not out"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">MegLanning</span><span class="op">)</span></span>
@@ -520,9 +464,9 @@ fielding.</li>
 <span><span class="co">#&gt; [11] "Pos"        "Dismissal"  "Inns"       "NotOut"</span></span>
 <span></span>
 <span><span class="co"># Compute batting average</span></span>
-<span><span class="va">MLave</span> <span class="op">&lt;-</span> <span class="va">MegLanning</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">Runs</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>Average <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">Runs</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">NotOut</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="va">MLave</span> <span class="op">&lt;-</span> <span class="va">MegLanning</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">Runs</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>Average <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">Runs</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">NotOut</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">Average</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">MLave</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Average ="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">MLave</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -567,13 +511,13 @@ tests for international test matches, etc.</p></li>
 <code class="sourceCode R"><span><span class="co"># Fetch all IPL ball-by-ball data</span></span>
 <span><span class="va">ipl_bbb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_cricsheet.html">fetch_cricsheet</a></span><span class="op">(</span><span class="st">"bbb"</span>, <span class="st">"male"</span>, <span class="st">"ipl"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ipl_bbb</span> <span class="op">|&gt;</span></span>
+<code class="sourceCode R"><span><span class="va">ipl_bbb</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Rows: 260,920</span></span>
+<span><span class="co">#&gt; Rows: 225,954</span></span>
 <span><span class="co">#&gt; Columns: 33</span></span>
 <span><span class="co">#&gt; $ match_id               <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 335982, 335982, 335982, 335982, 335982, 335982,…</span></span>
 <span><span class="co">#&gt; $ season                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2007/08", "2007/08", "2007/08", "2007/08", "20…</span></span>
-<span><span class="co">#&gt; $ start_date             <span style="color: #949494; font-style: italic;">&lt;date&gt;</span> 2008-04-18, 2008-04-18, 2008-04-18, 2008-04-18…</span></span>
+<span><span class="co">#&gt; $ start_date             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2008-04-18", "2008-04-18", "2008-04-18", "2008…</span></span>
 <span><span class="co">#&gt; $ venue                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "M Chinnaswamy Stadium", "M Chinnaswamy Stadium…</span></span>
 <span><span class="co">#&gt; $ innings                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…</span></span>
 <span><span class="co">#&gt; $ over                   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3,…</span></span>
@@ -606,17 +550,17 @@ tests for international test matches, etc.</p></li>
 <span><span class="co">#&gt; $ .groups                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "drop", "drop", "drop", "drop", "drop", "drop",…</span></span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Top 20 batters wrt Boundary and Dot % in IPL 2022 season</span></span>
-<span><span class="va">ipl_bbb</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">season</span> <span class="op">==</span> <span class="st">"2022"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">striker</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="va">ipl_bbb</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">season</span> <span class="op">==</span> <span class="st">"2022"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">striker</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span></span>
 <span>    Runs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">runs_off_bat</span><span class="op">)</span>, BallsFaced <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">wides</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    StrikeRate <span class="op">=</span> <span class="va">Runs</span> <span class="op">/</span> <span class="va">BallsFaced</span>, DotPercent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">runs_off_bat</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span> <span class="op">/</span> <span class="va">BallsFaced</span>,</span>
 <span>    BoundaryPercent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">runs_off_bat</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span> <span class="op">/</span> <span class="va">BallsFaced</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">Runs</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>Batter <span class="op">=</span> <span class="va">striker</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">Runs</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>Batter <span class="op">=</span> <span class="va">striker</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">BoundaryPercent</span>, x <span class="op">=</span> <span class="va">DotPercent</span>, size <span class="op">=</span> <span class="va">BallsFaced</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"red"</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">Batter</span><span class="op">)</span>,</span>
@@ -636,18 +580,18 @@ left quadrant, high boundary % and low dot %.
 </div>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Top 10 prolific batters in IPL 2022 season.</span></span>
-<span><span class="va">ipl_bbb</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">season</span> <span class="op">==</span> <span class="st">"2022"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">striker</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="va">ipl_bbb</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">season</span> <span class="op">==</span> <span class="st">"2022"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">striker</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span></span>
 <span>    Runs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">runs_off_bat</span><span class="op">)</span>, BallsFaced <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">wides</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    StrikeRate <span class="op">=</span> <span class="va">Runs</span> <span class="op">/</span> <span class="va">BallsFaced</span>,</span>
 <span>    DotPercent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">runs_off_bat</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span> <span class="op">/</span> <span class="va">BallsFaced</span>,</span>
 <span>    BoundaryPercent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">runs_off_bat</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span> <span class="op">/</span> <span class="va">BallsFaced</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">Runs</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>Batter <span class="op">=</span> <span class="va">striker</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">Runs</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>Batter <span class="op">=</span> <span class="va">striker</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">1</span>, align <span class="op">=</span> <span class="st">"c"</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
@@ -760,10 +704,10 @@ batting hand, bowling style, and playing role. More than 11,000 player’s
 and officials data is available. This data was scraped from ESPNCricinfo
 website.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">player_meta</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">playing_role</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">cricinfo_id</span>, <span class="op">-</span><span class="va">unique_name</span>, <span class="op">-</span><span class="va">name</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<code class="sourceCode R"><span><span class="va">player_meta</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">playing_role</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">cricinfo_id</span>, <span class="op">-</span><span class="va">unique_name</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
 <span>    digits <span class="op">=</span> <span class="fl">1</span>, align <span class="op">=</span> <span class="st">"c"</span>, format <span class="op">=</span> <span class="st">"pipe"</span>,</span>
 <span>    col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
@@ -777,9 +721,9 @@ website.</p>
 <col width="15%">
 <col width="8%">
 <col width="7%">
+<col width="13%">
 <col width="10%">
 <col width="24%">
-<col width="13%">
 <col width="13%">
 </colgroup>
 <thead><tr class="header">
@@ -798,9 +742,9 @@ website.</p>
 <td align="center">Aaftab Alam Khan</td>
 <td align="center">Malta</td>
 <td align="center">1986-01-31</td>
+<td align="center">NA</td>
 <td align="center">Right hand Bat</td>
 <td align="center">Right arm Medium fast</td>
-<td align="center">NA</td>
 <td align="center">Wicketkeeper Batter</td>
 </tr>
 <tr class="even">
@@ -808,9 +752,9 @@ website.</p>
 <td align="center">Aahan Gopinath Achar</td>
 <td align="center">Singapore</td>
 <td align="center">1999-03-30</td>
+<td align="center">NA</td>
 <td align="center">Left hand Bat</td>
 <td align="center">Slow Left arm Orthodox</td>
-<td align="center">NA</td>
 <td align="center">Bowler</td>
 </tr>
 <tr class="odd">
@@ -818,9 +762,9 @@ website.</p>
 <td align="center">Aakash Chopra</td>
 <td align="center">India</td>
 <td align="center">1977-09-19</td>
+<td align="center">Agra, Uttar Pradesh</td>
 <td align="center">Right hand Bat</td>
 <td align="center">Right arm Medium, Right arm Offbreak</td>
-<td align="center">Agra, Uttar Pradesh</td>
 <td align="center">Batter</td>
 </tr>
 <tr class="even">
@@ -828,9 +772,9 @@ website.</p>
 <td align="center">Aaliyah Alicia Alleyne</td>
 <td align="center">West Indies</td>
 <td align="center">1994-11-11</td>
+<td align="center">NA</td>
 <td align="center">Right hand Bat</td>
 <td align="center">Right arm Medium</td>
-<td align="center">NA</td>
 <td align="center">Bowler</td>
 </tr>
 <tr class="odd">
@@ -838,9 +782,9 @@ website.</p>
 <td align="center">Aaliyah Williams</td>
 <td align="center">West Indies</td>
 <td align="center">1998-02-28</td>
+<td align="center">NA</td>
 <td align="center">Right hand Bat</td>
 <td align="center">Right arm Medium</td>
-<td align="center">NA</td>
 <td align="center">Allrounder</td>
 </tr>
 <tr class="even">
@@ -848,9 +792,9 @@ website.</p>
 <td align="center">Aamer Jamal</td>
 <td align="center">Pakistan</td>
 <td align="center">1996-07-05</td>
+<td align="center">Mianwali</td>
 <td align="center">Right hand Bat</td>
 <td align="center">Right arm Medium</td>
-<td align="center">Mianwali</td>
 <td align="center">Allrounder</td>
 </tr>
 </tbody>
@@ -877,30 +821,34 @@ data of more than 11,000 players.</p>
 <code class="sourceCode R"><span><span class="co"># Download meta data on Meg Lanning and Ellyse Perry</span></span>
 <span><span class="va">aus_women</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_player_meta.html">fetch_player_meta</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">329336</span>, <span class="fl">275487</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">aus_women</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">name</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<code class="sourceCode R"><span><span class="va">aus_women</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
 <span>    digits <span class="op">=</span> <span class="fl">1</span>, align <span class="op">=</span> <span class="st">"c"</span>, format <span class="op">=</span> <span class="st">"pipe"</span>,</span>
 <span>    col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>      <span class="st">"ID"</span>, <span class="st">"FullName"</span>, <span class="st">"Country"</span>, <span class="st">"DOB"</span>, <span class="st">"BattingStyle"</span>, <span class="st">"BowlingStyle"</span></span>
+<span>      <span class="st">"ID"</span>, <span class="st">"FullName"</span>, <span class="st">"Country"</span>, <span class="st">"DOB"</span>, <span class="st">"BirthPlace"</span>, <span class="st">"BattingStyle"</span>,</span>
+<span>      <span class="st">"BowlingStyle"</span>, <span class="st">"PlayingRole"</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
+<col width="5%">
+<col width="16%">
+<col width="7%">
 <col width="8%">
-<col width="25%">
-<col width="11%">
-<col width="12%">
-<col width="17%">
 <col width="24%">
+<col width="10%">
+<col width="15%">
+<col width="12%">
 </colgroup>
 <thead><tr class="header">
 <th align="center">ID</th>
 <th align="center">FullName</th>
 <th align="center">Country</th>
 <th align="center">DOB</th>
+<th align="center">BirthPlace</th>
 <th align="center">BattingStyle</th>
 <th align="center">BowlingStyle</th>
+<th align="center">PlayingRole</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -908,16 +856,20 @@ data of more than 11,000 players.</p>
 <td align="center">Meghann Moira Lanning</td>
 <td align="center">Australia</td>
 <td align="center">1992-03-25</td>
-<td align="center">Right-hand bat</td>
-<td align="center">Right-arm medium</td>
+<td align="center">Singapore</td>
+<td align="center">Right hand Bat</td>
+<td align="center">Right arm Medium</td>
+<td align="center">Top order Batter</td>
 </tr>
 <tr class="even">
 <td align="center">275487</td>
 <td align="center">Ellyse Alexandra Perry</td>
 <td align="center">Australia</td>
 <td align="center">1990-11-03</td>
-<td align="center">Right-hand bat</td>
-<td align="center">Right-arm fast-medium</td>
+<td align="center">Wahroonga, Sydney, New South Wales</td>
+<td align="center">Right hand Bat</td>
+<td align="center">Right arm Fast medium</td>
+<td align="center">Allrounder</td>
 </tr>
 </tbody>
 </table>
