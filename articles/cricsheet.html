@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">cricketdata</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,7 +67,7 @@ Tran</h4>
             
             <h4 data-toc-skip class="date">7 November 2021</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/robjhyndman/cricketdata/blob/v0.3.0/vignettes/cricsheet.Rmd" class="external-link"><code>vignettes/cricsheet.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/robjhyndman/cricketdata/blob/v0.3.0-fix/vignettes/cricsheet.Rmd" class="external-link"><code>vignettes/cricsheet.Rmd</code></a></small>
       <div class="d-none name"><code>cricsheet.Rmd</code></div>
     </div>
 
@@ -129,8 +129,8 @@ played so far in this 7th season.</p>
 <code class="sourceCode R"><span><span class="co"># Data from 2015/16 (WBBL01) excluded due to only having 10 matches worth of data</span></span>
 <span><span class="co"># in the Cricsheet spreadsheet.</span></span>
 <span><span class="co"># Data from 2021/22 and later (WBBL07) excluded as incomplete at time of article</span></span>
-<span><span class="va">wbbl_bbb_tidy</span> <span class="op">&lt;-</span> <span class="va">wbbl_bbb</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">season</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2015/16"</span>, <span class="st">"2021/22"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">wbbl_bbb_tidy</span> <span class="op">&lt;-</span> <span class="va">wbbl_bbb</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">season</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2015/16"</span>, <span class="st">"2021/22"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">start_date</span> <span class="op">&lt;</span> <span class="st">"2021-11-07"</span><span class="op">)</span></span></code></pre></div>
 <p>The ball-by-ball data hosted by Cricsheet provides a great starting
 point, but a little more tidying and wrangling is needed for the
@@ -154,20 +154,20 @@ more interested in Healy’s “production” in the sense of average runs
 scored per innings.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Alyssa Healy compared to all players who have batted in 3+ innings in a season.</span></span>
-<span><span class="va">batting_per_season</span> <span class="op">&lt;-</span> <span class="va">wbbl_bbb_tidy</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">season</span>, <span class="va">striker</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">batting_per_season</span> <span class="op">&lt;-</span> <span class="va">wbbl_bbb_tidy</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">season</span>, <span class="va">striker</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
 <span>    innings_total <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">match_id</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    runs_off_bat_total <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">runs_off_bat</span><span class="op">)</span>,</span>
 <span>    balls_faced_total <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">ball</span><span class="op">)</span>,</span>
 <span>    .groups <span class="op">=</span> <span class="st">"keep"</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    runs_per_innings_avg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">runs_off_bat_total</span> <span class="op">/</span> <span class="va">innings_total</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>    strike_rate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">runs_off_bat_total</span> <span class="op">/</span> <span class="va">balls_faced_total</span> <span class="op">*</span> <span class="fl">100</span>, <span class="fl">1</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">innings_total</span> <span class="op">&gt;</span> <span class="fl">2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>is_healy <span class="op">=</span> <span class="op">(</span><span class="va">striker</span> <span class="op">==</span> <span class="st">"AJ Healy"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">innings_total</span> <span class="op">&gt;</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>is_healy <span class="op">=</span> <span class="op">(</span><span class="va">striker</span> <span class="op">==</span> <span class="st">"AJ Healy"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -180,7 +180,7 @@ scored per innings.</p>
 <span><span class="fu"><a href="https://rdrr.io/pkg/showtext/man/showtext_auto.html" class="external-link">showtext_auto</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Build plot</span></span>
-<span><span class="va">batting_per_season</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">batting_per_season</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">season</span>, y <span class="op">=</span> <span class="va">runs_per_innings_avg</span>,</span>
 <span>    group <span class="op">=</span> <span class="va">striker</span>, colour <span class="op">=</span> <span class="va">is_healy</span></span>
@@ -249,19 +249,19 @@ is to take the wicket of the likes of Healy, Beth Mooney, Meg Lanning,
 Ellyse Perry, Sophie Devine, and Heather Knight.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create new variable for ball number in each over</span></span>
-<span><span class="va">ball_number_faced</span> <span class="op">&lt;-</span> <span class="va">wbbl_bbb_tidy</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">ball_number_faced</span> <span class="op">&lt;-</span> <span class="va">wbbl_bbb_tidy</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>ball_num_in_over <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">".*\\."</span>, <span class="st">""</span>, <span class="va">ball</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Summarise number of balls faced of each ball number, per batter</span></span>
-<span><span class="va">ball_number_faced_summary</span> <span class="op">&lt;-</span> <span class="va">ball_number_faced</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">ball_num_in_over</span>, <span class="va">striker</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">ball_number_faced_summary</span> <span class="op">&lt;-</span> <span class="va">ball_number_faced</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">ball_num_in_over</span>, <span class="va">striker</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>balls_faced <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Dismissals by ball number</span></span>
-<span><span class="va">dismissals_by_ball_number</span> <span class="op">&lt;-</span> <span class="va">ball_number_faced</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ball_num_in_over</span>, <span class="va">striker</span>, <span class="va">wicket_type</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">wicket_type</span> <span class="op">!=</span> <span class="st">""</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">ball_num_in_over</span>, <span class="va">striker</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">dismissals_by_ball_number</span> <span class="op">&lt;-</span> <span class="va">ball_number_faced</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ball_num_in_over</span>, <span class="va">striker</span>, <span class="va">wicket_type</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">wicket_type</span> <span class="op">!=</span> <span class="st">""</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">ball_num_in_over</span>, <span class="va">striker</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>dismissals_n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span></span></code></pre></div>
 <p>The code above shapes up the ball-by-ball data to record:</p>
 <ul>
@@ -285,35 +285,35 @@ dismissals by ball number:</p>
 <span><span class="va">dismissals_by_ball_number_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span></span>
 <span>  <span class="va">ball_number_faced_summary</span>, <span class="va">dismissals_by_ball_number</span>,</span>
 <span>  by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ball_num_in_over"</span>, <span class="st">"striker"</span><span class="op">)</span></span>
-<span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/replace_na.html" class="external-link">replace_na</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dismissals_n <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">striker</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>total_balls_faced <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">balls_faced</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>dismissals_pct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">dismissals_n</span> <span class="op">/</span> <span class="va">balls_faced</span> <span class="op">*</span> <span class="fl">100</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/replace_na.html" class="external-link">replace_na</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dismissals_n <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">striker</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>total_balls_faced <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">balls_faced</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>dismissals_pct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">dismissals_n</span> <span class="op">/</span> <span class="va">balls_faced</span> <span class="op">*</span> <span class="fl">100</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="co"># Include those who have faced more than 200 balls total</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">total_balls_faced</span> <span class="op">&gt;=</span> <span class="fl">200</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">total_balls_faced</span> <span class="op">&gt;=</span> <span class="fl">200</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="co"># Exclude balls beyond 6 - infrequent occurrences</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">ball_num_in_over</span> <span class="op">&lt;</span> <span class="fl">7</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Extract data for specific players</span></span>
 <span><span class="co"># Healy</span></span>
-<span><span class="va">dismissals_by_ball_number_summary_healy</span> <span class="op">&lt;-</span> <span class="va">dismissals_by_ball_number_summary</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">dismissals_by_ball_number_summary_healy</span> <span class="op">&lt;-</span> <span class="va">dismissals_by_ball_number_summary</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">striker</span> <span class="op">==</span> <span class="st">"AJ Healy"</span><span class="op">)</span></span>
 <span><span class="co"># Mooney</span></span>
-<span><span class="va">dismissals_by_ball_number_summary_mooney</span> <span class="op">&lt;-</span> <span class="va">dismissals_by_ball_number_summary</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">dismissals_by_ball_number_summary_mooney</span> <span class="op">&lt;-</span> <span class="va">dismissals_by_ball_number_summary</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">striker</span> <span class="op">==</span> <span class="st">"BL Mooney"</span><span class="op">)</span></span>
 <span><span class="co"># Lanning</span></span>
-<span><span class="va">dismissals_by_ball_number_summary_lanning</span> <span class="op">&lt;-</span> <span class="va">dismissals_by_ball_number_summary</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">dismissals_by_ball_number_summary_lanning</span> <span class="op">&lt;-</span> <span class="va">dismissals_by_ball_number_summary</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">striker</span> <span class="op">==</span> <span class="st">"MM Lanning"</span><span class="op">)</span></span>
 <span><span class="co"># Perry</span></span>
-<span><span class="va">dismissals_by_ball_number_summary_perry</span> <span class="op">&lt;-</span> <span class="va">dismissals_by_ball_number_summary</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">dismissals_by_ball_number_summary_perry</span> <span class="op">&lt;-</span> <span class="va">dismissals_by_ball_number_summary</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">striker</span> <span class="op">==</span> <span class="st">"EA Perry"</span><span class="op">)</span></span>
 <span><span class="co"># Devine</span></span>
-<span><span class="va">dismissals_by_ball_number_summary_devine</span> <span class="op">&lt;-</span> <span class="va">dismissals_by_ball_number_summary</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">dismissals_by_ball_number_summary_devine</span> <span class="op">&lt;-</span> <span class="va">dismissals_by_ball_number_summary</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">striker</span> <span class="op">==</span> <span class="st">"SFM Devine"</span><span class="op">)</span></span>
 <span><span class="co"># Knight</span></span>
-<span><span class="va">dismissals_by_ball_number_summary_knight</span> <span class="op">&lt;-</span> <span class="va">dismissals_by_ball_number_summary</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">dismissals_by_ball_number_summary_knight</span> <span class="op">&lt;-</span> <span class="va">dismissals_by_ball_number_summary</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">striker</span> <span class="op">==</span> <span class="st">"HC Knight"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -359,7 +359,7 @@ could achieve the same / similar result using
 <span><span class="fu"><a href="https://rdrr.io/pkg/showtext/man/showtext_auto.html" class="external-link">showtext_auto</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Healy</span></span>
-<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">dismissals_by_ball_number_summary</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">dismissals_by_ball_number_summary</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">ball_num_in_over</span>, y <span class="op">=</span> <span class="va">dismissals_pct</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span></span>
 <span>    fill <span class="op">=</span> <span class="st">"#FFFFFF"</span>, colour <span class="op">=</span> <span class="st">"#FFFFFF"</span>, size <span class="op">=</span> <span class="fl">.5</span>,</span>
@@ -376,7 +376,7 @@ could achieve the same / similar result using
 <span>  <span class="va">plot_features</span></span>
 <span></span>
 <span><span class="co"># Mooney</span></span>
-<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">dismissals_by_ball_number_summary</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">dismissals_by_ball_number_summary</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">ball_num_in_over</span>, y <span class="op">=</span> <span class="va">dismissals_pct</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span></span>
 <span>    fill <span class="op">=</span> <span class="st">"#FFFFFF"</span>, colour <span class="op">=</span> <span class="st">"#FFFFFF"</span>, size <span class="op">=</span> <span class="fl">.5</span>,</span>
@@ -390,7 +390,7 @@ could achieve the same / similar result using
 <span>  <span class="va">plot_features</span></span>
 <span></span>
 <span><span class="co"># Lanning</span></span>
-<span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">dismissals_by_ball_number_summary</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">dismissals_by_ball_number_summary</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">ball_num_in_over</span>, y <span class="op">=</span> <span class="va">dismissals_pct</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span></span>
 <span>    fill <span class="op">=</span> <span class="st">"#FFFFFF"</span>, colour <span class="op">=</span> <span class="st">"#FFFFFF"</span>, size <span class="op">=</span> <span class="fl">.5</span>,</span>
@@ -404,7 +404,7 @@ could achieve the same / similar result using
 <span>  <span class="va">plot_features</span></span>
 <span></span>
 <span><span class="co"># Perry</span></span>
-<span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">dismissals_by_ball_number_summary</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">dismissals_by_ball_number_summary</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">ball_num_in_over</span>, y <span class="op">=</span> <span class="va">dismissals_pct</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span></span>
 <span>    fill <span class="op">=</span> <span class="st">"#FFFFFF"</span>, colour <span class="op">=</span> <span class="st">"#FFFFFF"</span>, size <span class="op">=</span> <span class="fl">.5</span>,</span>
@@ -418,7 +418,7 @@ could achieve the same / similar result using
 <span>  <span class="va">plot_features</span></span>
 <span></span>
 <span><span class="co"># Devine</span></span>
-<span><span class="va">p5</span> <span class="op">&lt;-</span> <span class="va">dismissals_by_ball_number_summary</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">p5</span> <span class="op">&lt;-</span> <span class="va">dismissals_by_ball_number_summary</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">ball_num_in_over</span>, y <span class="op">=</span> <span class="va">dismissals_pct</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span></span>
 <span>    fill <span class="op">=</span> <span class="st">"#FFFFFF"</span>, colour <span class="op">=</span> <span class="st">"#FFFFFF"</span>, size <span class="op">=</span> <span class="fl">.5</span>,</span>
@@ -432,7 +432,7 @@ could achieve the same / similar result using
 <span>  <span class="va">plot_features</span></span>
 <span></span>
 <span><span class="co"># Knight</span></span>
-<span><span class="va">p6</span> <span class="op">&lt;-</span> <span class="va">dismissals_by_ball_number_summary</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">p6</span> <span class="op">&lt;-</span> <span class="va">dismissals_by_ball_number_summary</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">ball_num_in_over</span>, y <span class="op">=</span> <span class="va">dismissals_pct</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span></span>
 <span>    fill <span class="op">=</span> <span class="st">"#FFFFFF"</span>, colour <span class="op">=</span> <span class="st">"#FFFFFF"</span>, size <span class="op">=</span> <span class="fl">.5</span>,</span>
@@ -506,17 +506,17 @@ produced my original visualisation, the ball-by-ball data included all
 games played up to 7 November 2021.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Subset match metadata for WBB07 games</span></span>
-<span><span class="va">wbbl07_match_info_tidy</span> <span class="op">&lt;-</span> <span class="va">wbbl_match_info</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">season</span> <span class="op">==</span> <span class="st">"2021/22"</span>, <span class="va">date</span> <span class="op">&lt;=</span> <span class="st">"2021/11/07"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">wbbl07_match_info_tidy</span> <span class="op">&lt;-</span> <span class="va">wbbl_match_info</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">season</span> <span class="op">==</span> <span class="st">"2021/22"</span>, <span class="va">date</span> <span class="op">&lt;=</span> <span class="st">"2021/11/07"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span></span>
 <span>    <span class="va">match_id</span>, <span class="va">winner</span>, <span class="va">winner_runs</span>, <span class="va">winner_wickets</span>, <span class="va">method</span>, <span class="va">outcome</span>,</span>
 <span>    <span class="va">eliminator</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>match_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">match_id</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Subset ball-by-ball data for WBBL07 games</span></span>
-<span><span class="va">wbbl07_bbb_tidy</span> <span class="op">&lt;-</span> <span class="va">wbbl_bbb</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">match_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">wbbl07_match_info_tidy</span><span class="op">$</span><span class="va">match_id</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">wbbl07_bbb_tidy</span> <span class="op">&lt;-</span> <span class="va">wbbl_bbb</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">match_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">wbbl07_match_info_tidy</span><span class="op">$</span><span class="va">match_id</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    match_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">match_id</span><span class="op">)</span>,</span>
 <span>    runs_scored <span class="op">=</span> <span class="va">runs_off_bat</span> <span class="op">+</span> <span class="va">extras</span>,</span>
@@ -524,18 +524,18 @@ games played up to 7 November 2021.</p>
 <span>      <span class="va">wicket_type</span> <span class="op">==</span> <span class="st">""</span> <span class="op">~</span> <span class="cn">NA_character_</span>,</span>
 <span>      <span class="cn">TRUE</span> <span class="op">~</span> <span class="va">wicket_type</span></span>
 <span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">match_id</span>, <span class="va">innings</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">match_id</span>, <span class="va">innings</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    temp_var <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>    balls_cumulative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cumsum</a></span><span class="op">(</span><span class="va">temp_var</span><span class="op">)</span>,</span>
 <span>    runs_cumulative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cumsum</a></span><span class="op">(</span><span class="va">runs_scored</span><span class="op">)</span>,</span>
 <span>    runs_total <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">runs_cumulative</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">temp_var</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">temp_var</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="co"># Merge match metadata and ball-by-ball data</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">wbbl07_match_info_tidy</span>, by <span class="op">=</span> <span class="st">"match_id"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">wbbl07_match_info_tidy</span>, by <span class="op">=</span> <span class="st">"match_id"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    outcome_batting_team <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
 <span>      <span class="va">outcome</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"no result"</span>, <span class="st">"tie"</span><span class="op">)</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">outcome</span><span class="op">)</span>,</span>
@@ -551,11 +551,11 @@ games played up to 7 November 2021.</p>
 <p>Using the WBBL07 data subset, I did some further tidying to calculate
 team strike rates per innings:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">team_strike_rate</span> <span class="op">&lt;-</span> <span class="va">wbbl07_bbb_tidy</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">team_strike_rate</span> <span class="op">&lt;-</span> <span class="va">wbbl07_bbb_tidy</span> <span class="op">|&gt;</span></span>
 <span>  <span class="co"># Exclude matches that ended with a Super Over ("tie")</span></span>
 <span>  <span class="co"># and matches that were called off ("no result")</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">outcome_batting_team</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tie"</span>, <span class="st">"no result"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">match_id</span>, <span class="va">innings</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">outcome_batting_team</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tie"</span>, <span class="st">"no result"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">match_id</span>, <span class="va">innings</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    rolling_strike_rate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span></span>
 <span>      <span class="va">runs_cumulative</span> <span class="op">/</span> <span class="va">balls_cumulative</span> <span class="op">*</span> <span class="fl">100</span>, <span class="fl">1</span></span>
@@ -578,8 +578,8 @@ team strike rates per innings:</p>
 <span>    match_details <span class="op">=</span> <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue</a></span><span class="op">(</span></span>
 <span>      <span class="st">"{innings_description} vs. {bowling_team_short} ({start_date_day}/{start_date_month})"</span></span>
 <span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">match_id</span>, <span class="va">innings</span>, <span class="va">balls_cumulative</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">match_id</span>, <span class="va">innings</span>, <span class="va">balls_cumulative</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    match_details <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span></span>
 <span>      <span class="va">match_details</span>,</span>
@@ -604,12 +604,12 @@ focused on their team strike rates, a.k.a. <em>“wiggly bois”</em>:</p>
 <p><img src="figs/tweet.png" width="75%" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Filter to Renegades' innings only --------------------------------------------</span></span>
-<span><span class="va">team_strike_rate_renegades</span> <span class="op">&lt;-</span> <span class="va">team_strike_rate</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">team_strike_rate_renegades</span> <span class="op">&lt;-</span> <span class="va">team_strike_rate</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html" class="external-link">str_detect</a></span><span class="op">(</span><span class="va">batting_team</span>, <span class="st">"Renegades"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Build plot -------------------------------------------------------------------</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/showtext/man/showtext_auto.html" class="external-link">showtext_auto</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">team_strike_rate_renegades</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">team_strike_rate_renegades</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">balls_cumulative</span>, y <span class="op">=</span> <span class="va">rolling_strike_rate</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">match_details</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">100</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span>, colour <span class="op">=</span> <span class="st">"#CCCCCC"</span><span class="op">)</span> <span class="op">+</span></span>
