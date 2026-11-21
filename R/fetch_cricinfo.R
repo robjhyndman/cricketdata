@@ -16,7 +16,6 @@
 #' auswt20 <- fetch_cricinfo("T20", "Women", country = "Aust")
 #' IndiaODIBowling <- fetch_cricinfo("ODI", "men", "bowling", country = "india")
 #' }
-#'
 #' @export
 
 fetch_cricinfo <- function(matchtype = c("test", "odi", "t20"),

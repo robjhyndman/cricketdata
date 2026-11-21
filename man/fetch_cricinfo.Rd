@@ -35,7 +35,6 @@ All arguments are case-insensitive and partially matched.
 auswt20 <- fetch_cricinfo("T20", "Women", country = "Aust")
 IndiaODIBowling <- fetch_cricinfo("ODI", "men", "bowling", country = "india")
 }
-
 }
 \author{
 Rob J Hyndman, Timothy Hyndman, Charles Gray
