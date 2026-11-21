@@ -1,0 +1,66 @@
+# cricketdata ![](reference/figures/cricketdata.png)
+
+Functions for downloading data on international and other major cricket
+matches from [ESPNCricinfo](https://www.espncricinfo.com) and
+[Cricsheet](https://cricsheet.org). This package provides some functions
+to download the data into tibbles ready for analysis.
+
+Please respect the terms of use for each website:
+[ESPNCricinfo](https://www.espncricinfo.com/ci/content/site/company/terms_use.html),
+[Cricsheet](https://cricsheet.org/register/).
+
+## Installation
+
+You can install the **stable** version from
+[CRAN](https://cran.r-project.org/package=cricketdata).
+
+``` r
+
+# install.packages("pak")
+pak::pak("cricketdata")
+```
+
+You can install the **development** version
+[Github](https://github.com/robjhyndman/cricketdata):
+
+``` r
+
+pak::pak("robjhyndman/cricketdata")
+```
+
+## License
+
+This package is free and open source software, licensed under GPL-3.
+
+# Package index
+
+## All functions
+
+- [`cricsheet_codes`](http://pkg.robjhyndman.com/cricketdata/reference/cricsheet_codes.md)
+  : Codes used for competitions on Cricsheet
+- [`fetch_cricinfo()`](http://pkg.robjhyndman.com/cricketdata/reference/fetch_cricinfo.md)
+  : Fetch Data from Cricinfo
+- [`fetch_cricsheet()`](http://pkg.robjhyndman.com/cricketdata/reference/fetch_cricsheet.md)
+  : Fetch ball-by-ball, match and player data from Cricsheet and return
+  a tibble.
+- [`fetch_player_data()`](http://pkg.robjhyndman.com/cricketdata/reference/fetch_player_data.md)
+  : Fetch Player Data
+- [`fetch_player_meta()`](http://pkg.robjhyndman.com/cricketdata/reference/fetch_player_meta.md)
+  : Fetch Player Meta Data
+- [`find_player_id()`](http://pkg.robjhyndman.com/cricketdata/reference/find_player_id.md)
+  : Find a player id from cricinfo.com
+- [`player_meta`](http://pkg.robjhyndman.com/cricketdata/reference/player_meta.md)
+  : Meta data on players listed at ESPNCricinfo
+- [`update_player_meta()`](http://pkg.robjhyndman.com/cricketdata/reference/update_player_meta.md)
+  : Update player_meta
+
+# Articles
+
+### All vignettes
+
+- [ESPNCricinfo
+  data](http://pkg.robjhyndman.com/cricketdata/articles/cricinfo.md):
+- [cricketdata: An Open Source R
+  package](http://pkg.robjhyndman.com/cricketdata/articles/cricketdata_R_pkg.md):
+- [Cricsheet
+  data](http://pkg.robjhyndman.com/cricketdata/articles/cricsheet.md):
